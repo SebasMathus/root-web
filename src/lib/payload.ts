@@ -57,3 +57,24 @@ export async function getHowItWorks() {
   const payload = await getPayload({ config: configPromise })
   return await payload.findGlobal({ slug: 'how-it-works' })
 }
+
+export async function getPosts() {
+  const payload = await getPayload({ config: configPromise })
+  const data = await payload.find({
+    collection: 'posts',
+    where: { status: { equals: 'published' } },
+    sort: '-publishedAt',
+    limit: 100,
+  })
+  return data.docs
+}
+
+export async function getPostBySlug(slug: string) {
+  const payload = await getPayload({ config: configPromise })
+  const data = await payload.find({
+    collection: 'posts',
+    where: { slug: { equals: slug } },
+    limit: 1,
+  })
+  return data.docs[0] || null
+}

@@ -6,7 +6,7 @@ async function seed() {
 
   // Limpiar todo
   console.log('🗑️ Limpiando datos existentes...')
-  for (const collection of ['testimonials', 'features', 'pricing-plans', 'faqs'] as const) {
+  for (const collection of ['testimonials', 'features', 'pricing-plans', 'faqs', 'posts'] as const) {
     const existing = await payload.find({ collection, limit: 100 })
     for (const doc of existing.docs) {
       await payload.delete({ collection, id: doc.id })
@@ -226,6 +226,70 @@ async function seed() {
     await payload.create({ collection: 'faqs', data: f })
     console.log(`✅ FAQ: ${f.question}`)
   }
+
+  // Posts
+  console.log('🌱 Seeding posts...')
+  await payload.create({
+    collection: 'posts',
+    data: {
+      title: 'Cómo automatizar WhatsApp para vender más',
+      slug: 'como-automatizar-whatsapp',
+      excerpt: 'Aprende las estrategias que usan las empresas más exitosas para cerrar más ventas por WhatsApp.',
+      category: 'whatsapp',
+      status: 'published',
+      publishedAt: new Date().toISOString(),
+      featured: true,
+      content: {
+        root: {
+          type: 'root',
+          children: [
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: 'WhatsApp se ha convertido en el canal de ventas más poderoso para empresas en Latinoamérica. Con más de 2 mil millones de usuarios activos, es donde están tus clientes.' }],
+              version: 1,
+            },
+            {
+              type: 'heading',
+              tag: 'h2',
+              children: [{ type: 'text', text: '¿Por qué automatizar WhatsApp?' }],
+              version: 1,
+            },
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: 'Las empresas que automatizan sus conversaciones de WhatsApp reportan un incremento promedio del 3x en conversiones. La clave está en responder rápido, calificar leads automáticamente y dar seguimiento sin depender del equipo.' }],
+              version: 1,
+            },
+            {
+              type: 'heading',
+              tag: 'h2',
+              children: [{ type: 'text', text: 'Las 3 automatizaciones que más impacto tienen' }],
+              version: 1,
+            },
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: '1. Respuesta inmediata: El 78% de los clientes compra con el proveedor que responde primero. Una automatización de bienvenida puede capturar ese momento crítico.' }],
+              version: 1,
+            },
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: '2. Calificación de leads: Usa flujos inteligentes para identificar qué prospectos tienen mayor probabilidad de compra y prioriza tu tiempo en ellos.' }],
+              version: 1,
+            },
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: '3. Seguimiento automático: El 80% de las ventas se cierran después del quinto contacto. Automatiza los follow-ups para que ningún lead se pierda.' }],
+              version: 1,
+            },
+          ],
+          direction: 'ltr',
+          format: '',
+          indent: 0,
+          version: 1,
+        },
+      },
+    },
+  })
+  console.log('✅ Post: Cómo automatizar WhatsApp')
 
   console.log('🎉 Seed completo')
   process.exit(0)
