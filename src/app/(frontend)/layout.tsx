@@ -1,18 +1,22 @@
 import React from 'react'
 import './styles.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  description: 'Root — WhatsApp CRM para vender más',
+  title: 'Root | WhatsApp CRM',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en">
+    <html lang="es">
       <body>
-        <main>{children}</main>
+        <Navbar />
+        {children}
+        <Footer />
       </body>
     </html>
   )

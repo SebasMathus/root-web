@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const NAV_LINKS = [
-  { label: 'Producto', href: '#features' },
-  { label: 'Precios', href: '#pricing' },
+  { label: 'Producto', href: '/#features' },
+  { label: 'Precios', href: '/#pricing' },
   { label: 'Blog', href: '/blog' },
 ]
 
-const WHATSAPP_URL = 'https://wa.me/15557794199?text=Hola%2C%20quiero%20agendar%20una%20demo'
+const WHATSAPP_URL = 'https://wa.me/message/BBFVGPKQADOPP1'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -36,7 +36,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <Link
-            href="https://app.eugenia.ai/users/login"
+            href="https://app.goroot.ai/"
             className="text-sm text-white/60 hover:text-white transition-colors"
           >
             Iniciar sesión
