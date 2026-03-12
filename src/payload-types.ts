@@ -74,7 +74,6 @@ export interface Config {
     testimonials: Testimonial;
     'pricing-plans': PricingPlan;
     faqs: Faq;
-    'demo-requests': DemoRequest;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -89,7 +88,6 @@ export interface Config {
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     'pricing-plans': PricingPlansSelect<false> | PricingPlansSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
-    'demo-requests': DemoRequestsSelect<false> | DemoRequestsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -328,23 +326,6 @@ export interface Faq {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "demo-requests".
- */
-export interface DemoRequest {
-  id: number;
-  name: string;
-  email: string;
-  phone?: string | null;
-  company?: string | null;
-  teamSize?: ('1-5' | '6-20' | '21-50' | '50+') | null;
-  message?: string | null;
-  status?: ('new' | 'contacted' | 'demo-scheduled' | 'customer' | 'discarded') | null;
-  notes?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -394,10 +375,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'faqs';
         value: number | Faq;
-      } | null)
-    | ({
-        relationTo: 'demo-requests';
-        value: number | DemoRequest;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -577,22 +554,6 @@ export interface FaqsSelect<T extends boolean = true> {
   answer?: T;
   category?: T;
   order?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "demo-requests_select".
- */
-export interface DemoRequestsSelect<T extends boolean = true> {
-  name?: T;
-  email?: T;
-  phone?: T;
-  company?: T;
-  teamSize?: T;
-  message?: T;
-  status?: T;
-  notes?: T;
   updatedAt?: T;
   createdAt?: T;
 }

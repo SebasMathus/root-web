@@ -1,0 +1,147 @@
+// Root Admin Theme — Dracula
+:root {
+    --theme-bg: #282a36;
+    --theme-input-bg: #21222c;
+    --theme-elevation-0: #282a36;
+    --theme-elevation-50: #21222c;
+    --theme-elevation-100: #343746;
+    --theme-elevation-150: #3d4059;
+    --theme-elevation-200: #44475a;
+    --theme-elevation-250: #565969;
+    --theme-elevation-300: #6272a4;
+    --theme-elevation-500: #8be9fd;
+    --theme-elevation-800: #e2e2e2;
+    --theme-elevation-1000: #f8f8f2;
+    --theme-text: #f8f8f2;
+    --theme-text-dimmed: #6272a4;
+    --theme-border-color: #44475a;
+    --theme-success-50: #1a2e1a;
+    --theme-success-500: #50fa7b;
+    --theme-error-50: #2e1a1a;
+    --theme-error-500: #ff5555;
+    --theme-warning-500: #ffb86c;
+    --theme-color: #bd93f9;
+  }
+  
+  * { -webkit-font-smoothing: antialiased; }
+  
+  .app-header {
+    border-bottom: 1px solid var(--theme-border-color) !important;
+    background: #21222c !important;
+  }
+  
+  .nav {
+    border-right: 1px solid var(--theme-border-color) !important;
+    background: #21222c !important;
+  
+    .nav__label {
+      font-size: 10px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      color: var(--theme-text-dimmed) !important;
+      padding: 20px 20px 6px !important;
+    }
+  
+    a {
+      border-radius: 6px !important;
+      margin: 1px 10px !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      color: #f8f8f2 !important;
+      transition: background 0.1s ease !important;
+  
+      &:hover {
+        background: var(--theme-elevation-100) !important;
+      }
+  
+      &.active {
+        background: var(--theme-elevation-100) !important;
+        color: var(--theme-color) !important;
+      }
+    }
+  }
+  
+  .dashboard__card-list { gap: 10px !important; }
+  
+  .card {
+    border: 1px solid var(--theme-border-color) !important;
+    border-radius: 8px !important;
+    background: #21222c !important;
+    box-shadow: none !important;
+    transition: border-color 0.15s ease !important;
+  
+    &:hover { border-color: var(--theme-color) !important; }
+  
+    .card__title {
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      color: #f8f8f2 !important;
+    }
+  }
+  
+  .btn {
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+  
+    &--style-primary {
+      background: var(--theme-color) !important;
+      color: #282a36 !important;
+      border: none !important;
+      &:hover { background: #a580f0 !important; }
+    }
+  
+    &--style-secondary {
+      background: transparent !important;
+      border: 1px solid var(--theme-border-color) !important;
+      color: #f8f8f2 !important;
+      &:hover { background: var(--theme-elevation-100) !important; }
+    }
+  }
+  
+  .field-type {
+    input, textarea, select {
+      border-radius: 6px !important;
+      border: 1px solid var(--theme-border-color) !important;
+      background: var(--theme-input-bg) !important;
+      font-size: 13.5px !important;
+      color: #f8f8f2 !important;
+  
+      &:focus {
+        border-color: var(--theme-color) !important;
+        box-shadow: 0 0 0 2px rgba(189, 147, 249, 0.2) !important;
+      }
+    }
+  }
+  
+  .field-label {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #ccc !important;
+  }
+  
+  .table {
+    border: 1px solid var(--theme-border-color) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  
+    th {
+      background: #21222c !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.06em !important;
+      text-transform: uppercase !important;
+      color: var(--theme-text-dimmed) !important;
+      border-bottom: 1px solid var(--theme-border-color) !important;
+    }
+  
+    td {
+      font-size: 13.5px !important;
+      border-bottom: 1px solid var(--theme-border-color) !important;
+      color: #f8f8f2 !important;
+    }
+  
+    tr:last-child td { border-bottom: none !important; }
+    tr:hover td { background: var(--theme-elevation-100) !important; }
+  }
