@@ -1,8 +1,21 @@
 import Link from 'next/link'
+import { getHeroSection } from '@/lib/payload'
 
-const WHATSAPP_URL = 'https://wa.me/15557794199?text=Hola%2C%20quiero%20agendar%20una%20demo'
+const WHATSAPP_URL = 'https://wa.me/message/BBFVGPKQADOPP1'
 
-export default function Hero() {
+export default async function Hero() {
+  const hero = await getHeroSection().catch(() => null)
+
+  const headline = (hero?.headline as any[])?.map((h: any) => h.word).join(' ') || 'Potencia tu negocio con WhatsApp'
+  const subheadline = hero?.subheadline || 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA.'
+  const ctaLabel = hero?.ctaLabel || 'Agendar demo gratis'
+  const ctaUrl = hero?.ctaUrl || WHATSAPP_URL
+  const stats = ((hero?.stats as any[])?.length ? hero.stats as any[] : null) || [
+    { value: '+500', label: 'Empresas activas' },
+    { value: '98%', label: 'Retención de clientes' },
+    { value: '3x', label: 'Más conversiones' },
+  ]
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:64px_64px]" />
@@ -15,22 +28,20 @@ export default function Hero() {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.05] mb-6">
-          Potencia tu negocio{' '}
-          <span className="text-blue-500">con WhatsApp</span>
+          {headline}
         </h1>
 
         <p className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Transforma cómo vendes, retienes y te comunicas con tus clientes
-          utilizando WhatsApp con IA.
+          {subheadline}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href={WHATSAPP_URL}
+            href={ctaUrl}
             target="_blank"
             className="bg-blue-500 hover:bg-blue-400 text-white font-semibold px-8 py-3.5 rounded-lg transition-colors text-sm w-full sm:w-auto text-center"
           >
-            Agendar demo gratis
+            {ctaLabel}
           </Link>
           <Link
             href="#features"
@@ -41,11 +52,7 @@ export default function Hero() {
         </div>
 
         <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
-          {[
-            { value: '+500', label: 'Empresas activas' },
-            { value: '98%', label: 'Retención de clientes' },
-            { value: '3x', label: 'Más conversiones' },
-          ].map((stat) => (
+          {stats.map((stat: any) => (
             <div key={stat.label} className="text-center">
               <div className="text-2xl font-bold text-white">{stat.value}</div>
               <div className="text-xs text-white/40 mt-1">{stat.label}</div>

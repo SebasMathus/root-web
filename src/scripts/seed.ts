@@ -61,54 +61,12 @@ async function seed() {
   // Features
   console.log('🌱 Seeding features...')
   const features = [
-    {
-      title: 'WhatsApp Nativo',
-      description: 'Conecta directamente con la API oficial de WhatsApp Business. Sin intermediarios, sin restricciones.',
-      icon: '💬',
-      category: 'whatsapp',
-      order: 1,
-      active: true,
-    },
-    {
-      title: 'Automatizaciones con IA',
-      description: 'Crea flujos inteligentes que responden, califican y nutren leads automáticamente las 24 horas.',
-      icon: '🤖',
-      category: 'automation',
-      order: 2,
-      active: true,
-    },
-    {
-      title: 'Full CRM',
-      description: 'Gestiona todos tus contactos, conversaciones y seguimientos desde un solo lugar.',
-      icon: '📊',
-      category: 'crm',
-      order: 3,
-      active: true,
-    },
-    {
-      title: 'Llamadas',
-      description: 'Realiza y recibe llamadas directamente desde la plataforma sin salir de tu flujo de trabajo.',
-      icon: '📞',
-      category: 'calls',
-      order: 4,
-      active: true,
-    },
-    {
-      title: 'Automatizaciones de Acciones',
-      description: 'Dispara acciones automáticas en tu CRM, ERP o cualquier sistema cuando ocurran eventos clave.',
-      icon: '⚡',
-      category: 'automation',
-      order: 5,
-      active: true,
-    },
-    {
-      title: 'Integraciones',
-      description: 'Conecta Root con Salesforce, SAP, HubSpot, Excel y más. Tu stack existente, potenciado.',
-      icon: '🔗',
-      category: 'integrations',
-      order: 6,
-      active: true,
-    },
+    { title: 'WhatsApp Nativo', description: 'Conecta directamente con la API oficial de WhatsApp Business. Sin intermediarios, sin restricciones.', icon: '💬', category: 'whatsapp', order: 1, active: true },
+    { title: 'Automatizaciones con IA', description: 'Crea flujos inteligentes que responden, califican y nutren leads automáticamente las 24 horas.', icon: '🤖', category: 'automation', order: 2, active: true },
+    { title: 'Full CRM', description: 'Gestiona todos tus contactos, conversaciones y seguimientos desde un solo lugar.', icon: '📊', category: 'crm', order: 3, active: true },
+    { title: 'Llamadas', description: 'Realiza y recibe llamadas directamente desde la plataforma sin salir de tu flujo de trabajo.', icon: '📞', category: 'calls', order: 4, active: true },
+    { title: 'Automatizaciones de Acciones', description: 'Dispara acciones automáticas en tu CRM, ERP o cualquier sistema cuando ocurran eventos clave.', icon: '⚡', category: 'automation', order: 5, active: true },
+    { title: 'Integraciones', description: 'Conecta Root con Salesforce, SAP, HubSpot, Excel y más. Tu stack existente, potenciado.', icon: '🔗', category: 'integrations', order: 6, active: true },
   ]
   for (const f of features) {
     await payload.create({ collection: 'features', data: f })
@@ -132,7 +90,7 @@ async function seed() {
         { text: 'IA personalizada', enabled: false },
       ],
       ctaLabel: 'Hablar con asesor',
-      ctaUrl: 'https://wa.me/15557794199',
+      ctaUrl: 'https://wa.me/message/BBFVGPKQADOPP1',
       highlighted: false,
       order: 1,
       active: true,
@@ -152,7 +110,7 @@ async function seed() {
         { text: 'IA personalizada', enabled: false },
       ],
       ctaLabel: 'Hablar con asesor',
-      ctaUrl: 'https://wa.me/15557794199',
+      ctaUrl: 'https://wa.me/message/BBFVGPKQADOPP1',
       highlighted: true,
       order: 2,
       active: true,
@@ -171,7 +129,7 @@ async function seed() {
         { text: 'IA personalizada', enabled: true },
       ],
       ctaLabel: 'Hablar con asesor',
-      ctaUrl: 'https://wa.me/15557794199',
+      ctaUrl: 'https://wa.me/message/BBFVGPKQADOPP1',
       highlighted: false,
       order: 3,
       active: true,
@@ -185,42 +143,12 @@ async function seed() {
   // FAQs
   console.log('🌱 Seeding FAQs...')
   const faqs = [
-    {
-      question: '¿Necesito la API oficial de WhatsApp Business?',
-      answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Sí, Root funciona con la API oficial de Meta. Te ayudamos a tramitar el acceso durante el onboarding sin costo adicional.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } },
-      category: 'general',
-      order: 1,
-    },
-    {
-      question: '¿Cuánto tiempo toma la implementación?',
-      answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'La mayoría de nuestros clientes están operando en menos de una semana. El proceso incluye configuración, migración de contactos e integración con tus sistemas.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } },
-      category: 'general',
-      order: 2,
-    },
-    {
-      question: '¿Puedo integrar Root con mi CRM actual?',
-      answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Sí. Root se integra con Salesforce, HubSpot, SAP, Zoho y cualquier sistema que tenga API. También tenemos integración nativa con Excel y Google Sheets.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } },
-      category: 'integrations',
-      order: 3,
-    },
-    {
-      question: '¿Qué pasa si supero el límite de usuarios de mi plan?',
-      answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Puedes agregar usuarios adicionales o escalar a un plan superior en cualquier momento. No hay penalizaciones por cambiar de plan.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } },
-      category: 'pricing',
-      order: 4,
-    },
-    {
-      question: '¿Los mensajes de WhatsApp tienen costo adicional?',
-      answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'El costo de los mensajes de la API de Meta se cobra por separado según su tarifa oficial. Root no cobra markup sobre estos mensajes.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } },
-      category: 'pricing',
-      order: 5,
-    },
-    {
-      question: '¿Mis datos están seguros?',
-      answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Sí. Toda la información está encriptada en tránsito y en reposo. Cumplimos con GDPR y la Ley Federal de Protección de Datos de México.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } },
-      category: 'security',
-      order: 6,
-    },
+    { question: '¿Necesito la API oficial de WhatsApp Business?', answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Sí, Root funciona con la API oficial de Meta. Te ayudamos a tramitar el acceso durante el onboarding sin costo adicional.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }, category: 'general', order: 1 },
+    { question: '¿Cuánto tiempo toma la implementación?', answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'La mayoría de nuestros clientes están operando en menos de una semana. El proceso incluye configuración, migración de contactos e integración con tus sistemas.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }, category: 'general', order: 2 },
+    { question: '¿Puedo integrar Root con mi CRM actual?', answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Sí. Root se integra con Salesforce, HubSpot, SAP, Zoho y cualquier sistema que tenga API. También tenemos integración nativa con Excel y Google Sheets.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }, category: 'integrations', order: 3 },
+    { question: '¿Qué pasa si supero el límite de usuarios de mi plan?', answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Puedes agregar usuarios adicionales o escalar a un plan superior en cualquier momento. No hay penalizaciones por cambiar de plan.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }, category: 'pricing', order: 4 },
+    { question: '¿Los mensajes de WhatsApp tienen costo adicional?', answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'El costo de los mensajes de la API de Meta se cobra por separado según su tarifa oficial. Root no cobra markup sobre estos mensajes.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }, category: 'pricing', order: 5 },
+    { question: '¿Mis datos están seguros?', answer: { root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text: 'Sí. Toda la información está encriptada en tránsito y en reposo. Cumplimos con GDPR y la Ley Federal de Protección de Datos de México.' }], version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }, category: 'security', order: 6 },
   ]
   for (const f of faqs) {
     await payload.create({ collection: 'faqs', data: f })
@@ -243,43 +171,13 @@ async function seed() {
         root: {
           type: 'root',
           children: [
-            {
-              type: 'paragraph',
-              children: [{ type: 'text', text: 'WhatsApp se ha convertido en el canal de ventas más poderoso para empresas en Latinoamérica. Con más de 2 mil millones de usuarios activos, es donde están tus clientes.' }],
-              version: 1,
-            },
-            {
-              type: 'heading',
-              tag: 'h2',
-              children: [{ type: 'text', text: '¿Por qué automatizar WhatsApp?' }],
-              version: 1,
-            },
-            {
-              type: 'paragraph',
-              children: [{ type: 'text', text: 'Las empresas que automatizan sus conversaciones de WhatsApp reportan un incremento promedio del 3x en conversiones. La clave está en responder rápido, calificar leads automáticamente y dar seguimiento sin depender del equipo.' }],
-              version: 1,
-            },
-            {
-              type: 'heading',
-              tag: 'h2',
-              children: [{ type: 'text', text: 'Las 3 automatizaciones que más impacto tienen' }],
-              version: 1,
-            },
-            {
-              type: 'paragraph',
-              children: [{ type: 'text', text: '1. Respuesta inmediata: El 78% de los clientes compra con el proveedor que responde primero. Una automatización de bienvenida puede capturar ese momento crítico.' }],
-              version: 1,
-            },
-            {
-              type: 'paragraph',
-              children: [{ type: 'text', text: '2. Calificación de leads: Usa flujos inteligentes para identificar qué prospectos tienen mayor probabilidad de compra y prioriza tu tiempo en ellos.' }],
-              version: 1,
-            },
-            {
-              type: 'paragraph',
-              children: [{ type: 'text', text: '3. Seguimiento automático: El 80% de las ventas se cierran después del quinto contacto. Automatiza los follow-ups para que ningún lead se pierda.' }],
-              version: 1,
-            },
+            { type: 'paragraph', children: [{ type: 'text', text: 'WhatsApp se ha convertido en el canal de ventas más poderoso para empresas en Latinoamérica. Con más de 2 mil millones de usuarios activos, es donde están tus clientes.' }], version: 1 },
+            { type: 'heading', tag: 'h2', children: [{ type: 'text', text: '¿Por qué automatizar WhatsApp?' }], version: 1 },
+            { type: 'paragraph', children: [{ type: 'text', text: 'Las empresas que automatizan sus conversaciones de WhatsApp reportan un incremento promedio del 3x en conversiones. La clave está en responder rápido, calificar leads automáticamente y dar seguimiento sin depender del equipo.' }], version: 1 },
+            { type: 'heading', tag: 'h2', children: [{ type: 'text', text: 'Las 3 automatizaciones que más impacto tienen' }], version: 1 },
+            { type: 'paragraph', children: [{ type: 'text', text: '1. Respuesta inmediata: El 78% de los clientes compra con el proveedor que responde primero. Una automatización de bienvenida puede capturar ese momento crítico.' }], version: 1 },
+            { type: 'paragraph', children: [{ type: 'text', text: '2. Calificación de leads: Usa flujos inteligentes para identificar qué prospectos tienen mayor probabilidad de compra y prioriza tu tiempo en ellos.' }], version: 1 },
+            { type: 'paragraph', children: [{ type: 'text', text: '3. Seguimiento automático: El 80% de las ventas se cierran después del quinto contacto. Automatiza los follow-ups para que ningún lead se pierda.' }], version: 1 },
           ],
           direction: 'ltr',
           format: '',
@@ -290,6 +188,51 @@ async function seed() {
     },
   })
   console.log('✅ Post: Cómo automatizar WhatsApp')
+
+  // Hero Section
+  console.log('🌱 Seeding HeroSection...')
+  await payload.updateGlobal({
+    slug: 'hero-section',
+    data: {
+      headline: [
+        { word: 'Potencia' },
+        { word: 'tu' },
+        { word: 'negocio' },
+        { word: 'con WhatsApp' },
+      ],
+      subheadline: 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA.',
+      ctaLabel: 'Agendar demo gratis',
+      ctaUrl: 'https://wa.me/message/BBFVGPKQADOPP1',
+      stats: [
+        { value: '+500', label: 'Empresas activas' },
+        { value: '98%', label: 'Retención de clientes' },
+        { value: '3x', label: 'Más conversiones' },
+      ],
+    },
+  })
+  console.log('✅ HeroSection')
+
+  // HowItWorks
+  console.log('🌱 Seeding HowItWorks...')
+  await payload.updateGlobal({
+    slug: 'how-it-works',
+    data: {
+      headline: 'Tres pasos para transformar tu operación',
+      steps: [
+        { number: '01', title: 'Conecta con tus canales', description: 'Elige los canales donde están tus clientes: WhatsApp, Instagram, Google y más.' },
+        { number: '02', title: 'Automatiza tu flujo de trabajo', description: 'Configura automatizaciones con IA para que funcionen sin intervención manual las 24 horas.' },
+        { number: '03', title: 'Integra con tus sistemas', description: 'Conecta Root con Salesforce, SAP o Excel. Convierte tus sistemas de registro en sistemas de acción.' },
+      ],
+      problemHeadline: '¿Tu equipo sigue resolviendo todo por WhatsApp sin trazabilidad ni control?',
+      problemPoints: [
+        { number: '01', title: 'Tus clientes quieren hablar directamente contigo', description: 'Casi siempre por medio de WhatsApp.' },
+        { number: '02', title: 'Múltiples herramientas desconectadas', description: 'CRM para ventas, soporte, cobranza, exceles por todos lados.' },
+        { number: '03', title: 'Falta de automatizaciones inteligentes', description: 'Los equipos pierden demasiado tiempo en tareas repetitivas.' },
+        { number: '04', title: 'Falta de insights accionables', description: 'Tus herramientas no te permiten actuar inmediatamente.' },
+      ],
+    },
+  })
+  console.log('✅ HowItWorks')
 
   console.log('🎉 Seed completo')
   process.exit(0)

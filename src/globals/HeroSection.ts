@@ -25,7 +25,7 @@ export const HeroSection: GlobalConfig = {
       defaultValue: 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp.',
     },
     { name: 'ctaLabel', label: 'Texto del botón CTA', type: 'text', defaultValue: 'Agenda una demo' },
-    { name: 'ctaUrl', label: 'URL del botón CTA', type: 'text', defaultValue: 'https://wa.me/15557794199?text=Hola%2C%20quiero%20agendar%20una%20demo' },
+    { name: 'ctaUrl', label: 'URL del botón CTA', type: 'text', defaultValue: 'https://wa.me/message/BBFVGPKQADOPP1' },
     { name: 'heroImage', label: 'Imagen / mock del producto', type: 'upload', relationTo: 'media' },
     { name: 'heroVideo', label: 'Video de fondo (URL)', type: 'text' },
     {
