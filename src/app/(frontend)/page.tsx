@@ -11,6 +11,7 @@ import Features from '@/components/Features'
 import Testimonials from '@/components/Testimonials'
 import Pricing from '@/components/Pricing'
 import FAQs from '@/components/FAQs'
+import ContactForm from '@/components/ContactForm'
 
 
 export default function HomePage() {
@@ -22,6 +23,7 @@ export default function HomePage() {
       <Testimonials />
       <Pricing />
       <FAQs />
+      <ContactForm />
     </main>
   )
 }

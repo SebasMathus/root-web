@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { getSiteSettings } from '@/lib/payload'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings().catch(() => null)
@@ -33,6 +34,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="es">
+      <head>
+        <Script src="https://cdn.goroot.ai/tag_v0.2.js" data-org="root" strategy="afterInteractive" />
+      </head>
       <body>
         <Navbar />
         {children}

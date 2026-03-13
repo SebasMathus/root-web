@@ -12,6 +12,7 @@ import { Features } from './collections/Features'
 import { Testimonials } from './collections/Testimonials'
 import { PricingPlans } from './collections/PricingPlans'
 import { FAQs } from './collections/FAQs'
+import { ContactRequests } from './collections/ContactRequests'
 
 import { SiteSettings } from './globals/SiteSettings'
 import { HeroSection } from './globals/HeroSection'
@@ -36,6 +37,7 @@ export default buildConfig({
     Testimonials,
     PricingPlans,
     FAQs,
+    ContactRequests,
   ],
   globals: [
     SiteSettings,
