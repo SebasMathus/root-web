@@ -26,7 +26,7 @@ export default async function Testimonials() {
               className="border border-white/5 bg-white/[0.02] rounded-xl p-6 flex flex-col gap-4 hover:border-blue-500/20 transition-colors"
             >
               <p className="text-white/70 text-sm leading-relaxed flex-1">
-                "{t.quote}"
+                &ldquo;{t.quote}&rdquo;
               </p>
               <div className="flex items-end justify-between">
                 <div className="flex items-center gap-3">
