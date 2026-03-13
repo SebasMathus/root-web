@@ -21,10 +21,9 @@ export default function Footer() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-white font-semibold">Root</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-            </div>
+          <div className="mb-4">
+  <img src="/api/media/file/Rootwhite-1.png" alt="Root" style={{ height: '32px', width: '32px' }} className="object-contain" />
+</div>
             <p className="text-white/40 text-sm leading-relaxed mb-3">
               WhatsApp CRM con IA para empresas en crecimiento.
             </p>
@@ -50,7 +49,7 @@ export default function Footer() {
             <h4 className="text-white/60 text-xs font-semibold uppercase tracking-wider mb-4">Legal</h4>
             <ul className="flex flex-col gap-2">
               <li>
-                <Link href="/aviso-de-privacidad" className="text-white/40 hover:text-white text-sm transition-colors">Aviso de Privacidad</Link>
+                <Link href="/docs/aviso-de-privacidad" className="text-white/40 hover:text-white text-sm transition-colors">Aviso de Privacidad</Link>
               </li>
             </ul>
           </div>
