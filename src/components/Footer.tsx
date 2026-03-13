@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-12">
           <div>
           <div className="mb-4">
-  <img src="/api/media/file/Rootwhite-1.png" alt="Root" style={{ height: '32px', width: '32px' }} className="object-contain" />
+  <img src="https://root-web-media.s3.us-east-1.amazonaws.com/root-white4.png" alt="Root" style={{ height: '32px', width: '32px' }} className="object-contain" />
 </div>
             <p className="text-white/40 text-sm leading-relaxed mb-3">
               WhatsApp CRM con IA para empresas en crecimiento.

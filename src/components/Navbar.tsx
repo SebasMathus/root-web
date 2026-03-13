@@ -18,7 +18,7 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <Link href="/" className="flex items-center">
-      <img src="/api/media/file/Rootwhite-1.png" alt="Root" style={{ height: '20px', width: 'auto', maxWidth: '80px' }} />
+      <img src="https://root-web-media.s3.us-east-1.amazonaws.com/root-white4.png" alt="Root" style={{ height: '20px', width: 'auto', maxWidth: '80px' }} />
 </Link>
 
         <nav className="hidden md:flex items-center gap-8">
