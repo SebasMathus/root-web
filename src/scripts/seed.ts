@@ -15,6 +15,9 @@ async function seed() {
 
   // Testimonios
   console.log('🌱 Seeding testimonials...')
+  const mediaResults = await payload.find({ collection: 'media', limit: 100 })
+  const findAvatar = (alt: string) => mediaResults.docs.find((m: any) => m.alt === alt)?.id || null
+
   const testimonials = [
     {
       authorName: 'David Llanes',
@@ -22,6 +25,7 @@ async function seed() {
       company: 'Nextia',
       quote: 'Estamos implementando Root a clientes de Nextia en menos de una semana. La integración con sistemas existentes es sorprendentemente sencilla y el equipo lo adopta de inmediato.',
       metric: { value: '<1 sem', label: 'Tiempo de implementación' },
+      avatar: findAvatar('david.llanes'),
       featured: true,
       order: 1,
     },
@@ -31,6 +35,7 @@ async function seed() {
       company: 'Hybridge Education',
       quote: 'Las automatizaciones con IA nos ahorran 4 horas diarias por agente. El equipo ahora se enfoca en cerrar, no en responder mensajes repetitivos.',
       metric: { value: '4h', label: 'Ahorradas por agente/día' },
+      avatar: findAvatar('manuel.ramirez'),
       featured: true,
       order: 2,
     },
@@ -40,6 +45,7 @@ async function seed() {
       company: 'Hybridge Education',
       quote: 'Con Root atendemos 10 veces más estudiantes por hora sin aumentar el equipo. La automatización de WhatsApp cambió completamente nuestra operación.',
       metric: { value: '10x', label: 'Más estudiantes por hora' },
+      avatar: findAvatar('daniela.anaya'),
       featured: false,
       order: 3,
     },
@@ -49,6 +55,7 @@ async function seed() {
       company: 'Eugenia',
       quote: 'Desde que implementamos Root en Eugenia estamos vendiendo al doble. Los flujos automatizados convierten leads que antes se perdían en el caos de WhatsApp.',
       metric: { value: '2x', label: 'Ventas desde implementación' },
+      avatar: findAvatar('sofia.ardura'),
       featured: false,
       order: 4,
     },
