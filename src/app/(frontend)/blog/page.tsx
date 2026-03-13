@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description: 'Recursos y estrategias para vender más por WhatsApp.',
+}
+
+
 import Link from 'next/link'
 import { getPosts } from '@/lib/payload'
 

@@ -241,6 +241,21 @@ async function seed() {
   })
   console.log('✅ HowItWorks')
 
+  // Site Settings
+console.log('🌱 Seeding SiteSettings...')
+await payload.updateGlobal({
+  slug: 'site-settings',
+  data: {
+    siteName: 'Root',
+    whatsappNumber: '15557794199',
+    whatsappMessage: 'Hola, quiero agendar una demo',
+    email: 'sebastian@goroot.ai',
+    metaTitle: 'Root — WhatsApp CRM con IA para vender más',
+    metaDescription: 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA. CRM, automatizaciones y más.',
+  },
+})
+console.log('✅ SiteSettings')
+
   console.log('🎉 Seed completo')
   process.exit(0)
 }
