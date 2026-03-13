@@ -37,10 +37,15 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <head>
         <Script src="https://cdn.goroot.ai/tag_v0.2.js" data-org="root" strategy="afterInteractive" />
       </head>
-      <body>
-        <Navbar />
-        {children}
-        <Footer />
+      <body className="relative bg-black">
+      <div className="fixed inset-0 pointer-events-none z-0">
+  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:64px_64px]" />
+</div>
+        <div className="relative z-10">
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   )

@@ -4,7 +4,7 @@ const WHATSAPP_URL = 'https://wa.me/message/BBFVGPKQADOPP1'
 
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-white/5 py-16 px-6">
+    <footer className="bg-transparent py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 py-16 border border-white/5 bg-white/[0.02] rounded-2xl">
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">

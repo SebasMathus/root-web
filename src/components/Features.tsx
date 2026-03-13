@@ -6,7 +6,7 @@ export default async function Features() {
   if (!features.length) return null
 
   return (
-    <section id="features" className="bg-black py-24 px-6">
+    <section id="features" className="bg-transparent py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 border border-white/10 bg-white/5 rounded-full px-4 py-1.5 mb-6">
