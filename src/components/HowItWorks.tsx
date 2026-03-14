@@ -16,9 +16,9 @@ const FALLBACK_PROBLEMS = [
 export default async function HowItWorks() {
   const data = await getHowItWorks().catch(() => null)
 
-  const steps = (data?.steps as any[])?.length ? data.steps as any[] : FALLBACK_STEPS
+  const steps = (data?.steps as any[])?.length ? (data?.steps as any[]) : FALLBACK_STEPS
   const problems = (data?.problemPoints as any[])?.length
-    ? (data.problemPoints as any[]).map((p: any, i: number) => ({
+    ? (data?.problemPoints as any[]).map((p: any, i: number) => ({
         number: String(i + 1).padStart(2, '0'),
         title: p.title,
         description: p.description,
