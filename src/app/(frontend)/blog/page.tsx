@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import { getPosts } from '@/lib/payload'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Recursos y estrategias para vender más por WhatsApp.',
 }
-
-
-import Link from 'next/link'
-import { getPosts } from '@/lib/payload'
 
 export default async function BlogPage() {
   const posts = await getPosts()
@@ -15,7 +15,6 @@ export default async function BlogPage() {
   return (
     <main className="bg-black min-h-screen">
       <div className="max-w-4xl mx-auto px-6 py-32">
-        {/* Header */}
         <div className="mb-16">
           <div className="inline-flex items-center gap-2 border border-white/10 bg-white/5 rounded-full px-4 py-1.5 mb-6">
             <span className="text-xs text-white/60 tracking-wide">Blog</span>
@@ -29,7 +28,6 @@ export default async function BlogPage() {
           </p>
         </div>
 
-        {/* Posts */}
         {posts.length === 0 ? (
           <div className="text-center py-24 border border-white/5 rounded-xl">
             <p className="text-white/30 text-sm">Próximamente — el primer artículo está en camino.</p>
