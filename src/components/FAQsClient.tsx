@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 type FAQ = {
-  id: string
+  id: string | number
   question: string
   answer: any
 }
