@@ -70,7 +70,7 @@ export default buildConfig({
         },
         region: process.env.S3_REGION || 'us-east-1',
       },
-      baseURL: process.env.S3_ENDPOINT,
+      baseURL: String(process.env.S3_ENDPOINT || 'https://root-web-media.s3.us-east-1.amazonaws.com'),
     }),
   ],
 })

@@ -10,7 +10,7 @@ export default async function Hero() {
   const subheadline = hero?.subheadline || 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA.'
   const ctaLabel = hero?.ctaLabel || 'Agendar demo gratis'
   const ctaUrl = hero?.ctaUrl || WHATSAPP_URL
-  const stats = ((hero?.stats as any[])?.length ? hero.stats as any[] : null) || [
+  const stats: Array<{ value: string; label: string }> = ((hero?.stats as any[])?.length ? (hero?.stats as any[]) : null) ?? [
     { value: '+500', label: 'Empresas activas' },
     { value: '98%', label: 'Retención de clientes' },
     { value: '3x', label: 'Más conversiones' },
@@ -51,7 +51,7 @@ export default async function Hero() {
         </div>
 
         <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
-          {stats.map((stat: any) => (
+          {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-2xl font-bold text-white">{stat.value}</div>
               <div className="text-xs text-white/40 mt-1">{stat.label}</div>

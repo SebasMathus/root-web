@@ -2,7 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const ContactRequests: CollectionConfig = {
   slug: 'contact-requests',
-  label: 'Solicitudes de Contacto',
+  labels: {
+    singular: 'Solicitud de Contacto',
+    plural: 'Solicitudes de Contacto',
+  },
   access: { read: () => true, create: () => true },
   admin: {
     defaultColumns: ['name', 'company', 'email', 'phone', 'createdAt'],
