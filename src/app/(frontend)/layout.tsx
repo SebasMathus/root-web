@@ -7,25 +7,32 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSiteSettings().catch(() => null)
-  const ogImageUrl = (settings?.ogImage as any)?.url || null
+  try {
+    const settings = await getSiteSettings()
+    const ogImageUrl = (settings?.ogImage as any)?.url || null
 
-  return {
-    title: {
-      default: settings?.metaTitle || 'Root — WhatsApp CRM con IA',
-      template: `%s | Root`,
-    },
-    description: settings?.metaDescription || 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA.',
-    metadataBase: new URL('https://goroot.ai'),
-    icons: {
-      icon: '/favicon.png',
-    },
-    openGraph: {
-      siteName: settings?.siteName || 'Root',
-      locale: 'es_MX',
-      type: 'website',
-      ...(ogImageUrl && { images: [{ url: ogImageUrl }] }),
-    },
+    return {
+      title: {
+        default: settings?.metaTitle || 'Root — WhatsApp CRM con IA',
+        template: `%s | Root`,
+      },
+      description: settings?.metaDescription || 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA.',
+      metadataBase: new URL('https://goroot.ai'),
+      icons: { icon: '/favicon.png' },
+      openGraph: {
+        siteName: settings?.siteName || 'Root',
+        locale: 'es_MX',
+        type: 'website',
+        ...(ogImageUrl && { images: [{ url: ogImageUrl }] }),
+      },
+    }
+  } catch {
+    return {
+      title: { default: 'Root — WhatsApp CRM con IA', template: '%s | Root' },
+      description: 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA.',
+      metadataBase: new URL('https://goroot.ai'),
+      icons: { icon: '/favicon.png' },
+    }
   }
 }
 
@@ -38,9 +45,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <Script src="https://cdn.goroot.ai/tag_v0.2.js" data-org="root" strategy="afterInteractive" />
       </head>
       <body className="relative bg-black">
-      <div className="fixed inset-0 pointer-events-none z-0">
-  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:64px_64px]" />
-</div>
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:64px_64px]" />
+        </div>
         <div className="relative z-10">
           <Navbar />
           {children}
