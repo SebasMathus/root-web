@@ -31,7 +31,7 @@ export default buildConfig({
     user: Users.slug,
     meta: {
       titleSuffix: '— Root',
-      favicon: '/favicon.png',
+      favicon: 'https://root-web-media.s3.us-east-1.amazonaws.com/favicon.png',
     },
     components: {
       graphics: {
