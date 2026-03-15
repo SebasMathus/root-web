@@ -20,12 +20,25 @@ import { HeroSection } from './globals/HeroSection'
 import { HowItWorks } from './globals/HowItWorks'
 import { LegalPages } from './globals/LegalPages'
 
+import AdminLogo from './components/AdminLogo'
+import AdminIcon from './components/AdminIcon'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: '— Root',
+      favicon: '/favicon.png',
+    },
+    components: {
+      graphics: {
+        Logo: AdminLogo,
+        Icon: AdminIcon,
+      },
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
