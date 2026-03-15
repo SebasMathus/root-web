@@ -1,6 +1,16 @@
 import { getTestimonials } from '@/lib/payload'
 import Image from 'next/image'
 
+const S3_BASE = 'https://root-web-media.s3.us-east-1.amazonaws.com'
+
+function getAvatarUrl(avatar: any): string {
+  if (!avatar?.url) return ''
+  if (avatar.url.startsWith('/api')) {
+    return `${S3_BASE}/${avatar.filename}`
+  }
+  return avatar.url
+}
+
 export default async function Testimonials() {
   const testimonials = await getTestimonials()
 
@@ -32,7 +42,7 @@ export default async function Testimonials() {
                 <div className="flex items-center gap-3">
                   {t.avatar && typeof t.avatar === 'object' && t.avatar.url && (
                     <Image
-                      src={t.avatar.url}
+                      src={getAvatarUrl(t.avatar)}
                       alt={t.authorName}
                       width={36}
                       height={36}
