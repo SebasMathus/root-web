@@ -50,12 +50,12 @@ async function seed() {
       order: 3,
     },
     {
-      authorName: 'Sofía Ardura',
-      authorRole: 'Growth Manager',
-      company: 'Eugenia',
-      quote: 'Desde que implementamos Root en Eugenia estamos vendiendo al doble. Los flujos automatizados convierten leads que antes se perdían en el caos de WhatsApp.',
+      authorName: 'Sebastián Mathus',
+      authorRole: 'Co-founder',
+      company: 'eugenia',
+      quote: 'Root nos permite escalar la operación comercial sin aumentar el equipo. Automatizamos todo el seguimiento por WhatsApp y las conversiones se dispararon.',
       metric: { value: '2x', label: 'Ventas desde implementación' },
-      avatar: findAvatar('sofia.ardura'),
+      avatar: findAvatar('sebastian.mathus'),
       featured: false,
       order: 4,
     },
@@ -242,19 +242,19 @@ async function seed() {
   console.log('✅ HowItWorks')
 
   // Site Settings
-console.log('🌱 Seeding SiteSettings...')
-await payload.updateGlobal({
-  slug: 'site-settings',
-  data: {
-    siteName: 'Root',
-    whatsappNumber: '15557794199',
-    whatsappMessage: 'Hola, quiero agendar una demo',
-    email: 'sebastian@goroot.ai',
-    metaTitle: 'Root — WhatsApp CRM con IA para vender más',
-    metaDescription: 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA. CRM, automatizaciones y más.',
-  },
-})
-console.log('✅ SiteSettings')
+  console.log('🌱 Seeding SiteSettings...')
+  await payload.updateGlobal({
+    slug: 'site-settings',
+    data: {
+      siteName: 'Root',
+      whatsappNumber: '15557794199',
+      whatsappMessage: 'Hola, quiero agendar una demo',
+      email: 'sebastian@goroot.ai',
+      metaTitle: 'Root — WhatsApp CRM con IA para vender más',
+      metaDescription: 'Transforma cómo vendes, retienes y te comunicas con tus clientes utilizando WhatsApp con IA. CRM, automatizaciones y más.',
+    },
+  })
+  console.log('✅ SiteSettings')
 
   console.log('🎉 Seed completo')
   process.exit(0)
