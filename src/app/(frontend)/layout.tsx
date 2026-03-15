@@ -6,6 +6,8 @@ import { getSiteSettings } from '@/lib/payload'
 import type { Metadata } from 'next'
 import Script from 'next/script'
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const settings = await getSiteSettings()
