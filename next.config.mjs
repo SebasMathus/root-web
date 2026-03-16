@@ -12,7 +12,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'root-web-media.s3.us-east-1.amazonaws.com',
+        hostname: 'root-web-cms.s3.us-east-1.amazonaws.com',
       },
     ],
   },

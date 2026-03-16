@@ -31,7 +31,7 @@ export default buildConfig({
     user: Users.slug,
     meta: {
       titleSuffix: '— Root',
-      favicon: 'https://root-web-media.s3.us-east-1.amazonaws.com/favicon.png',
+      favicon: 'https://root-web-cms.s3.us-east-1.amazonaws.com/favicon.png',
     },
     components: {
       graphics: {
@@ -83,7 +83,7 @@ export default buildConfig({
         },
         region: process.env.S3_REGION || 'us-east-1',
       },
-      baseURL: String(process.env.S3_ENDPOINT || 'https://root-web-media.s3.us-east-1.amazonaws.com'),
+      baseURL: String(process.env.S3_ENDPOINT || 'https://root-web-cms.s3.us-east-1.amazonaws.com'),
     }),
   ],
 })

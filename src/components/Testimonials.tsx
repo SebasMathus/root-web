@@ -1,7 +1,7 @@
 import { getTestimonials } from '@/lib/payload'
 import Image from 'next/image'
 
-const S3_BASE = 'https://root-web-media.s3.us-east-1.amazonaws.com'
+const S3_BASE = 'https://root-web-cms.s3.us-east-1.amazonaws.com'
 
 function getAvatarUrl(avatar: any): string {
   if (!avatar?.url) return ''
