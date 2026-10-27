@@ -375,9 +375,9 @@ export default function Home() {
           rows={CATEGORY_ROWS}
           footnote={
             <>
-              Comparación por categoría, sin marcas: cada herramienta es distinta. Si quieres ver root frente a productos concretos, revisa las{" "}
+              Comparación por categoría, sin marcas: cada herramienta es distinta. Si quieres ver root frente a otros sistemas, revisa la{" "}
               <Link href={withSlash("/comparativas")} className="font-semibold text-ink underline decoration-lime decoration-2 underline-offset-2">
-                comparativas
+                comparativa
               </Link>{" "}
               o la guía{" "}
               <Link href={withSlash("/guias/chatbot-vs-agente-de-ia-vs-crm")} className="font-semibold text-ink underline decoration-lime decoration-2 underline-offset-2">

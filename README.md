@@ -62,6 +62,11 @@ src/
 public/                   favicon, og/, logos de Nextia y de sus clientes (clientes/)
 ```
 
+## Contenido
+
+- **No se nombran marcas de la competencia**: ni en páginas, metadatos, imágenes para compartir ni documentación. Se dice «otros sistemas» o el tipo de herramienta. La comparativa vive en una sola página, `/comparativas`, y compara por tipo de herramienta. Las marcas de integraciones y canales (WhatsApp, Meta, Instagram, Salesforce, SAP, HubSpot, Excel) sí se nombran.
+- Reglas completas de lo que se afirma y lo que no: [`DESIGN.md`](./DESIGN.md) › «Qué afirmar y qué no».
+
 ## Contacto y CTA
 
 Todos los botones de contacto abren la línea de ventas por WhatsApp (`WHATSAPP_URL` en `src/lib/site.ts`).

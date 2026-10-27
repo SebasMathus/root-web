@@ -9,8 +9,8 @@ import { PLANS, PRICING_FACTS } from "@/lib/site";
 /*
  * Precios (plan §3.4). Búsqueda principal: «crm para whatsapp precio(s)».
  * Los tres planes tal como están publicados (lib/site › PLANS), qué cambia entre ellos, lo que no cobramos, los
- * mensajes de Meta, D10 y la FAQ de precios. Sin nombrar competidores aquí (plan §3.4, punto 5): las cifras frente
- * a otros van en /comparativas. Pendientes de producto que esta página NO afirma: si el precio lleva IVA (se cita
+ * mensajes de Meta, D10 y la FAQ de precios. No se nombran marcas de la competencia: la comparación con «otros
+ * sistemas», por tipo de herramienta, vive en /comparativas. Pendientes de producto que esta página NO afirma: si el precio lleva IVA (se cita
  * a los Términos), precio por usuario adicional, límite de conversaciones de IA, cuota de implementación y CFDI.
  */
 
@@ -189,13 +189,11 @@ export default function PreciosPage() {
               ¿Lo estás comparando con otras opciones?
             </h2>
             <p className="lead mt-4">
-              Revisamos los precios públicos de otras herramientas y los pusimos lado a lado, con enlace a cada fuente y la fecha de revisión.
+              Comparamos root con otros sistemas por tipo de herramienta, y te dejamos las preguntas que conviene hacer antes de elegir: precio total, IA incluida o aparte, número de tu empresa y relevo con historial.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <LinkButton href="/comparativas/root-vs-vambe" label="root vs Vambe" />
-            <LinkButton href="/comparativas/root-vs-leadsales" label="root vs Leadsales" />
-            <LinkButton href="/comparativas" label="Todas las comparativas" variant="ghost" />
+            <LinkButton href="/comparativas" label="Compara root con otros sistemas" />
           </div>
         </div>
       </Section>

@@ -2,14 +2,15 @@
 
 Sitio de **root** (goroot.ai): **CRM de WhatsApp con agentes de IA** para equipos comerciales en México, hecho por Nextia.
 Sitio estático (Next.js 16, App Router, `output: "export"`), sin CMS. Todo CTA abre WhatsApp.
-Fuente de contenido: plan del sitio (posicionamiento, glosario, mapa, diagramas D1–D10, §6 «Qué afirmar y qué no»), `root-actual.md` (hechos del producto), `verticales-root.md`, `vambe.md` y `leadsales.md`.
+Fuente de contenido: plan del sitio (posicionamiento, glosario, mapa, diagramas D1–D10, §6 «Qué afirmar y qué no»), `root-actual.md` (hechos del producto) y `verticales-root.md`.
 
 ## 1. Posicionamiento y voz
 
 - **Categoría:** «CRM de WhatsApp con agentes de IA» (`CATEGORY` en `src/lib/site.ts`).
 - **Lema:** «Que nadie se quede en visto.» (`TAGLINE`).
-- **Frase guía:** «Tu agente contesta y califica. Tu equipo cierra. Tú ves todo.» (`GUIDE_PHRASE`). Tres sujetos, tres verbos: guía la portada, el diagrama D2 y la comparativa contra Vambe.
+- **Frase guía:** «Tu agente contesta y califica. Tu equipo cierra. Tú ves todo.» (`GUIDE_PHRASE`). Tres sujetos, tres verbos: guía la portada, el diagrama D2 y la comparativa con otros sistemas.
 - **Posición:** entre «autonomía total, cara y con consultoría» y «orden barato con IA de extra»: un equipo comercial que quiere que la IA haga el trabajo pesado sin perder el control de su cartera.
+- **Sin marcas de la competencia:** no se nombran marcas de la competencia en ninguna página, metadato, imagen ni documento; se dice «otros sistemas» (o el tipo de herramienta: bot de menús, agente de IA suelto, CRM tradicional…). Las marcas de integraciones y canales (WhatsApp, Meta, Instagram, Salesforce, SAP, HubSpot, Excel) sí se nombran.
 - **Voz:** español de México, de **tú**, cercana, frases cortas. Ejemplos locales (Infonavit, enganche, MSI, Narvarte). Sin anglicismos innecesarios.
 - **«root» siempre en minúsculas**, también al inicio de oración (reacomoda la frase si hace falta). Excepción: el texto legal de `/docs/*` se publica tal cual («Root»), sin tocar el sentido jurídico.
 
@@ -35,7 +36,7 @@ Tema **claro por defecto**. Los bloques oscuros usan la clase `.theme-dark` (o `
 | `--fixed-ink` | `text-fixed-ink` | #0B0B0C | #0B0B0C | Texto sobre lima (no se invierte) |
 | `--shadow` | `shadow-[var(--shadow)]` | | | Sombra de paneles |
 
-**Código de color de diagramas (fijo):** Agente = lima · Equipo = cielo · Alerta = coral · Ganado = verde. No uses azul como acento de marca (nos confunde con Vambe) ni el verde de WhatsApp.
+**Código de color de diagramas (fijo):** Agente = lima · Equipo = cielo · Alerta = coral · Ganado = verde. No uses azul como acento de marca (es el color típico de otros sistemas de la categoría) ni el verde de WhatsApp.
 
 Tonos de sección: `claro` (papel) · `gris` (superficie 2, con bordes) · `oscuro` (`.theme-dark`). Alterna para que no queden dos secciones seguidas del mismo tono.
 
@@ -65,7 +66,7 @@ Refresh del logo anterior (`public/favicon.png` del sitio viejo), sin cambiar el
 Importa con `@/…` (alias a `src/`).
 
 ### `@/lib/site`
-`SITE_URL`, `SITE_NAME` («root»), `LOCALE`, `CATEGORY`, `TAGLINE`, `GUIDE_PHRASE`, `DEFAULT_DESCRIPTION`, `PARENT` ({name, url} de Nextia), `APP_LOGIN_URL`, `CONTACT_EMAIL`, `ADDRESS`, `ADDRESS_LINE`, `SUPPORT_HOURS`, **`WHATSAPP_URL`** (https://wa.me/message/BBFVGPKQADOPP1, no acepta texto precargado), `CTA_LABEL` («Escríbenos por WhatsApp»), `PLANS: Plan[]` y `planById(id)`, `PRICE_FROM`, `PRICING_FACTS` {meta, api, billing, iva, cancel, changes, users, start}, `COMPETITOR_REVIEW_DATE` / `COMPETITOR_REVIEW_LABEL`, `absoluteUrl(path)`.
+`SITE_URL`, `SITE_NAME` («root»), `LOCALE`, `CATEGORY`, `TAGLINE`, `GUIDE_PHRASE`, `DEFAULT_DESCRIPTION`, `PARENT` ({name, url} de Nextia), `APP_LOGIN_URL`, `CONTACT_EMAIL`, `ADDRESS`, `ADDRESS_LINE`, `SUPPORT_HOURS`, **`WHATSAPP_URL`** (https://wa.me/message/BBFVGPKQADOPP1, no acepta texto precargado), `CTA_LABEL` («Escríbenos por WhatsApp»), `PLANS: Plan[]` y `planById(id)`, `PRICE_FROM`, `PRICING_FACTS` {meta, api, billing, iva, cancel, changes, users, start}, `absoluteUrl(path)`.
 
 ### `@/lib/seo`
 `pageMetadata({ title, description, path, noindex?, absoluteTitle?, type?, publishedTime?, ownOgImage? })` → `Metadata` (canonical con «/» final, OG, Twitter, robots). El título va SIN « | root» (lo agrega `title.template`). `withSlash(path)`. `DEFAULT_OG_IMAGE` (`/og/root.png`).
@@ -74,7 +75,7 @@ Importa con `@/…` (alias a `src/`).
 `ogCard({ kicker, title, sub?, dark? })` → `ImageResponse` 1200×630 con el wordmark y fuentes de marca; `ogSize`, `ogContentType`. Para una imagen propia de página crea `opengraph-image.tsx` en su carpeta (`export const dynamic = "force-static"`) **y** pasa `ownOgImage: true` a `pageMetadata`.
 
 ### `@/lib/routes`
-`ROUTES: RouteEntry[]` ({path, label, blurb?, group, index, priority, changeFrequency, owner, phase?, verb?}), `routesIn(group)`, `route(path)`, `routeLabel(path)`, `PRODUCT_PAGES` (5), `SOLUTION_PAGES` (8), `COMPARISON_PAGES`, `RESOURCE_PAGES`, `LEGAL_PAGES`. Alimenta sitemap, menús y pie: **toda página nueva se registra aquí**.
+`ROUTES: RouteEntry[]` ({path, label, blurb?, group, index, priority, changeFrequency, owner, phase?, verb?}), `routesIn(group)`, `route(path)`, `routeLabel(path)`, `PRODUCT_PAGES` (5), `SOLUTION_PAGES` (8), `RESOURCE_PAGES`, `LEGAL_PAGES`. Alimenta sitemap, menús y pie: **toda página nueva se registra aquí**.
 
 ### `@/components/ui`
 - `Container({ size?: "narrow"|"default"|"wide", className? })`
@@ -89,7 +90,6 @@ Importa con `@/…` (alias a `src/`).
 - `Faq({ items: {q, a}[], title?, intro?, id?, tone? })` + JSON-LD FAQPage (details/summary, rastreable sin JS)
 - `CtaBand({ title, text?, kicker?, cta?, label?, secondary? })`: cierre oscuro
 - `ComparisonTable({ caption, columns: {key, label, sub?, highlight?}[], rows: {label, values: Record<key, Cell>, note?}[], firstColLabel?, footnote?, captionVisible? })`; `Cell` = nodo, `true` (✓), `false` (✗) o `null` (—). Se desplaza dentro de su caja en móvil.
-- `SourceNote({ sources: {label, href}[], date? })`: «Última revisión» + enlaces a páginas públicas del competidor
 - `Prose({ children })`
 
 ### Otros
@@ -98,6 +98,7 @@ Importa con `@/…` (alias a `src/`).
 - `@/components/product-by-nextia`: `<ProductByNextia />` — franja oscura con dos filas de logos de clientes **de Nextia** y la firma. **Una por página, a la mitad**, entre dos secciones claras. Nunca la llames «clientes de root».
 - `@/components/icons`: `Icon({ name, className?, strokeWidth? })` (`ICON_NAMES`: arrow, check, x, bot, sparkle, inbox, chat, kanban, funnel, send, repeat, plug, chart, target, clock, calendar, user, users, handoff, phone, building, shield, lock, bolt, tag, money, file, book, tool, question, mail, pin, instagram, car, home, bag, tooth, stethoscope, flask, bank, face, rocket…), `WhatsAppGlyph`.
 - `@/components/json-ld`: `JsonLd({ data })`.
+- `@/components/comparativas/*` (solo `/comparativas`): `CostPerUser` (D8, costo por usuario de los planes de root; nunca precios de terceros), `GuidePhraseScene`, `AskChecklist`, `HonestSplit`, `Steps`, `RelatedLinks`.
 - `@/components/legal`: `LegalPage({ title, path, kicker?, updated?, intro?, children })`.
 - `@/components/motion/kit` (cliente): ver §6.
 
@@ -127,7 +128,7 @@ Patrón: `const { ref, step } = useSceneLoop<HTMLDivElement>([1200, 1200, 1600, 
 
 ## 7. Glosario de conceptos de root (plan §2.1)
 
-Cada concepto toma la idea que funciona en el mercado, con nombre propio en español mexicano y sin marcas ajenas.
+Cada concepto retoma una idea del mercado, con nombre propio en español mexicano y sin marcas ajenas.
 **Disponibles** (ya las afirma la página de root en el sitio de Nextia): se presentan como funciones. **Cómo trabaja root**: propuestas de producto que se presentan como conceptos, **sin cifras de resultados** ni capturas que parezcan pantallas reales.
 
 | Concepto | Qué es | Cómo presentarlo |
@@ -152,7 +153,7 @@ Cada concepto toma la idea que funciona en el mercado, con nombre propio en espa
 
 ## 8. Qué afirmar y qué no (plan §6 + decisiones del dueño)
 
-**Sí se afirma:** API oficial de WhatsApp Business desde Básico; te ayudamos a tramitarla sin costo extra; agentes que responden en segundos, califican con las preguntas de tu negocio, **agendan**, dan seguimiento y **reactivan** (Pro y Enterprise); conversaciones en el **número de tu empresa**; **traspaso al vendedor con historial**; **atribución de campañas** (origen del trato); contactos, conversaciones y seguimientos en un solo lugar; acciones en tu CRM/ERP ante eventos; integraciones con Salesforce, SAP, HubSpot y Excel; WhatsApp e Instagram; llamadas desde la plataforma (sin detalle técnico); precios Básico ,999 (3 usuarios), Pro ,599 (10 usuarios, IA), Enterprise a convenir (IA personalizada, soporte dedicado 24/7) en MXN al mes; facturación mensual, cancelación al final del periodo, 30 días de aviso antes de cambiar precios; mensajes de Meta a tarifa oficial sin sobreprecio; agregar usuarios o subir de plan cuando quieras; la mayoría opera en menos de una semana; soporte lunes a viernes 9–18 h (CDMX), respuesta en menos de 24 h hábiles (24/7 solo Enterprise); aviso de privacidad conforme a la LFPDPPP, ARCO y borrado en 20 días hábiles; hecho por Nextia en la CDMX.
+**Sí se afirma:** API oficial de WhatsApp Business desde Básico; te ayudamos a tramitarla sin costo extra; agentes que responden en segundos, califican con las preguntas de tu negocio, **agendan**, dan seguimiento y **reactivan** (Pro y Enterprise); conversaciones en el **número de tu empresa**; **traspaso al vendedor con historial**; **atribución de campañas** (origen del trato); contactos, conversaciones y seguimientos en un solo lugar; acciones en tu CRM/ERP ante eventos; integraciones con Salesforce, SAP, HubSpot y Excel; WhatsApp e Instagram; llamadas desde la plataforma (sin detalle técnico); precios Básico $4,999 (3 usuarios), Pro $10,599 (10 usuarios, IA), Enterprise a convenir (IA personalizada, soporte dedicado 24/7) en MXN al mes; facturación mensual, cancelación al final del periodo, 30 días de aviso antes de cambiar precios; mensajes de Meta a tarifa oficial sin sobreprecio; agregar usuarios o subir de plan cuando quieras; la mayoría opera en menos de una semana; soporte lunes a viernes 9–18 h (CDMX), respuesta en menos de 24 h hábiles (24/7 solo Enterprise); aviso de privacidad conforme a la LFPDPPP, ARCO y borrado en 20 días hábiles; hecho por Nextia en la CDMX.
 
 **Como concepto (sin cifras):** Carriles, Ficha viva, Corte de la mañana, Cadencias, Recetas, Reglas de pase, nota de Relevo.
 
@@ -165,11 +166,8 @@ Cada concepto toma la idea que funciona en el mercado, con nombre propio en espa
 4. «Prueba gratis», «plan gratuito», «crea tu cuenta», «demo gratis».
 5. «Ilimitado» en cualquier forma (Enterprise dice «usuarios a la medida»).
 6. Garantías: de resultados, de arranque («en una semana garantizado»), de devolución.
-7. Nombres de marca o frases distintivas de la competencia (plan §2.2):
-   - Vambe: «Push Manual», «Embudo Global», «PandAI», «Vambe Connect / Axis», «superpoderes», «marcha blanca», «Asesoría gratis», «Atrae / Convierte / Retiene / Escala», «Arma tu vendedor con IA», «Conversaciones que fluyen…», «AI for Growth».
-   - Leadsales: «Lead Agent», «Leadbot», «Leadsalers», «Alma del workspace», «Steering», «Tu mejor vendedor clonado», «Cada conversación, con un siguiente paso».
-   (En las comparativas solo se puede **nombrar** el producto del competidor para identificar el dato, con enlace a su página.)
-8. Sobre competidores: solo datos de sus páginas públicas, con enlace y la fecha de revisión de los reportes (`SourceNote`, 27 de octubre de 2026); tono respetuoso, sección honesta de «Cuándo te conviene…», sin logos de ellos, sin «chilena» en tono despectivo, citar sin acusar.
+7. **Marcas de la competencia**, en cualquier forma: ni nombres de empresas o productos, ni páginas «root vs …» o «alternativas a …», ni sus precios, ni enlaces o citas a sus páginas. Se dice **«otros sistemas»** o se nombra el tipo de herramienta. Tampoco se usan frases distintivas de otros sistemas (plan §2.2), como «Push Manual», «Embudo Global», «superpoderes», «marcha blanca», «Asesoría gratis», «Atrae / Convierte / Retiene / Escala», «Arma tu vendedor con IA», «Conversaciones que fluyen…», «AI for Growth», «Alma del workspace», «Steering», «Tu mejor vendedor clonado» o «Cada conversación, con un siguiente paso».
+8. Afirmar algo de un producto concreto de otro sistema. La comparativa (`/comparativas`) compara **por tipo de herramienta** (bots de menús, agentes de IA sueltos, plataformas de IA autónoma con implementación aparte, CRMs de WhatsApp con IA de complemento, CRMs tradicionales sin WhatsApp), con hechos de root y tono respetuoso: sección honesta de «Cuándo te conviene otro sistema», «Depende» cuando varía según el proveedor, sin afirmar nada de un producto concreto.
 9. El estudio de demanda de Nextia no se cita como fuente pública: los volúmenes de búsqueda son para decisiones internas de SEO.
 
 ## 9. Mapa de rutas y dueños
@@ -195,11 +193,7 @@ Registro en `src/lib/routes.ts`. Legales y soporte se quedan en `/docs/*` (Meta 
 | `/soluciones/financieras-y-sofom` | Financieras y Sofom | soluciones (fase 2) | sí | soluciones |
 | `/soluciones/laboratorios-clinicos` | Laboratorios clínicos | soluciones (fase 2) | sí | soluciones |
 | `/precios` | Precios | precios | sí | portada |
-| `/comparativas` | Comparativas | comparativas | sí | precios-y-comparativas |
-| `/comparativas/root-vs-vambe` | root vs Vambe | comparativas | sí | precios-y-comparativas |
-| `/comparativas/root-vs-leadsales` | root vs Leadsales | comparativas | sí | precios-y-comparativas |
-| `/alternativas/vambe` | Alternativas a Vambe | alternativas | sí | precios-y-comparativas |
-| `/alternativas/leadsales` | Alternativas a Leadsales | alternativas | sí | precios-y-comparativas |
+| `/comparativas` | Comparativas (root frente a otros sistemas) | comparativas | sí | precios-y-comparativas |
 | `/recursos` | Recursos | recursos | sí | recursos |
 | `/guias/whatsapp-business-app-vs-api` | WhatsApp Business App o API | recursos | sí | recursos |
 | `/guias/cuanto-cuesta-la-api-de-whatsapp` | Cuánto cuesta la API de WhatsApp | recursos | sí | recursos |

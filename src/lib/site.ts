@@ -135,10 +135,6 @@ export const PRICING_FACTS = {
   start: "La mayoría de los equipos opera en menos de una semana: configuración, migración de contactos e integración.",
 };
 
-/** Fecha de revisión de los datos de competidores (vambe.md y leadsales.md). Visible en comparativas. */
-export const COMPETITOR_REVIEW_DATE = "2026-10-27";
-export const COMPETITOR_REVIEW_LABEL = "27 de octubre de 2026";
-
 export function absoluteUrl(path: string) {
   return `${SITE_URL}${path === "/" ? "/" : path.endsWith("/") ? path : `${path}/`}`;
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { absoluteUrl, COMPETITOR_REVIEW_LABEL, CTA_LABEL, WHATSAPP_URL } from "@/lib/site";
+import { absoluteUrl, CTA_LABEL, WHATSAPP_URL } from "@/lib/site";
 import { withSlash } from "@/lib/seo";
 import { Icon, WhatsAppGlyph } from "./icons";
 import { JsonLd } from "./json-ld";
@@ -452,8 +452,8 @@ function renderCell(v: Cell) {
 
 /**
  * Tabla semántica (caption, th scope). En móvil se desplaza dentro de su caja, nunca la página.
- * La columna con `highlight` (root) va resaltada. Para competidores: cada dato con enlace a su página pública y
- * una SourceNote debajo con la fecha de revisión.
+ * La columna con `highlight` (root) va resaltada. Las demás columnas comparan por tipo de herramienta, nunca por marca
+ * de la competencia («otros sistemas»).
  */
 export function ComparisonTable({
   caption,
@@ -507,24 +507,6 @@ export function ComparisonTable({
       </div>
       {footnote ? <div className="mt-3 text-sm text-muted">{footnote}</div> : null}
     </div>
-  );
-}
-
-/** Pie de fuentes para datos de competidores: fecha de revisión visible + enlaces a sus páginas públicas. */
-export function SourceNote({ sources, date = COMPETITOR_REVIEW_LABEL, className = "" }: { sources: { label: string; href: string }[]; date?: string; className?: string }) {
-  return (
-    <p className={`text-sm text-muted leading-relaxed ${className}`}>
-      <span className="font-semibold text-ink">Última revisión: {date}.</span> Datos tomados de sus páginas públicas:{" "}
-      {sources.map((s, i) => (
-        <span key={s.href}>
-          {i > 0 ? ", " : ""}
-          <a href={s.href} target="_blank" rel="noopener noreferrer nofollow" className="underline decoration-line underline-offset-2 hover:text-ink">
-            {s.label}
-          </a>
-        </span>
-      ))}
-      .
-    </p>
   );
 }
 
