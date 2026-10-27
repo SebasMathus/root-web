@@ -1,43 +1,213 @@
 import Link from "next/link";
 import { ProductByNextia } from "@/components/product-by-nextia";
-import { ComparisonTable, CtaBand, Faq, FeatureGrid, PageHero, Section, SectionHeader, SourceNote } from "@/components/ui";
-import { CostPerUser } from "@/components/comparativas/cost-per-user";
-import { LEADSALES, VAMBE } from "@/components/comparativas/data";
-import { Cited, Ext, SiblingLinks } from "@/components/comparativas/parts";
+import { ComparisonTable, CtaBand, Faq, LinkButton, PageHero, Section, SectionHeader, type ComparisonRow, type FaqItem } from "@/components/ui";
+import { CostPerUser, perUserCost } from "@/components/comparativas/cost-per-user";
+import { GuidePhraseScene } from "@/components/comparativas/guide-scene";
+import { AskChecklist, HonestSplit, RelatedLinks, Steps } from "@/components/comparativas/parts";
+import { Icon } from "@/components/icons";
 import { pageMetadata } from "@/lib/seo";
-import { COMPETITOR_REVIEW_LABEL, GUIDE_PHRASE, planById } from "@/lib/site";
+import { CATEGORY, GUIDE_PHRASE, PRICING_FACTS, SUPPORT_HOURS, planById } from "@/lib/site";
+
+/*
+ * Comparativas (plan §3.5), por decisión del dueño: UNA página, «root frente a otros sistemas».
+ * Búsqueda principal: «crm para whatsapp comparativa» / «alternativas de crm para whatsapp».
+ * Compara por TIPO de herramienta: no se nombran marcas de la competencia ni se citan sus precios o páginas.
+ * De root solo se afirma lo publicado (lib/site, DESIGN.md › Qué afirmar).
+ */
 
 const PATH = "/comparativas";
 
 export const metadata = pageMetadata({
-  title: "Comparativa de CRM de WhatsApp con IA en México",
+  title: "CRM para WhatsApp: comparativa con otros sistemas",
   description:
-    "Comparativa de CRM de WhatsApp con IA en México: root, Vambe y Leadsales lado a lado en precio por usuario, IVA, agentes de IA e integraciones, con fuentes.",
+    "Comparativa de CRM para WhatsApp en México: root frente a bots, agentes de IA sueltos y otros sistemas en precio total, IA incluida, API oficial y relevo.",
   path: PATH,
   ownOgImage: true,
 });
 
-const V = VAMBE.src;
-const L = LEADSALES.src;
-const PRO = planById("pro");
 const BASICO = planById("basico");
+const PRO = planById("pro");
+const PRO_PER_USER = perUserCost("pro");
+const BASICO_PER_USER = perUserCost("basico");
 
-const FAQS = [
+/* ───────────── Los cinco tipos de sistema ───────────── */
+
+const TYPES: { name: string; icon: string; what: string; short: string }[] = [
   {
-    q: "¿Cuál es el mejor CRM de WhatsApp con IA para México?",
-    a: "Depende de tu equipo. Si quieres que la IA lleve casi todo el flujo y te sirven voz, más canales y certificaciones, Vambe es fuerte. Si buscas el precio de entrada más bajo y la IA puede ser un complemento, Leadsales es una buena opción. Si quieres agentes de IA incluidos que contesten, califiquen y agenden, y que tu equipo siga al frente de la venta, root es para ti.",
+    name: "Bots de menús",
+    icon: "repeat",
+    what: "Contestan al instante con opciones fijas: «marca 1, 2 o 3».",
+    short: "No entienden lo que el cliente escribe con sus palabras, ni ordenan a tu equipo.",
   },
   {
-    q: "¿Qué es un CRM de WhatsApp con agentes de IA?",
-    a: "Es un CRM donde tu equipo y tus agentes de IA atienden juntos las conversaciones de WhatsApp. El agente contesta en segundos, califica y da seguimiento; cuando el prospecto está listo, le pasa la conversación al vendedor con el historial completo, y todo queda ordenado en embudos.",
+    name: "Agentes de IA sueltos",
+    icon: "bot",
+    what: "Conversan con lenguaje natural y resuelven dudas.",
+    short: "Viven aparte de tu embudo: tu equipo no ve en qué etapa va cada prospecto.",
   },
   {
-    q: "¿Cómo calculan el costo por usuario?",
-    a: "Tomamos la mensualidad del plan de cada uno que trae IA y la dividimos entre los usuarios que incluye. Con IVA, a los precios publicados sin IVA les sumamos 16 %. Es un cálculo nuestro con precios públicos y no incluye los mensajes de WhatsApp.",
+    name: "Plataformas de IA autónoma",
+    icon: "sparkle",
+    what: "Buscan que la IA lleve casi todo el flujo, del primer mensaje al cierre.",
+    short: "Suelen venir con implementación y consultoría aparte, y tu equipo queda en segundo plano.",
   },
   {
-    q: "¿Cada cuánto revisan estos datos?",
-    a: `Los datos de Vambe y Leadsales se revisaron el ${COMPETITOR_REVIEW_LABEL} en sus páginas públicas, y los revisamos de nuevo antes de cada cambio a esta página. Si ves algo distinto en su sitio, escríbenos por WhatsApp y lo corregimos.`,
+    name: "CRMs de WhatsApp con IA de complemento",
+    icon: "kanban",
+    what: "Ordenan las conversaciones en embudos y suman la IA como extra.",
+    short: "La IA suele cobrarse aparte, con su propio precio o por consumo.",
+  },
+  {
+    name: "CRMs tradicionales sin WhatsApp",
+    icon: "file",
+    what: "Ordenan contactos, etapas y responsables.",
+    short: "No atienden WhatsApp: tu equipo copia y pega, y contesta a mano.",
+  },
+];
+
+/* ───────────── Tabla por tipo de herramienta ───────────── */
+
+const COLUMNS = [
+  { key: "bot", label: "Bot de menús" },
+  { key: "agente", label: "Agente de IA suelto" },
+  { key: "autonoma", label: "IA autónoma", sub: "Con implementación y consultoría aparte" },
+  { key: "crmwa", label: "CRM de WhatsApp", sub: "Con la IA como complemento" },
+  { key: "crm", label: "CRM tradicional", sub: "Sin WhatsApp" },
+  { key: "root", label: "root", sub: CATEGORY, highlight: true },
+];
+
+const ROWS: ComparisonRow[] = [
+  {
+    label: "Contesta al instante y entiende lo que escribe el cliente",
+    values: { bot: "Contesta con menús", agente: true, autonoma: true, crmwa: "Si contratas la IA", crm: false, root: "Sí, con agentes de IA en Pro y Enterprise" },
+  },
+  {
+    label: "La IA viene en el plan",
+    values: {
+      bot: null,
+      agente: "Es todo el producto",
+      autonoma: "Sí, con implementación aparte",
+      crmwa: "Suele ser un extra",
+      crm: "Depende",
+      root: `Incluida desde Pro (${PRO.priceLabel} MXN al mes)`,
+    },
+  },
+  {
+    label: "Cada prospecto con etapa, responsable y próxima acción",
+    values: { bot: false, agente: false, autonoma: true, crmwa: true, crm: true, root: true },
+  },
+  {
+    label: "Pasa la conversación al vendedor con el historial",
+    values: { bot: false, agente: "Depende", autonoma: "Depende", crmwa: "Depende", crm: null, root: true },
+  },
+  {
+    label: "Tu equipo sigue al frente de la venta",
+    values: { bot: true, agente: "Depende", autonoma: "La IA lleva casi todo", crmwa: true, crm: true, root: "Tu agente califica, tu equipo cierra" },
+  },
+  {
+    label: "Todo en el número de tu empresa, con la API oficial",
+    values: { bot: "Depende", agente: "Depende", autonoma: "Depende", crmwa: "Depende", crm: null, root: "Sí, API oficial desde Básico" },
+  },
+  {
+    label: "Acciones en tu CRM o ERP cuando pasa algo",
+    values: { bot: false, agente: "Depende", autonoma: "Depende", crmwa: "Depende", crm: "Es el sistema", root: "Salesforce, SAP, HubSpot y Excel" },
+  },
+  {
+    label: "Cómo se cobra",
+    values: {
+      bot: "Depende",
+      agente: "Depende",
+      autonoma: "Mensualidad más implementación",
+      crmwa: "Mensualidad más la IA",
+      crm: "Suele ser por usuario",
+      root: `Precio publicado: ${BASICO.name} ${BASICO.priceLabel} y ${PRO.name} ${PRO.priceLabel} MXN al mes`,
+    },
+  },
+  {
+    label: "Arranque",
+    values: { bot: "Rápido", agente: "Depende", autonoma: "Proyecto de implementación", crmwa: "Depende", crm: "Depende", root: "La mayoría opera en menos de una semana" },
+  },
+];
+
+/* ───────────── Qué preguntar antes de elegir ───────────── */
+
+const ASK: { q: string; why: React.ReactNode; root: React.ReactNode }[] = [
+  {
+    q: "¿Cuánto pago en total, no solo la mensualidad?",
+    why: "Suma la mensualidad, la implementación o consultoría, los mensajes de Meta, el IVA y lo que cuesta cada usuario extra. Pide el total del primer año por escrito.",
+    root: (
+      <>
+        {BASICO.name} {BASICO.priceLabel} y {PRO.name} {PRO.priceLabel} MXN al mes, publicados. {PRICING_FACTS.meta} {PRICING_FACTS.iva}
+      </>
+    ),
+  },
+  {
+    q: "¿La IA viene en el plan o se cobra aparte?",
+    why: "En muchos sistemas el agente de IA es un complemento con su propio precio o se cobra por consumo. Pregunta qué pasa cuando se acaba lo contratado.",
+    root: <>Los agentes de IA vienen incluidos en los planes {PRO.name} y Enterprise.</>,
+  },
+  {
+    q: "¿La conversación queda en el número de la empresa?",
+    why: "Si cada vendedor atiende desde su celular, cuando se va se lleva la cartera. Pregunta de quién es el número y si usan la API oficial de WhatsApp Business.",
+    root: (
+      <>
+        Todo pasa por el número de tu empresa, con la API oficial desde {BASICO.name}. La cartera es tuya, no del vendedor. {PRICING_FACTS.api}
+      </>
+    ),
+  },
+  {
+    q: "¿Hay relevo al vendedor con historial?",
+    why: "Cuando la IA ya calificó, tu vendedor tiene que saber quién es, qué quiere y qué ya se le respondió. Si no, el cliente repite todo.",
+    root: <>El agente le pasa la conversación al vendedor con todo el historial, y tú ves cada etapa del embudo.</>,
+  },
+  {
+    q: "¿Se conecta con los sistemas que ya usas?",
+    why: "Si el CRM de WhatsApp no habla con tu CRM, tu ERP o tu Excel, alguien termina capturando a mano.",
+    root: (
+      <>
+        Se conecta con Salesforce, SAP, HubSpot y Excel, y un evento en root dispara una acción en tu CRM o ERP. Mira{" "}
+        <Link href="/producto/integraciones/" className="underline decoration-line underline-offset-2 hover:decoration-ink">
+          las integraciones
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    q: "¿Hay soporte en México, en tu horario y en pesos?",
+    why: "Pregunta quién te atiende, en qué horario y en qué moneda te cobran. También cuánto tardas en arrancar y quién hace la configuración.",
+    root: (
+      <>
+        Hecho por Nextia en la Ciudad de México. {SUPPORT_HOURS} El 24/7 es de Enterprise. {PRICING_FACTS.start}
+      </>
+    ),
+  },
+];
+
+const FAQS: FaqItem[] = [
+  {
+    q: "¿Cuál es el mejor CRM para WhatsApp en México?",
+    a: "Depende de cómo vende tu equipo. Si solo necesitas un menú de opciones, un bot te basta. Si quieres que la IA lleve casi todo el flujo y te sirve un proyecto con consultoría, hay plataformas de IA autónoma. Si quieres agentes de IA incluidos que contesten, califiquen y agenden, y que tu equipo siga al frente de la venta en el número de tu empresa, root es para ti.",
+  },
+  {
+    q: "¿Qué alternativas de CRM para WhatsApp hay?",
+    a: "Hay cinco tipos: bots de menús, agentes de IA sueltos, plataformas de IA autónoma con implementación y consultoría aparte, CRMs de WhatsApp con la IA como complemento y CRMs tradicionales sin WhatsApp. root junta agentes de IA y CRM en un solo producto: tu agente contesta y califica, tu equipo cierra y tú ves todo.",
+  },
+  {
+    q: "¿Por qué no comparan root con marcas concretas?",
+    a: "Porque cada sistema cambia sus planes y sus precios, y una tabla con nombres se vuelve vieja muy rápido. Preferimos comparar por tipo de herramienta y darte las preguntas que conviene hacerle a cualquier proveedor, incluidos nosotros.",
+  },
+  {
+    q: "¿Cuánto cuesta root por usuario?",
+    a: `El plan ${PRO.name} cuesta ${PRO.priceLabel} MXN al mes con 10 usuarios y agentes de IA: ${PRO_PER_USER} por usuario. El plan ${BASICO.name} cuesta ${BASICO.priceLabel} MXN al mes con 3 usuarios, sin IA: ${BASICO_PER_USER} por usuario. Los mensajes de WhatsApp se pagan aparte, a la tarifa oficial de Meta, sin sobreprecio de root.`,
+  },
+  {
+    q: "¿La IA de root se cobra aparte?",
+    a: `No. Los agentes de IA vienen incluidos en los planes ${PRO.name} y Enterprise. El plan ${BASICO.name} trae la API oficial, el CRM básico y automatizaciones simples para tu equipo.`,
+  },
+  {
+    q: "¿Puedo cambiarme de otro sistema a root sin perder mis contactos?",
+    a: `Sí. En el arranque configuramos tus embudos, migramos tus contactos e integramos tus sistemas, sin pausar tu operación. ${PRICING_FACTS.start}`,
   },
 ];
 
@@ -46,153 +216,113 @@ export default function Comparativas() {
     <>
       <PageHero
         breadcrumbs={[{ name: "Comparativas", href: PATH }]}
-        kicker="Comparativas"
-        title="Comparativa de CRM de WhatsApp con IA: root, Vambe y Leadsales"
-        intro="Tres formas de vender por WhatsApp con IA. Las comparamos con sus precios y páginas públicas, con la fuente de cada dato, y te decimos también dónde nos ganan."
+        kicker="Comparativa"
+        title="CRM para WhatsApp: root frente a otros sistemas"
+        intro="Bots, agentes de IA sueltos, plataformas de IA autónoma y CRMs: qué hace cada tipo de sistema, en qué se queda corto y qué preguntar antes de elegir. Sin letra chica y con precios en pesos."
         cta="comparativas-hero"
-        note={`Datos de competidores revisados el ${COMPETITOR_REVIEW_LABEL}.`}
+        note={GUIDE_PHRASE}
       />
 
+      {/* El mapa: cinco tipos de sistema y root */}
       <Section tone="gris" labelledBy="mapa-titulo">
         <SectionHeader
           id="mapa-titulo"
-          kicker="El mapa"
-          title="IA primero, CRM primero o agentes y CRM juntos"
-          intro="Antes de ver precios, conviene saber qué vende primero cada uno."
+          kicker="Alternativas de CRM para WhatsApp"
+          title="Cinco tipos de sistema y dónde entra root"
+          intro="Antes de ver precios, conviene saber qué resuelve cada tipo de herramienta y qué te deja pendiente."
         />
-        <div className="grid gap-5 md:grid-cols-3">
-          <article className="card p-6 md:p-7 flex flex-col gap-3">
-            <p className="kicker">Vambe</p>
-            <h3 className="h-card text-xl text-ink">IA primero</h3>
-            <p className="text-muted leading-relaxed">
-              Se presenta como un sistema de IA proactivo y omnicanal para todo el flujo comercial. (<Ext src={V.home}>fuente</Ext>)
-            </p>
-          </article>
-          <article className="card p-6 md:p-7 flex flex-col gap-3">
-            <p className="kicker">Leadsales</p>
-            <h3 className="h-card text-xl text-ink">CRM primero</h3>
-            <p className="text-muted leading-relaxed">
-              Se presenta como CRM para WhatsApp, Facebook e Instagram, y suma su agente de IA como complemento. (
-              <Ext src={L.home}>fuente</Ext>)
-            </p>
-          </article>
-          <article className="card p-6 md:p-7 flex flex-col gap-3 border-ink/30">
-            <p className="kicker text-lime normal-case">root</p>
-            <h3 className="h-card text-xl text-ink">Agentes y CRM, un solo producto</h3>
-            <p className="text-muted leading-relaxed">{GUIDE_PHRASE} Todo en el mismo embudo y en el número de tu empresa.</p>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {TYPES.map((t) => (
+            <article key={t.name} className="card p-6 md:p-7 flex flex-col gap-3">
+              <span className="w-10 h-10 rounded-lg grid place-items-center bg-surface-2 border border-line text-ink">
+                <Icon name={t.icon} className="w-5 h-5" />
+              </span>
+              <h3 className="h-card text-xl text-ink">{t.name}</h3>
+              <p className="text-ink/85 leading-relaxed">{t.what}</p>
+              <p className="text-muted leading-relaxed">{t.short}</p>
+            </article>
+          ))}
+          <article className="card p-6 md:p-7 flex flex-col gap-3 border-ink/30 shadow-[var(--shadow)]">
+            <span className="w-10 h-10 rounded-lg grid place-items-center bg-lime-fill text-fixed-ink">
+              <Icon name="handoff" className="w-5 h-5" />
+            </span>
+            <h3 className="h-card text-xl text-ink">
+              <span className="normal-case">root</span>: agentes y CRM en un solo producto
+            </h3>
+            <p className="text-ink/85 leading-relaxed">{GUIDE_PHRASE}</p>
+            <p className="text-muted leading-relaxed">Todo en el mismo embudo y en el número de tu empresa, con la IA incluida desde {PRO.name}.</p>
           </article>
         </div>
       </Section>
 
+      {/* Tabla genérica */}
       <Section labelledBy="tabla-titulo">
         <SectionHeader
           id="tabla-titulo"
           kicker="Lado a lado"
-          title="root vs Vambe vs Leadsales en una tabla"
-          intro="Lo esencial de cada uno. Para el detalle, entra a cada comparativa."
+          title="Comparativa de CRM para WhatsApp por tipo de sistema"
+          intro="Lo que suele hacer cada tipo de herramienta. Cada producto es distinto: usa la tabla para saber qué preguntar."
         />
         <ComparisonTable
-          caption="Comparación de root, Vambe y Leadsales"
+          caption="Comparación por tipo de sistema: bot de menús, agente de IA suelto, plataforma de IA autónoma, CRM de WhatsApp con IA de complemento, CRM tradicional y root"
           firstColLabel="Tema"
-          columns={[
-            { key: "root", label: "root", highlight: true },
-            { key: "vambe", label: "Vambe" },
-            { key: "ls", label: "Leadsales" },
-          ]}
-          rows={[
-            {
-              label: "Plan con IA",
-              values: {
-                root: `${PRO.name}: ${PRO.priceLabel} MXN al mes, 10 usuarios.`,
-                vambe: <Cited src={V.pricing}>Standard: $11,480 MXN + IVA, 6 usuarios.</Cited>,
-                ls: <Cited src={L.pricing}>Profesional + agente Starter: $5,359.20 MXN, 4 usuarios.</Cited>,
-              },
-            },
-            {
-              label: "Plan de entrada",
-              values: {
-                root: `${BASICO.name}: ${BASICO.priceLabel} MXN al mes, 3 usuarios, sin IA.`,
-                vambe: <Cited src={V.pricing}>Standard es su plan de entrada y ya trae IA.</Cited>,
-                ls: <Cited src={L.pricing}>Básico: $2,362.92 MXN, sin IA ni API oficial.</Cited>,
-              },
-            },
-            {
-              label: "Implementación",
-              values: {
-                root: "La mayoría opera en menos de una semana.",
-                vambe: <Cited src={V.pricing}>$12,000 MXN el mes 1 y $6,000 MXN el mes 2.</Cited>,
-                ls: <Cited src={L.api}>Alta de la API acompañada, sin costo de activación.</Cited>,
-              },
-            },
-            {
-              label: "La IA",
-              values: {
-                root: "Incluida en Pro y Enterprise.",
-                vambe: <Cited src={V.pricing}>Incluida en sus planes.</Cited>,
-                ls: <Cited src={L.consumption}>Complemento aparte; se pausa al 100 % de consumo.</Cited>,
-              },
-            },
-            {
-              label: "El agente agenda",
-              values: {
-                root: true,
-                vambe: <Cited src={V.tech}>Sí</Cited>,
-                ls: <Cited src={L.escalation}>No: pasa a una persona</Cited>,
-              },
-            },
-            {
-              label: "API oficial de WhatsApp",
-              values: {
-                root: "Desde el plan Básico.",
-                vambe: <Cited src={V.salud}>Sí.</Cited>,
-                ls: <Cited src={L.pricing}>Desde Profesional; su Básico funciona por Messenger y Web.</Cited>,
-              },
-            },
-            {
-              label: "Voz y llamadas",
-              values: {
-                root: "Tu equipo hace y recibe llamadas desde la plataforma. No publicamos agentes de voz con IA.",
-                vambe: <Cited src={V.pricing}>Agentes de voz con IA y telefonía, como complementos aparte.</Cited>,
-                ls: null,
-              },
-            },
-            {
-              label: "Sellos y certificaciones",
-              values: {
-                root: "Sin sellos publicados.",
-                vambe: <Cited src={V.security}>ISO 27001 y SOC 2 Type II.</Cited>,
-                ls: <Cited src={L.home}>Sellos de Meta.</Cited>,
-              },
-            },
-            {
-              label: "Prueba",
-              values: {
-                root: "Te mostramos root por WhatsApp.",
-                vambe: <Cited src={V.contact}>Sin prueba; primero una reunión de diagnóstico.</Cited>,
-                ls: <Cited src={L.pricing}>14 días.</Cited>,
-              },
-            },
-          ]}
-          footnote="«—»: no lo encontramos en sus páginas públicas."
+          columns={COLUMNS}
+          rows={ROWS}
+          footnote="Comparación por tipo de herramienta, sin marcas. «Depende»: varía según el proveedor; «—»: no aplica."
         />
-        <SourceNote
-          className="mt-5"
-          sources={[V.pricing, V.home, V.tech, V.salud, V.security, V.contact, L.pricing, L.home, L.api, L.consumption, L.escalation]}
+      </Section>
+
+      {/* Frase guía */}
+      <Section tone="gris" labelledBy="guia-titulo">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div>
+            <SectionHeader id="guia-titulo" kicker="Cómo trabaja root" title={GUIDE_PHRASE} className="mb-6 md:mb-8" />
+            <ul className="flex flex-col gap-4 text-ink/85 leading-relaxed text-[17px]">
+              <li>
+                <span className="font-semibold text-ink">Tu agente contesta y califica.</span> Contesta en segundos desde el número de tu
+                empresa, califica con las preguntas de tu negocio, agenda, da seguimiento y reactiva a quien dejó de contestar.
+              </li>
+              <li>
+                <span className="font-semibold text-ink">Tu equipo cierra.</span> Cuando toca, el agente le pasa la conversación al vendedor
+                con todo el historial: quién es, qué quiere y qué ya se le respondió.
+              </li>
+              <li>
+                <span className="font-semibold text-ink">Tú ves todo.</span> Cada prospecto con etapa, responsable y origen del trato, en una
+                bandeja compartida por tu equipo y tus agentes.
+              </li>
+            </ul>
+            <div className="mt-8">
+              <LinkButton href="/producto/agentes-de-ia" label="Conoce los agentes de IA" />
+            </div>
+          </div>
+          <GuidePhraseScene className="w-full max-w-[520px] lg:justify-self-end" />
+        </div>
+      </Section>
+
+      {/* Qué preguntar antes de elegir */}
+      <Section labelledBy="preguntar-titulo">
+        <SectionHeader
+          id="preguntar-titulo"
+          kicker="Checklist"
+          title="Qué preguntar antes de elegir"
+          intro="Hazle estas seis preguntas a cualquier proveedor, incluidos nosotros. Abajo de cada una, la respuesta de root."
         />
+        <AskChecklist items={ASK} />
       </Section>
 
       <ProductByNextia />
 
+      {/* D8 · Costo por usuario (solo root) */}
       <Section labelledBy="costo-titulo">
         <SectionHeader
           id="costo-titulo"
           kicker="Precio"
-          title="Costo por usuario al mes: root, Vambe y Leadsales"
-          intro="El plan de cada uno que trae IA, dividido entre los usuarios que incluye. Cambia a mensualidad o súmale el IVA."
+          title="Cuánto cuesta root por usuario"
+          intro={`Para comparar con otros sistemas, divide la mensualidad entre los usuarios incluidos. En root ${PRO.name} sale en ${PRO_PER_USER} por usuario, con la IA incluida.`}
         />
-        <CostPerUser id="d8-todos" />
+        <CostPerUser id="d8-root" />
         <p className="mt-6 text-muted leading-relaxed max-w-3xl">
-          ¿Quieres ver qué trae cada plan de root? Revisa los{" "}
+          ¿Quieres ver qué trae cada plan? Revisa los{" "}
           <Link href="/precios/" className="underline decoration-line underline-offset-2 hover:decoration-ink">
             precios de root
           </Link>
@@ -200,65 +330,68 @@ export default function Comparativas() {
         </p>
       </Section>
 
-      <Section tone="gris" labelledBy="paginas-titulo">
+      {/* Con honestidad */}
+      <Section tone="gris" labelledBy="conviene-titulo">
         <SectionHeader
-          id="paginas-titulo"
-          kicker="A detalle"
-          title="Comparativas y alternativas"
-          intro="Cada página trae su tabla completa, la fuente de cada dato y una sección honesta de cuándo te conviene cada opción."
+          id="conviene-titulo"
+          kicker="Con honestidad"
+          title="Cuándo te conviene otro sistema y cuándo root"
+          intro="No hay una opción mejor para todos: depende de cuántos mensajes te llegan y de cómo vende tu equipo."
         />
-        <FeatureGrid
-          cols={2}
-          items={[
-            {
-              title: "root vs Vambe",
-              text: "Precio en pesos, implementación, IVA y quién lleva la venta.",
-              href: "/comparativas/root-vs-vambe",
-              icon: "chart",
-            },
-            {
-              title: "root vs Leadsales",
-              text: "IA incluida o IA aparte, agenda, API oficial e integraciones.",
-              href: "/comparativas/root-vs-leadsales",
-              icon: "chart",
-            },
-            {
-              title: "Alternativas a Vambe",
-              text: "Opciones para equipos en México que buscan precio en pesos y arranque en días.",
-              href: "/alternativas/vambe",
-              icon: "target",
-            },
-            {
-              title: "Alternativas a Leadsales",
-              text: "Opciones si buscas un agente de IA incluido que también agende.",
-              href: "/alternativas/leadsales",
-              icon: "target",
-            },
+        <HonestSplit
+          other={[
+            <>Te llegan pocos mensajes y un menú de opciones fijas resuelve casi todo.</>,
+            <>Quieres que la IA lleve todo el flujo, casi sin vendedores, y te sirve un proyecto con consultoría.</>,
+            <>Tu venta no pasa por WhatsApp: un CRM tradicional puede bastarte.</>,
+            <>Tu área de compras pide certificaciones que root hoy no publica.</>,
+          ]}
+          root={[
+            <>Quieres agentes de IA incluidos en el plan, sin pagar un complemento aparte.</>,
+            <>Tu agente contesta y califica, pero quieres que tu equipo siga al frente de la venta.</>,
+            <>Necesitas que todo quede en el número de tu empresa, con la API oficial.</>,
+            <>Conectas tu venta con Salesforce, SAP, HubSpot o Excel.</>,
+            <>Quieres precio publicado en pesos y arrancar en días, no en meses.</>,
           ]}
         />
-        <div className="card p-6 md:p-8 mt-8">
-          <h3 className="h-card text-xl md:text-2xl text-ink">Cómo hacemos estas comparativas</h3>
-          <ul className="mt-4 flex flex-col gap-2 text-muted leading-relaxed list-disc pl-5">
-            <li>Solo usamos datos de sus páginas públicas, con enlace a cada una y la fecha de revisión.</li>
-            <li>Comparamos en pesos mexicanos y decimos si el precio trae IVA o no.</li>
-            <li>Cuando un cálculo es nuestro, como el costo por usuario, lo decimos.</li>
-            <li>Reconocemos lo que ellos hacen mejor. Si un dato cambió, escríbenos y lo corregimos.</li>
-          </ul>
-        </div>
       </Section>
 
-      <Faq items={FAQS} tone="claro" title="Preguntas frecuentes sobre las comparativas" />
+      {/* Cambio */}
+      <Section labelledBy="cambio-titulo">
+        <SectionHeader
+          id="cambio-titulo"
+          kicker="Cambio"
+          title="Cómo cambiarte de otro sistema a root"
+          intro="Sin pausar la operación: armamos root mientras tu equipo sigue vendiendo."
+        />
+        <Steps
+          items={[
+            { title: "Escríbenos por WhatsApp", text: "Cuéntanos cómo vende tu equipo y qué etapas quieres que atienda el agente." },
+            { title: "API oficial", text: "Tramitamos o conectamos contigo la API oficial de WhatsApp Business, sin costo extra." },
+            { title: "Embudos, agente y contactos", text: "Configuramos tus etapas y las preguntas para calificar, y migramos tus contactos." },
+            { title: "Conecta y arranca", text: "Integramos tus sistemas y tu equipo empieza. La mayoría opera en menos de una semana." },
+          ]}
+        />
+        <p className="mt-6 text-sm text-muted">
+          Nuestros compromisos de cobro están en los{" "}
+          <Link href="/docs/terminos-y-condiciones/" className="underline decoration-line underline-offset-2">
+            Términos y condiciones
+          </Link>
+          . {PRICING_FACTS.cancel}
+        </p>
+      </Section>
 
-      <Section tone="gris" pad="md" labelledBy="mas-titulo">
+      <Faq items={FAQS} tone="gris" title="Preguntas frecuentes sobre la comparativa" />
+
+      <Section pad="md" labelledBy="mas-titulo">
         <SectionHeader id="mas-titulo" title="Sigue explorando" className="mb-8 md:mb-10" />
-        <SiblingLinks
-          current={PATH}
-          extra={[
-            {
-              href: "/producto/agentes-de-ia",
-              label: "Agentes de IA de root",
-              text: "Contestan, califican, agendan y pasan al vendedor con historial",
-            },
+        <RelatedLinks
+          items={[
+            { href: "/precios", label: "Precios de root", text: "Planes en pesos: Básico, Pro con IA y Enterprise" },
+            { href: "/producto/agentes-de-ia", label: "Agentes de IA", text: "Contestan, califican, agendan y pasan al vendedor con historial" },
+            { href: "/guias/chatbot-vs-agente-de-ia-vs-crm", label: "Chatbot, agente de IA o CRM", text: "Qué necesita tu WhatsApp de ventas" },
+            { href: "/guias/cuanto-cuesta-la-api-de-whatsapp", label: "Cuánto cuesta la API de WhatsApp", text: "En pesos, con la tarifa de Meta" },
+            { href: "/guias/whatsapp-business-app-vs-api", label: "WhatsApp Business App o API", text: "Cuál necesita tu equipo" },
+            { href: "/producto/integraciones", label: "Integraciones", text: "Salesforce, SAP, HubSpot y Excel" },
           ]}
         />
       </Section>
@@ -266,8 +399,8 @@ export default function Comparativas() {
       <CtaBand
         cta="comparativas-final"
         kicker="Que nadie se quede en visto"
-        title="¿Dudas entre root y otra opción? Pregúntanos directo"
-        text="Escríbenos por WhatsApp, cuéntanos cómo vende tu equipo y te decimos con honestidad cuál te conviene."
+        title="¿Dudas entre root y otro sistema? Pregúntanos directo"
+        text="Escríbenos por WhatsApp, cuéntanos cómo vende tu equipo y te decimos con honestidad si root te conviene."
       />
     </>
   );

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { COMPARISON_PAGES, LEGAL_PAGES, PRODUCT_PAGES, RESOURCE_PAGES, route, SOLUTION_PAGES, type RouteEntry } from "@/lib/routes";
+import { LEGAL_PAGES, PRODUCT_PAGES, RESOURCE_PAGES, route, SOLUTION_PAGES, type RouteEntry } from "@/lib/routes";
 import { withSlash } from "@/lib/seo";
 import { ADDRESS_LINE, APP_LOGIN_URL, CATEGORY, CONTACT_EMAIL, CTA_LABEL, TAGLINE, WHATSAPP_URL } from "@/lib/site";
 import { ProductByNextiaSignature, RootLogo } from "./brand";
@@ -59,17 +59,9 @@ export function SiteHeader() {
               Todas las industrias <Icon name="arrow" className="w-4 h-4" />
             </Link>
           </Dropdown>
-          <Dropdown label="Comparativas" width="w-[300px]">
-            <ul className="flex flex-col">
-              {COMPARISON_PAGES.map((r) => (
-                <li key={r.path}>
-                  <Link href={withSlash(r.path)} className="block rounded-lg px-3 py-2.5 hover:bg-surface-2 text-[14px]">
-                    {r.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Dropdown>
+          <Link href="/comparativas/" className="px-3 py-2 rounded-lg hover:bg-surface-2">
+            Comparativas
+          </Link>
           <Link href="/precios/" className="px-3 py-2 rounded-lg hover:bg-surface-2">
             Precios
           </Link>
@@ -130,7 +122,6 @@ function MobileMenu() {
   const groups: { title: string; links: RouteEntry[] }[] = [
     { title: "Producto", links: PRODUCT_PAGES },
     { title: "Soluciones", links: SOLUTION_PAGES },
-    { title: "Comparativas", links: COMPARISON_PAGES },
     { title: "Recursos", links: RECURSOS_MENU },
   ];
   return (
@@ -142,6 +133,9 @@ function MobileMenu() {
       <div className="absolute right-0 top-14 w-[min(calc(100vw-32px),380px)] card p-4 shadow-[var(--shadow)] max-h-[75vh] overflow-auto">
         <Link href="/precios/" className="block rounded-lg px-2 py-2.5 hover:bg-surface-2 font-semibold text-[15px]">
           Precios
+        </Link>
+        <Link href="/comparativas/" className="block rounded-lg px-2 py-2.5 hover:bg-surface-2 font-semibold text-[15px]">
+          Comparativas
         </Link>
         {groups.map((g) => (
           <div key={g.title} className="mt-3">
@@ -173,13 +167,12 @@ export function SiteFooter() {
   const cols: { title: string; links: { href: string; label: string }[] }[] = [
     { title: "Producto", links: [...PRODUCT_PAGES, route("/precios")!].map(toLink) },
     { title: "Soluciones", links: SOLUTION_PAGES.map(toLink) },
-    { title: "Comparativas", links: COMPARISON_PAGES.map(toLink) },
-    { title: "Recursos", links: [route("/blog")!, ...RESOURCE_PAGES].map(toLink) },
+    { title: "Recursos", links: [route("/blog")!, ...RESOURCE_PAGES, route("/comparativas")!].map(toLink) },
     { title: "Empresa y legal", links: [route("/nosotros")!, route("/docs/soporte")!, ...LEGAL_PAGES].map(toLink) },
   ];
   return (
     <footer className="theme-dark border-t border-line">
-      <Container size="wide" className="py-16 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-[1.4fr_repeat(5,1fr)]">
+      <Container size="wide" className="py-16 grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
         <div className="col-span-2 sm:col-span-3 lg:col-span-1">
           <RootLogo height={28} />
           <p className="mt-4 text-muted leading-relaxed max-w-xs">

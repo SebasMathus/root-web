@@ -7,6 +7,7 @@
  * - Los legales y el soporte se quedan en /docs/* (Meta usa /docs/instrucciones-de-borrado-de-informacion).
  * - /ayuda no se crea: /docs/soporte es la página de ayuda.
  * - /novedades (changelog) no se publica todavía: no hay entradas reales de producto. Se agrega aquí cuando las haya.
+ * - Una sola página de comparativas (/comparativas): root frente a «otros sistemas», sin nombrar marcas de la competencia.
  */
 export type RouteGroup =
   | "principal"
@@ -14,7 +15,6 @@ export type RouteGroup =
   | "soluciones"
   | "precios"
   | "comparativas"
-  | "alternativas"
   | "recursos"
   | "blog"
   | "empresa"
@@ -63,12 +63,8 @@ export const ROUTES: RouteEntry[] = [
 
   { path: "/precios", label: "Precios", blurb: "Precios en pesos, sin letra chica", group: "precios", index: true, priority: 0.9, changeFrequency: "monthly", owner: "portada" },
 
-  // Comparativas: fecha de revisión visible y enlace a la página pública de cada dato.
-  { path: "/comparativas", label: "Comparativas", blurb: "root frente a otras opciones", group: "comparativas", index: true, priority: 0.6, changeFrequency: "monthly", owner: "precios-y-comparativas" },
-  { path: "/comparativas/root-vs-vambe", label: "root vs Vambe", blurb: "Qué cambia para un equipo comercial en México", group: "comparativas", index: true, priority: 0.7, changeFrequency: "monthly", owner: "precios-y-comparativas" },
-  { path: "/comparativas/root-vs-leadsales", label: "root vs Leadsales", blurb: "IA incluida o IA aparte", group: "comparativas", index: true, priority: 0.7, changeFrequency: "monthly", owner: "precios-y-comparativas" },
-  { path: "/alternativas/vambe", label: "Alternativas a Vambe", group: "alternativas", index: true, priority: 0.6, changeFrequency: "monthly", owner: "precios-y-comparativas" },
-  { path: "/alternativas/leadsales", label: "Alternativas a Leadsales", group: "alternativas", index: true, priority: 0.6, changeFrequency: "monthly", owner: "precios-y-comparativas" },
+  // Comparativa: root frente a otros sistemas, por tipo de herramienta. No se nombran marcas de la competencia.
+  { path: "/comparativas", label: "Comparativas", blurb: "root frente a otros sistemas", group: "comparativas", index: true, priority: 0.7, changeFrequency: "monthly", owner: "precios-y-comparativas" },
 
   // Recursos.
   { path: "/recursos", label: "Recursos", blurb: "Guías y herramientas para vender por WhatsApp", group: "recursos", index: true, priority: 0.5, changeFrequency: "monthly", owner: "recursos" },
@@ -101,8 +97,6 @@ export const routeLabel = (path: string) => route(path)?.label ?? path;
 export const PRODUCT_PAGES = routesIn("producto").filter((r) => r.path !== "/producto");
 /** Las 8 soluciones (sin el índice), fase 1 primero. */
 export const SOLUTION_PAGES = routesIn("soluciones").filter((r) => r.path !== "/soluciones");
-/** Comparativas y alternativas (sin el índice). */
-export const COMPARISON_PAGES = [...routesIn("comparativas").filter((r) => r.path !== "/comparativas"), ...routesIn("alternativas")];
 /** Guías, herramientas y seguridad (sin el índice). */
 export const RESOURCE_PAGES = routesIn("recursos").filter((r) => r.path !== "/recursos");
 export const LEGAL_PAGES = routesIn("legal");
