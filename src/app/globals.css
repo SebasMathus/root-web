@@ -1,0 +1,451 @@
+@import "tailwindcss";
+
+/*
+ * Tokens de marca de root (plan §5.2, DESIGN.md › Tokens).
+ * Tema claro por defecto. Los bloques oscuros (`.theme-dark`, Section tone="oscuro", CtaBand, franja de Nextia)
+ * redefinen los MISMOS tokens: dentro de ellos --ink es claro y --paper es oscuro, así que un componente escrito
+ * con `text-ink bg-paper` funciona en los dos tonos sin cambiar nada.
+ * Código de color de los diagramas: Agente = lima · Equipo = cielo · Alerta / sin respuesta = coral · Ganado = success.
+ */
+:root {
+  --ink: #0b0b0c; /* Tinta: texto principal, logo positivo */
+  --paper: #fafaf7; /* Papel: fondo de página */
+  --surface: #ffffff; /* Tarjetas */
+  --surface-2: #f1f0ea; /* Sección gris */
+  --line: #e6e5df; /* Bordes y retícula */
+  --muted: #5e5e5a; /* Texto secundario (6.4:1 sobre papel) */
+  --lime: #3f6212; /* Agente: texto y bordes en claro */
+  --lime-fill: #c6f36b; /* Relleno del botón primario (texto en tinta fija) */
+  --lime-soft: #edf7d6;
+  --sky: #1d5fa8; /* Equipo (humano), enlaces secundarios */
+  --sky-soft: #e4eef9;
+  --coral: #c2410c; /* Alerta / sin respuesta / perdido */
+  --coral-soft: #fce9df;
+  --success: #15803d; /* Ganado */
+  --success-soft: #e2f4e8;
+  --grid: rgba(11, 11, 12, 0.035); /* Retícula de fondo: líneas cada 64 px */
+  --shadow: 0 24px 60px -30px rgba(11, 11, 12, 0.35);
+  --fixed-ink: #0b0b0c; /* Tinta que NO se invierte (texto sobre lima) */
+  color-scheme: light;
+}
+
+/* Bloque oscuro: tokens invertidos (columna «Oscuro» del plan §5.2). */
+.theme-dark {
+  --ink: #f5f5f0;
+  --paper: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #101010;
+  --line: #262626;
+  --muted: #a3a39c;
+  --lime: #c6f36b;
+  --lime-soft: rgba(198, 243, 107, 0.12);
+  --sky: #8cc8ff;
+  --sky-soft: rgba(140, 200, 255, 0.12);
+  --coral: #ff8a65;
+  --coral-soft: rgba(255, 138, 101, 0.13);
+  --success: #4ade80;
+  --success-soft: rgba(74, 222, 128, 0.12);
+  --grid: rgba(255, 255, 255, 0.04);
+  --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-lime: var(--lime);
+  --color-lime-fill: var(--lime-fill);
+  --color-lime-soft: var(--lime-soft);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-fixed-ink: var(--fixed-ink);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+}
+/* Retícula de fondo sutil (continuidad con el sitio anterior): líneas cada 64 px. */
+.grid-bg {
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+::selection {
+  background: #c6f36b;
+  color: #0b0b0c;
+}
+:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ───────────────────────── Tipografía ───────────────────────── */
+/* Titulares: Plus Jakarta Sans 700/800, tracking −1 % a −2 %. Fuera de capa: su interlineado no cambia con text-*. */
+.h-hero {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4rem); /* 40 → 64 px */
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+.h-section {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.85rem, 1.5rem + 1.2vw, 2.5rem); /* ~30 → 40 px */
+  letter-spacing: -0.018em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.h-card {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+@layer components {
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lead {
+  color: var(--muted);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+}
+
+/* Texto largo (legales, blog, guías). */
+.prose-root {
+  color: var(--ink);
+  line-height: 1.75;
+}
+.prose-root > * + * {
+  margin-top: 1.1em;
+}
+.prose-root > :first-child {
+  margin-top: 0;
+}
+.prose-root p,
+.prose-root li {
+  color: color-mix(in srgb, var(--ink) 82%, var(--paper));
+}
+.prose-root h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin-top: 2.2em;
+}
+.prose-root h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-top: 1.8em;
+}
+.prose-root ul {
+  list-style: disc;
+  padding-left: 1.25em;
+}
+.prose-root ol {
+  list-style: decimal;
+  padding-left: 1.25em;
+}
+.prose-root li + li {
+  margin-top: 0.4em;
+}
+.prose-root a:not(.btn) {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--lime);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.prose-root strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/*
+ * Botones, tarjetas y chips en @layer components: las utilidades de Tailwind (hidden, sm:inline-flex, w-full…)
+ * pueden ajustarlos sin !important.
+ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    font-weight: 600;
+    border-radius: 12px;
+    white-space: nowrap;
+    transition:
+      transform 0.15s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  /* Primario: relleno lima con texto tinta fija, igual en claro y en oscuro. */
+  .btn-primary {
+    background: var(--lime-fill);
+    color: var(--fixed-ink);
+    box-shadow: inset 0 -2px 0 rgba(11, 11, 12, 0.14);
+  }
+  .btn-primary:hover {
+    background: #b5e655;
+  }
+  .btn-dark {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-dark:hover {
+    background: color-mix(in srgb, var(--ink) 86%, var(--paper));
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  }
+  .btn-outline:hover {
+    border-color: var(--ink);
+  }
+  .btn-ghost {
+    color: var(--ink);
+  }
+  .btn-ghost:hover {
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+  .card-hover {
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .card-hover:hover {
+    border-color: color-mix(in srgb, var(--ink) 40%, transparent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.4;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .chip-agente {
+    background: var(--lime-soft);
+    border-color: transparent;
+    color: var(--lime);
+  }
+  .chip-equipo {
+    background: var(--sky-soft);
+    border-color: transparent;
+    color: var(--sky);
+  }
+  .chip-alerta {
+    background: var(--coral-soft);
+    border-color: transparent;
+    color: var(--coral);
+  }
+  .chip-ganado {
+    background: var(--success-soft);
+    border-color: transparent;
+    color: var(--success);
+  }
+}
+
+/* ───────────────────────── Menú desplegable (sin JS: hover y focus-within) ───────────────────────── */
+.nav-dropdown {
+  position: relative;
+}
+.nav-panel {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 6px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s;
+  z-index: 50;
+}
+.nav-dropdown:hover .nav-panel,
+.nav-dropdown:focus-within .nav-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* ───────────────────────── FAQ (details/summary, rastreable sin JS) ───────────────────────── */
+.faq summary {
+  list-style: none;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq details[open] .plus {
+  transform: rotate(45deg);
+}
+.faq .plus {
+  transition: transform 0.2s ease;
+}
+
+/* ───────────────────────── Tablas comparativas ───────────────────────── */
+/* `position: relative` es obligatorio: los `.sr-only` (absolutos) de las celdas toman como bloque contenedor
+   al ancestro posicionado más cercano; si la caja de scroll es estática, escapan a la página y crean scroll
+   horizontal en móvil aunque la tabla se desplace dentro de su caja. */
+.table-scroll {
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+/* ───────────────────────── Escenas (components/motion/kit.tsx) ───────────────────────── */
+/* El lienzo escala uniforme: todo dentro se mide en em y el font-size sale del ancho del contenedor (cqw). */
+.scene {
+  container-type: inline-size;
+  margin: 0;
+}
+
+/* ───────────────────────── ∞ animado (RootMarkAnimated) ───────────────────────── */
+/* La pista del ∞ siempre está dibujada (nunca vacío); encima, el trazo se dibuja en 1.2 s y un destello lima
+   recorre el bucle despacio. Con movimiento reducido: ∞ completo y quieto. */
+.mark-draw {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+  animation: mark-draw 1.2s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.mark-comet {
+  stroke-dasharray: 0.14 0.86;
+  animation: mark-comet 6s linear 1.2s infinite;
+}
+@keyframes mark-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes mark-comet {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ───────────────────────── Franja «a product by Nextia» ───────────────────────── */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 64px;
+  animation: marquee 60s linear infinite;
+}
+.marquee-track.rev {
+  animation-direction: reverse;
+  animation-duration: 75s;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.client-logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+  height: 28px;
+  width: auto;
+}
+
+/* ───────────────────────── Botón flotante de WhatsApp ───────────────────────── */
+.wa-float {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 45;
+}
+
+/* ───────────────────────── Movimiento reducido ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track,
+  .mark-comet {
+    animation: none;
+  }
+  .mark-comet {
+    display: none;
+  }
+  .mark-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
