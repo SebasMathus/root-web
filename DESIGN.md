@@ -66,7 +66,7 @@ Refresh del logo anterior (`public/favicon.png` del sitio viejo), sin cambiar el
 Importa con `@/…` (alias a `src/`).
 
 ### `@/lib/site`
-`SITE_URL`, `SITE_NAME` («root»), `LOCALE`, `CATEGORY`, `TAGLINE`, `GUIDE_PHRASE`, `DEFAULT_DESCRIPTION`, `PARENT` ({name, url} de Nextia), `APP_LOGIN_URL`, `CONTACT_EMAIL`, `ADDRESS`, `ADDRESS_LINE`, `SUPPORT_HOURS`, **`WHATSAPP_URL`** (https://wa.me/message/BBFVGPKQADOPP1, no acepta texto precargado), `CTA_LABEL` («Escríbenos por WhatsApp»), `PLANS: Plan[]` y `planById(id)`, `PRICE_FROM`, `PRICING_FACTS` {meta, api, billing, iva, cancel, changes, users, start}, `absoluteUrl(path)`.
+`SITE_URL`, `SITE_NAME` («root»), `LOCALE`, `CATEGORY`, `TAGLINE`, `GUIDE_PHRASE`, `DEFAULT_DESCRIPTION`, `PARENT` ({name, url} de Nextia), `APP_LOGIN_URL`, `CONTACT_EMAIL`, `ADDRESS`, `ADDRESS_LINE`, `SUPPORT_HOURS`, **`WHATSAPP_URL`** (https://wa.me/15557794199, no acepta texto precargado), `CTA_LABEL` («Escríbenos por WhatsApp»), `PLANS: Plan[]` y `planById(id)`, `PRICE_FROM`, `PRICING_FACTS` {meta, api, billing, iva, cancel, changes, users, start}, `absoluteUrl(path)`.
 
 ### `@/lib/seo`
 `pageMetadata({ title, description, path, noindex?, absoluteTitle?, type?, publishedTime?, ownOgImage? })` → `Metadata` (canonical con «/» final, OG, Twitter, robots). El título va SIN « | root» (lo agrega `title.template`). `withSlash(path)`. `DEFAULT_OG_IMAGE` (`/og/root.png`).
