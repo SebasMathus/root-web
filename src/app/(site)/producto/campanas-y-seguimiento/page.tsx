@@ -172,7 +172,7 @@ export default function CampanasPage() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Haz que cada prospecto tenga su siguiente mensaje"
-        text="Escríbenos por WhatsApp y armamos contigo la primera cadencia de seguimiento de tu equipo."
+        text="Déjanos tus datos y armamos contigo la primera cadencia de seguimiento de tu equipo."
         cta="cta-final-seguimiento"
       />
     </>

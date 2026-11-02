@@ -191,7 +191,7 @@ export default function BandejaPage() {
               <Icon name="phone" className="w-5 h-5" />
             </span>
             <h3 className="h-card text-xl text-ink">Llamadas desde root</h3>
-            <p className="text-muted leading-relaxed">Haz y recibe llamadas desde la plataforma, sin cambiar de herramienta. Pregúntanos por WhatsApp cómo funcionaría en tu operación.</p>
+            <p className="text-muted leading-relaxed">Haz y recibe llamadas desde la plataforma, sin cambiar de herramienta. Pregúntanos en tu demo cómo funcionaría en tu operación.</p>
           </article>
         </div>
       </Section>
@@ -203,7 +203,7 @@ export default function BandejaPage() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Pon a todo tu equipo en el número de tu empresa"
-        text="Escríbenos por WhatsApp: te ayudamos con el trámite de la API oficial y con el arranque de tu bandeja."
+        text="Déjanos tus datos: te ayudamos con el trámite de la API oficial y con el arranque de tu bandeja."
         cta="cta-final-bandeja"
         secondary={{ href: "/precios", label: "Ver planes" }}
       />

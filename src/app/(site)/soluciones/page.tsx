@@ -115,7 +115,7 @@ export default function SolucionesPage() {
       <CtaBand
         cta="soluciones-final"
         kicker="Que nadie se quede en visto"
-        title="¿No ves tu industria? Escríbenos."
+        title="¿No ves tu industria? Cuéntanos."
         text="Cuéntanos cómo vendes hoy por WhatsApp y te mostramos cómo trabajaría root con tus etapas y tus preguntas."
       />
     </>

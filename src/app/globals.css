@@ -417,14 +417,6 @@ body {
   width: auto;
 }
 
-/* ───────────────────────── Botón flotante de WhatsApp ───────────────────────── */
-.wa-float {
-  position: fixed;
-  right: max(16px, env(safe-area-inset-right));
-  bottom: max(16px, env(safe-area-inset-bottom));
-  z-index: 45;
-}
-
 /* ───────────────────────── Movimiento reducido ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html {

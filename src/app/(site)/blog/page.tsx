@@ -45,7 +45,7 @@ export default function BlogIndex() {
         </ul>
       </Section>
       <ProductByNextia />
-      <CtaBand title="Que nadie se quede en visto." text="Escríbenos por WhatsApp y te mostramos cómo un agente de root contesta, califica y le pasa cada prospecto a tu equipo." cta="blog" />
+      <CtaBand title="Que nadie se quede en visto." text="Déjanos tus datos y te mostramos cómo un agente de root contesta, califica y le pasa cada prospecto a tu equipo." cta="blog" />
     </>
   );
 }

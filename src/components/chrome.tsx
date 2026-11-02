@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { LEGAL_PAGES, PRODUCT_PAGES, RESOURCE_PAGES, route, SOLUTION_PAGES, type RouteEntry } from "@/lib/routes";
 import { withSlash } from "@/lib/seo";
-import { ADDRESS_LINE, APP_LOGIN_URL, CATEGORY, CONTACT_EMAIL, CTA_LABEL, TAGLINE, WHATSAPP_URL } from "@/lib/site";
+import { ADDRESS_LINE, APP_LOGIN_URL, CATEGORY, CONTACT_EMAIL, TAGLINE } from "@/lib/site";
 import { ProductByNextiaSignature, RootLogo } from "./brand";
-import { Icon, WhatsAppGlyph } from "./icons";
+import { Icon } from "./icons";
 import { MenuAutoClose } from "./menu-auto-close";
 import { Container, CtaButton } from "./ui";
 
@@ -223,23 +223,5 @@ function FooterCol({ title, links }: { title: string; links: { href: string; lab
         ))}
       </ul>
     </div>
-  );
-}
-
-/* ───────────── Botón flotante de WhatsApp (todo el sitio) ───────────── */
-
-export function WhatsAppFloat() {
-  return (
-    <a
-      href={WHATSAPP_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-cta="flotante"
-      aria-label={CTA_LABEL}
-      className="wa-float btn btn-primary w-14 h-14 rounded-full shadow-[0_14px_34px_-12px_rgba(11,11,12,.55)] md:w-auto md:h-auto md:px-5 md:py-3.5"
-    >
-      <WhatsAppGlyph className="w-6 h-6 md:w-5 md:h-5" />
-      <span className="hidden md:inline text-[15px]">WhatsApp</span>
-    </a>
   );
 }

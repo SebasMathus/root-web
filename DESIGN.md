@@ -1,7 +1,7 @@
 # root · guía de diseño, contenido y construcción
 
 Sitio de **root** (goroot.ai): **CRM de WhatsApp con agentes de IA** para equipos comerciales en México, hecho por Nextia.
-Sitio estático (Next.js 16, App Router, `output: "export"`), sin CMS. Los CTA abren WhatsApp o llevan al formulario «Contacto root» (#contacto) cuando la página lo tiene.
+Sitio estático (Next.js 16, App Router, `output: "export"`), sin CMS. **Cero botones o enlaces a WhatsApp:** todo CTA lleva al formulario «Contacto root» (#contacto, al cierre de cada página comercial) y, al enviarlo, a la agenda de Calendly.
 Fuente de contenido: plan del sitio (posicionamiento, glosario, mapa, diagramas D1–D10, §6 «Qué afirmar y qué no»), `root-actual.md` (hechos del producto) y `verticales-root.md`.
 
 ## 1. Posicionamiento y voz
@@ -66,7 +66,7 @@ Refresh del logo anterior (`public/favicon.png` del sitio viejo), sin cambiar el
 Importa con `@/…` (alias a `src/`).
 
 ### `@/lib/site`
-`SITE_URL`, `SITE_NAME` («root»), `LOCALE`, `CATEGORY`, `TAGLINE`, `GUIDE_PHRASE`, `DEFAULT_DESCRIPTION`, `PARENT` ({name, url} de Nextia), `APP_LOGIN_URL`, `CONTACT_EMAIL`, `ADDRESS`, `ADDRESS_LINE`, `SUPPORT_HOURS`, **`WHATSAPP_URL`** (https://wa.me/15557794199, no acepta texto precargado), `CTA_LABEL` («Escríbenos por WhatsApp»), `PLANS: Plan[]` y `planById(id)`, `PRICE_FROM`, `PRICING_FACTS` {meta, api, billing, iva, cancel, changes, users, start}, `absoluteUrl(path)`.
+`SITE_URL`, `SITE_NAME` («root»), `LOCALE`, `CATEGORY`, `TAGLINE`, `GUIDE_PHRASE`, `DEFAULT_DESCRIPTION`, `PARENT` ({name, url} de Nextia), `APP_LOGIN_URL`, `CONTACT_EMAIL`, `ADDRESS`, `ADDRESS_LINE`, `SUPPORT_HOURS`, `CTA_LABEL` («Agenda una demo»), `PLANS: Plan[]` y `planById(id)`, `PRICE_FROM`, `PRICING_FACTS` {meta, api, billing, iva, cancel, changes, users, start}, `absoluteUrl(path)`.
 
 ### `@/lib/seo`
 `pageMetadata({ title, description, path, noindex?, absoluteTitle?, type?, publishedTime?, ownOgImage? })` → `Metadata` (canonical con «/» final, OG, Twitter, robots). El título va SIN « | root» (lo agrega `title.template`). `withSlash(path)`. `DEFAULT_OG_IMAGE` (`/og/root.png`).
@@ -82,25 +82,25 @@ Importa con `@/…` (alias a `src/`).
 - `Section({ id?, tone?: "claro"|"gris"|"oscuro", grid?, pad?: "md"|"lg"|"none", labelledBy?, container?, className? })`
 - `SectionHeader({ kicker?, title, intro?, id?, center? })` (h2)
 - `PageHero({ kicker?, title, intro?, breadcrumbs?, cta?, ctaLabel?, ctas?, visual?, tone?, note? })` (h1; con `visual`, dos columnas)
-- `CtaButton({ label? = "Escríbenos por WhatsApp", cta = propósito (data-cta), variant?: "primary"|"dark"|"outline"|"ghost", size?: "sm"|"md"|"lg", icon? })`: siempre `<a href={WHATSAPP_URL} target="_blank">`.
-- `ContactButton({ label? = "Agenda una demo", cta, variant?, size? })`: `<a href="#contacto">`, solo en páginas con `ContactSection`.
-- `LinkButton({ href, label, variant?, size?, arrow? })`, `PricesButton({ label? = "Ver precios" })`, `CtaPair({ cta, label?, size?, secondary?: {href,label}|null, form? })` (`form`: el primario es `ContactButton`)
+- `CtaButton({ label? = "Agenda una demo", cta = propósito (data-cta), variant?: "primary"|"dark"|"outline"|"ghost", size?: "sm"|"md"|"lg", icon? })`: `<a href="/contacto/#contacto">` (`FormLink`, `@/components/form-link`); con JS, si la página ya tiene #contacto, se desplaza ahí sin salir de la página. Nunca a WhatsApp.
+- `LinkButton({ href, label, variant?, size?, arrow? })`, `PricesButton({ label? = "Ver precios" })`, `CtaPair({ cta, label?, size?, secondary?: {href,label}|null })`
 - `RoleChip({ role: "agente"|"equipo"|"alerta"|"ganado", children? })`, `ExampleTag()` («Datos de ejemplo», obligatoria si un diagrama muestra datos inventados)
 - `CheckList({ items, variant?: "check"|"x" })`, `FeatureGrid({ items: Feature[], cols?: 2|3|4 })` con `Feature = { title, text, icon?, href?, tag?, role? }`
 - `Breadcrumbs({ items })` + JSON-LD BreadcrumbList (Inicio se agrega solo)
 - `Faq({ items: {q, a}[], title?, intro?, id?, tone? })` + JSON-LD FAQPage (details/summary, rastreable sin JS)
-- `CtaBand({ title, text?, kicker?, cta?, label?, secondary? })`: cierre oscuro
+- `CtaBand({ title, text?, kicker? = "Agenda una demo", cta?, secondary? })`: cierre oscuro con id="contacto": texto a la izquierda y el formulario «Contacto root» a la derecha. **Una por página comercial, al final.** `secondary`: enlace bajo el texto (por defecto «Ver precios»; null lo quita).
 - `ComparisonTable({ caption, columns: {key, label, sub?, highlight?}[], rows: {label, values: Record<key, Cell>, note?}[], firstColLabel?, footnote?, captionVisible? })`; `Cell` = nodo, `true` (✓), `false` (✗) o `null` (—). Se desplaza dentro de su caja en móvil.
 - `Prose({ children })`
 
 ### Otros
 - `@/components/brand`: `RootLogo({ height?, tone?: "auto"|"ink"|"paper", accent?, title? })`, `RootMark({ size?, variant?: "tile"|"plain", tone?: "auto"|"ink"|"paper"|"accent", title? })`, `RootMarkAnimated({ size?, tile? })`, `NextiaLogo({ dark?, height? })`, `ProductByNextiaSignature({ dark?, size? })`, `INFINITY_PATH`, `WORDMARK_VIEWBOX`, `BRAND`.
-- `@/components/chrome`: `SiteHeader`, `SiteFooter`, `WhatsAppFloat` (ya montados en `src/app/(site)/layout.tsx`; no los repitas).
+- `@/components/chrome`: `SiteHeader`, `SiteFooter` (ya montados en `src/app/(site)/layout.tsx`; no los repitas). No hay botón flotante de WhatsApp.
 - `@/components/product-by-nextia`: `<ProductByNextia />` — franja oscura con dos filas de logos de clientes **de Nextia** y la firma. **Una por página, a la mitad**, entre dos secciones claras. Nunca la llames «clientes de root».
 - `@/components/icons`: `Icon({ name, className?, strokeWidth? })` (`ICON_NAMES`: arrow, check, x, bot, sparkle, inbox, chat, kanban, funnel, send, repeat, plug, chart, target, clock, calendar, user, users, handoff, phone, building, shield, lock, bolt, tag, money, file, book, tool, question, mail, pin, instagram, car, home, bag, tooth, stethoscope, flask, bank, face, rocket…), `WhatsAppGlyph`.
 - `@/components/json-ld`: `JsonLd({ data })`.
 - `@/components/comparativas/*` (solo `/comparativas`): `CostPerUser` (D8, costo por usuario de los planes de root; nunca precios de terceros), `GuidePhraseScene`, `AskChecklist`, `HonestSplit`, `Steps`, `RelatedLinks`.
-- `@/components/contacto/contact-section`: `ContactSection({ path, cta, kicker?, title?, text? })` — cierre oscuro con id="contacto": formulario «Contacto root» (`contact-form.tsx`, form_id `contacto-root`; campos `full_name`, `company`, `email`, `phone`, `equipo_ventas`, `necesidad` opcional, ocultos `form_id`, `origen` y la trampa `website`) + WhatsApp como alternativa. Está en la portada, `/precios` y `/contacto`; sustituye a `CtaBand` ahí. El tag de root (`src/app/layout.tsx`) captura el envío.
+- `@/components/contacto/contact-section`: `ContactSection({ cta, kicker?, title?, text? })` — el mismo cierre que `CtaBand`, sin enlace secundario (portada, `/precios`, `/contacto`).
+- `@/components/contacto/contact-form`: formulario «Contacto root» (form_id `contacto-root`, homologado con los sitios de Nextia). Campos en orden: `company` (Nombre de la empresa), `full_name` (Nombre del contacto), `email` (Correo del contacto, placeholder `enrico.fermi@goroot.ai`), teléfono (`lada`, default México +52, + `telefono` nacional; el oculto `phone` lleva el E.164, p. ej. +525512345678, y se llena antes del `submit`), `equipo_ventas` (1–3, 4–10, 11–30, 31+) y `herramienta_actual` (Excel o WhatsApp / Otro CRM / Nada); ocultos `form_id`, `origen` (ruta + utm_campaign/utm_source) y la trampa `website`. Al enviarlo se reemplaza por un iframe de Calendly (demo-de-eugenia, con nombre y correo prellenados; hoy y dos días más, sábados de 10:00 a 14:00). El tag de root (`src/app/layout.tsx`) captura el envío.
 - `@/components/legal`: `LegalPage({ title, path, kicker?, updated?, intro?, children })`.
 - `@/components/motion/kit` (cliente): ver §6.
 
@@ -215,10 +215,10 @@ Estado al integrar (27-oct-2026): todas las rutas de la tabla están construidas
 
 ## 10. Reglas de trabajo
 
-- **Los CTA son un `<a>` a `WHATSAPP_URL`** (`CtaButton`), con `data-cta` que diga el propósito; en páginas con `ContactSection` (portada, `/precios`, `/contacto`) el CTA principal lleva al formulario (`ContactButton`, `#contacto`) y WhatsApp queda como alternativa. Secundario: «Ver precios» (`PricesButton`) u otro enlace interno. El único formulario de leads es «Contacto root»; los de herramientas (calculadora, generador de links) no se tocan.
-- Cada página: `export const metadata = pageMetadata({...})`, un solo h1 (`PageHero`), `Breadcrumbs` (salvo portada), `<ProductByNextia />` a la mitad, `Faq` si aplica y `CtaBand` al final.
+- **Cero botones o enlaces a WhatsApp** (ni `wa.me`, ni botón flotante, ni en encabezado, pie o menú; tampoco en JSON-LD). Todo CTA es `CtaButton` (al formulario #contacto) con `data-cta` que diga el propósito; cada página comercial cierra con `CtaBand` (formulario). Secundario: «Ver precios» (`PricesButton`) u otro enlace interno. El único formulario de leads es «Contacto root»; los de herramientas (calculadora, generador de links) no se tocan. WhatsApp sí se nombra como canal y función del producto (y el generador de link wa.me es una herramienta para el sitio del visitante, no un contacto).
+- Cada página: `export const metadata = pageMetadata({...})`, un solo h1 (`PageHero`), `Breadcrumbs` (salvo portada), `<ProductByNextia />` a la mitad, `Faq` si aplica y `CtaBand` (formulario) al final.
 - Enlaces internos con «/» final (`withSlash`): el sitio usa `trailingSlash: true`.
 - Ancho de móvil: gutter de 20 px, nada que desborde la página (las tablas se desplazan dentro de su caja).
-- Las páginas viven en `src/app/(site)/…` (encabezado, pie y botón flotante vienen del layout). Componentes propios de una página van en `_components/` de su carpeta.
+- Las páginas viven en `src/app/(site)/…` (encabezado y pie vienen del layout). Componentes propios de una página van en `_components/` de su carpeta.
 - Antes de entregar: `npx tsc --noEmit` y `npx eslint <tus archivos>` sin errores; `npm run build` cuando se pida.
 - Rutas generadas (`opengraph-image`, `sitemap`, `robots`) llevan `export const dynamic = "force-static"`. Nada que requiera servidor (rutas API, ISR, imágenes optimizadas).

@@ -152,7 +152,7 @@ export default function Page() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Manda tu cálculo y te decimos qué parte puede atender un agente"
-        text="Copia tu resultado, escríbenos por WhatsApp y pégalo en el chat. Con tus números te mostramos cómo trabajaría root en tu equipo."
+        text="Déjanos tus datos, agenda tu demo y lleva tu resultado. Con tus números te mostramos cómo trabajaría root en tu equipo."
         cta="calculadora-final"
       />
     </>

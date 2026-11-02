@@ -180,7 +180,7 @@ export default function ProductoPage() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Te mostramos root con los casos de tu equipo"
-        text="Escríbenos por WhatsApp y cuéntanos cómo vendes hoy. Te decimos qué pieza de root te sirve primero."
+        text="Déjanos tus datos y cuéntanos en tu demo cómo vendes hoy. Te decimos qué pieza de root te sirve primero."
         cta="cta-final-producto"
       />
     </>

@@ -35,11 +35,9 @@ export const ADDRESS_LINE = `${ADDRESS.street}, ${ADDRESS.locality}, ${ADDRESS.p
 /** Horario de soporte publicado (/docs/soporte). El 24/7 es solo de Enterprise. */
 export const SUPPORT_HOURS = "Lunes a viernes de 9:00 a 18:00 h (Ciudad de México). Respondemos en menos de 24 horas hábiles.";
 
-/* ───────────── WhatsApp: TODOS los CTA del sitio abren esta línea ───────────── */
+/* ───────────── CTA: TODOS llevan al formulario «Contacto root» (#contacto), nunca a WhatsApp ───────────── */
 
-/** Línea de ventas actual de root. Los enlaces wa.me/message no aceptan texto precargado. */
-export const WHATSAPP_URL = `https://wa.me/15557794199?text=${encodeURIComponent("Hola, quiero conocer root.")}`;
-export const CTA_LABEL = "Escríbenos por WhatsApp";
+export const CTA_LABEL = "Agenda una demo";
 
 /* ───────────── Precios (plan §6.1, goroot.ai#pricing, revisados el 27-oct-2026) ───────────── */
 

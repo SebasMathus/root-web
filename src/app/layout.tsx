@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { JsonLd } from "@/components/json-ld";
-import { ADDRESS, CONTACT_EMAIL, DEFAULT_DESCRIPTION, PARENT, SITE_NAME, SITE_URL, WHATSAPP_URL } from "@/lib/site";
+import { ADDRESS, CONTACT_EMAIL, DEFAULT_DESCRIPTION, PARENT, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], display: "swap", weight: ["700", "800"], variable: "--font-jakarta" });
@@ -42,7 +42,7 @@ const ORGANIZATION = {
         addressCountry: ADDRESS.country,
       },
       areaServed: "MX",
-      contactPoint: { "@type": "ContactPoint", contactType: "sales", url: WHATSAPP_URL, availableLanguage: ["Spanish"] },
+      contactPoint: { "@type": "ContactPoint", contactType: "sales", url: `${SITE_URL}/contacto/`, email: CONTACT_EMAIL, availableLanguage: ["Spanish"] },
     },
     { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: SITE_NAME, inLanguage: "es-MX", publisher: { "@id": `${SITE_URL}/#organization` } },
   ],

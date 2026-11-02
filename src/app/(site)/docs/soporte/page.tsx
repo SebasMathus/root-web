@@ -1,5 +1,5 @@
+import Link from "next/link";
 import { LegalPage } from "@/components/legal";
-import { CtaButton } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 import { ADDRESS_LINE, CONTACT_EMAIL } from "@/lib/site";
 
@@ -7,7 +7,7 @@ const PATH = "/docs/soporte";
 
 export const metadata = pageMetadata({
   title: "Soporte de root: horario y contacto",
-  description: "Soporte de root: escríbenos por WhatsApp o a sebastian@goroot.ai. Lunes a viernes de 9:00 a 18:00 h (CDMX); respondemos en menos de 24 horas hábiles.",
+  description: "Soporte de root: escríbenos a sebastian@goroot.ai. Lunes a viernes de 9:00 a 18:00 h (CDMX); respondemos en menos de 24 horas hábiles.",
   path: PATH,
 });
 
@@ -21,11 +21,10 @@ export default function Soporte() {
         <li>
           Correo: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         </li>
-        <li>WhatsApp: con el botón de abajo.</li>
       </ul>
-      <div className="not-prose pt-2">
-        <CtaButton cta="soporte" />
-      </div>
+      <p>
+        ¿Aún no usas root? <Link href="/contacto/#contacto">Agenda una demo</Link>.
+      </p>
 
       <h2>Horario de atención</h2>
       <p>Lunes a viernes de 9:00 a 18:00 hrs (Ciudad de México, GMT-6). Respondemos todos los mensajes en menos de 24 horas hábiles.</p>

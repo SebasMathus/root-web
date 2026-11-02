@@ -219,7 +219,7 @@ export default function AgentesDeIaPage() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Pon a tu agente a contestar desde el número de tu empresa"
-        text="Escríbenos por WhatsApp y te mostramos cómo contestaría tu agente con las preguntas de tu negocio."
+        text="Déjanos tus datos y te mostramos cómo contestaría tu agente con las preguntas de tu negocio."
         cta="cta-final-agentes"
       />
     </>

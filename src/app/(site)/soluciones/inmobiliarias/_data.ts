@@ -177,6 +177,6 @@ export const vertical: Vertical = {
   siblings: ["/soluciones/agencias-de-autos", "/soluciones/clinicas-esteticas", "/soluciones/tiendas-en-redes"],
   closing: {
     title: "Que ningún lead de tu inmobiliaria se quede en visto.",
-    text: "Escríbenos por WhatsApp: cuéntanos cuántos leads te llegan al mes y te mostramos cómo los atendería tu agente.",
+    text: "Déjanos tus datos, cuéntanos en tu demo cuántos leads te llegan al mes y te mostramos cómo los atendería tu agente.",
   },
 };

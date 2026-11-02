@@ -275,9 +275,8 @@ export default function Page() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="¿Listo para pasarte a la API oficial?"
-        text="Escríbenos por WhatsApp: revisamos tu número, te ayudamos con el trámite sin costo extra y te mostramos cómo atendería tu agente de root."
+        text="Déjanos tus datos: en tu demo revisamos tu número, te ayudamos con el trámite sin costo extra y te mostramos cómo atendería tu agente de root."
         cta="guia-app-vs-api-final"
-        label="Te ayudamos a tramitarla"
       />
     </>
   );
