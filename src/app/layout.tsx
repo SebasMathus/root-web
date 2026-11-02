@@ -21,6 +21,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#FAFAF7", width: "device-width", initialScale: 1 };
 
+/** Contenedor de Google Tag Manager de goroot.ai: GA4 y Google Ads viven dentro de GTM, no hay gtag.js en el código. */
+const GTM_ID = "GTM-PCXDHXNC";
+const GTM_SNIPPET = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`;
+
 const ORGANIZATION = {
   "@context": "https://schema.org",
   "@graph": [
@@ -51,7 +55,15 @@ const ORGANIZATION = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es-MX" className={`${jakarta.variable} ${inter.variable} ${jetbrains.variable}`}>
+      <head>
+        {/* Google Tag Manager: lo más arriba posible del <head> (snippet oficial). */}
+        <script dangerouslySetInnerHTML={{ __html: GTM_SNIPPET }} />
+      </head>
       <body>
+        {/* Google Tag Manager (noscript), al inicio del <body>. */}
+        <noscript>
+          <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
+        </noscript>
         <JsonLd data={ORGANIZATION} />
         {children}
         {/* Tag de root (CRM), como en nextia-web: <script defer> directo en el HTML estático. page_view (también en navegación interna, data-spa-pageviews viene activo por defecto)

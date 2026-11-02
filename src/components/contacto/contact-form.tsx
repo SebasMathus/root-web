@@ -12,7 +12,9 @@
 //   `submit` que lee root. Así a root solo llegan formularios completos y Enter tampoco envía sin validar.
 // - `website` es una trampa para bots: está oculta para las personas; si viene llena no se envía nada.
 // - Enviado, el formulario se reemplaza por la agenda de Calendly (iframe directo, sin widget.js) con nombre y correo
-//   ya llenos. La disponibilidad (hoy y dos días más; sábados de 10:00 a 14:00) se configura en Calendly.
+//   ya llenos. En ese momento, una sola vez, se manda `generate_lead` al dataLayer de Google Tag Manager con datos
+//   no personales (form_id, origen, ruta, equipo_ventas, herramienta_actual): nunca nombre, correo ni teléfono.
+//   La disponibilidad (hoy y dos días más; sábados de 10:00 a 14:00) se configura en Calendly.
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
@@ -81,6 +83,20 @@ function currentOrigen() {
   return `${HOST}${window.location.pathname}${campaign ? ` · campaña: ${campaign}` : ""}${source ? ` · fuente: ${source}` : ""}`;
 }
 
+/** Evento homologado de GTM. Solo datos no personales: nunca nombre, correo ni teléfono. */
+function pushLead(data: FormData) {
+  const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({
+    event: "generate_lead",
+    form_id: FORM_ID,
+    origen: String(data.get("origen") ?? ""),
+    page_path: window.location.pathname,
+    equipo_ventas: String(data.get("equipo_ventas") ?? ""),
+    herramienta_actual: String(data.get("herramienta_actual") ?? ""),
+  });
+}
+
 function calendlySrc(name: string, email: string) {
   const { campaign, source } = utm();
   const params: [string, string][] = [
@@ -99,6 +115,7 @@ export function ContactForm({ cta }: { cta: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const doneRef = useRef<HTMLHeadingElement>(null);
   const verified = useRef(false);
+  const leadSent = useRef(false);
   const [lada, setLada] = useState(0);
   const [sending, setSending] = useState(false);
   const [agenda, setAgenda] = useState<string | null>(null);
@@ -151,6 +168,10 @@ export function ContactForm({ cta }: { cta: string }) {
       return;
     }
     const data = new FormData(e.currentTarget);
+    if (!leadSent.current) {
+      leadSent.current = true;
+      pushLead(data);
+    }
     setAgenda(calendlySrc(String(data.get("full_name") ?? "").trim(), String(data.get("email") ?? "").trim()));
   }
 
