@@ -2,7 +2,8 @@ import { PlanCards, PriceLegend, SoftwareJsonLd } from "@/components/portada-pre
 import { SemanaDeArranque } from "@/components/portada-precios-nosotros/semana-de-arranque";
 import { Icon } from "@/components/icons";
 import { ProductByNextia } from "@/components/product-by-nextia";
-import { ComparisonTable, CtaBand, CtaButton, Faq, FeatureGrid, LinkButton, PageHero, Section, SectionHeader, type ComparisonRow, type FaqItem } from "@/components/ui";
+import { ContactSection } from "@/components/contacto/contact-section";
+import { ComparisonTable, ContactButton, Faq, FeatureGrid, LinkButton, PageHero, Section, SectionHeader, type ComparisonRow, type FaqItem } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 import { PLANS, PRICING_FACTS } from "@/lib/site";
 
@@ -91,7 +92,7 @@ export default function PreciosPage() {
         kicker="Precios en pesos, sin letra chica"
         title="Precios del CRM para WhatsApp con agentes de IA"
         intro="Tres planes en pesos mexicanos, con facturación mensual. La API oficial de WhatsApp Business viene desde el plan Básico y los agentes de IA, desde Pro."
-        ctas={<CtaButton label="Hablar con un asesor" cta="precios-hero" size="lg" />}
+        ctas={<ContactButton label="Hablar con un asesor" cta="precios-hero" size="lg" />}
         note={PRICING_FACTS.meta}
       />
 
@@ -198,15 +199,14 @@ export default function PreciosPage() {
         </div>
       </Section>
 
-      <Faq items={FAQS} title="Preguntas sobre precios" intro="IVA, usuarios, mensajes de Meta, cobro y cancelación. Si te queda alguna duda, escríbenos por WhatsApp." />
+      <Faq items={FAQS} title="Preguntas sobre precios" intro="IVA, usuarios, mensajes de Meta, cobro y cancelación. Si te queda alguna duda, déjanos tus datos o escríbenos por WhatsApp." />
 
-      <CtaBand
+      <ContactSection
+        path="/precios/"
+        cta="precios-contacto"
         kicker="¿Qué plan te conviene?"
         title="Cuéntanos de tu equipo y te decimos qué plan te conviene"
-        text="Dinos cuántas personas atienden WhatsApp, cuántos mensajes te llegan y qué sistemas usas. Te respondemos por el mismo WhatsApp."
-        cta="precios-final"
-        label="Hablar con un asesor"
-        secondary={{ href: "/producto", label: "Conoce el producto" }}
+        text="Dinos cuántas personas venden, cuántos mensajes te llegan y qué sistemas usas. Te contactamos en menos de 24 horas hábiles."
       />
     </>
   );

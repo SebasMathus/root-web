@@ -5,13 +5,13 @@ import { DelAnuncioAlCierre } from "@/components/portada-precios-nosotros/del-an
 import { MapaDeConexiones } from "@/components/portada-precios-nosotros/mapa-de-conexiones";
 import { PlanStrip, PriceLegend, SoftwareJsonLd } from "@/components/portada-precios-nosotros/planes";
 import { SemanaDeArranque } from "@/components/portada-precios-nosotros/semana-de-arranque";
+import { ContactSection } from "@/components/contacto/contact-section";
 import { Icon } from "@/components/icons";
 import { ProductByNextia } from "@/components/product-by-nextia";
 import {
   CheckList,
   ComparisonTable,
   Container,
-  CtaBand,
   CtaPair,
   ExampleTag,
   Faq,
@@ -185,7 +185,7 @@ export default function Home() {
               Tus agentes contestan en segundos, califican y dan seguimiento desde el número de tu empresa. Tu equipo recibe cada prospecto con el
               historial completo y se dedica a cerrar.
             </p>
-            <CtaPair cta="hero" className="mt-9" />
+            <CtaPair cta="hero" form className="mt-9" />
             <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
               {["API oficial de WhatsApp Business", "Precios en pesos", "La mayoría de los equipos opera en menos de una semana"].map((t) => (
                 <li key={t} className="inline-flex items-center gap-2">
@@ -396,13 +396,14 @@ export default function Home() {
       </Section>
 
       {/* 11 · Preguntas frecuentes */}
-      <Faq items={FAQS} tone="claro" intro="Lo que más nos preguntan antes de empezar. Si tu duda no está aquí, escríbenos por WhatsApp." />
+      <Faq items={FAQS} tone="claro" intro="Lo que más nos preguntan antes de empezar. Si tu duda no está aquí, déjanos tus datos o escríbenos por WhatsApp." />
 
-      {/* 12 · Cierre */}
-      <CtaBand
+      {/* 12 · Cierre: formulario «Contacto root» (#contacto), con WhatsApp como alternativa */}
+      <ContactSection
+        path="/"
+        cta="portada-contacto"
         kicker={TAGLINE}
-        title="Escríbenos por WhatsApp y te mostramos root con los casos de tu equipo"
-        text="Cuéntanos cuántos mensajes te llegan, quién los atiende y qué sistemas usas. Te decimos qué plan te conviene y cómo sería tu semana de arranque."
+        text="Cuéntanos cuántos mensajes te llegan, quién los atiende y qué sistemas usas. Te contactamos en menos de 24 horas hábiles y te decimos qué plan te conviene."
       />
     </>
   );
