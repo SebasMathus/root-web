@@ -132,7 +132,7 @@ const DATA: VerticalData = {
     },
     {
       q: "¿Funciona para un consultorio de un solo médico?",
-      a: "Funciona, pero root está pensado para clínicas con varios médicos o con muchas citas por WhatsApp, donde confirmar a mano ya no alcanza. Escríbenos y vemos juntos si te conviene.",
+      a: "Funciona, pero root está pensado para clínicas con varios médicos o con muchas citas por WhatsApp, donde confirmar a mano ya no alcanza. Déjanos tus datos y vemos juntos si te conviene.",
     },
     {
       q: "¿El agente responde preguntas médicas?",
@@ -148,7 +148,7 @@ const DATA: VerticalData = {
   ],
   close: {
     title: "Que ninguna cita se quede en visto.",
-    text: "Escríbenos por WhatsApp, cuéntanos cuántos médicos hay en tu clínica y cuántas citas manejas por semana, y te mostramos cómo se vería tu Receta.",
+    text: "Déjanos tus datos, cuéntanos en tu demo cuántos médicos hay en tu clínica y cuántas citas manejas por semana, y te mostramos cómo se vería tu Receta.",
   },
 };
 

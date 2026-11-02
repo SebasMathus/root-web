@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { absoluteUrl, CTA_LABEL, WHATSAPP_URL } from "@/lib/site";
+import { absoluteUrl, CTA_LABEL } from "@/lib/site";
 import { withSlash } from "@/lib/seo";
-import { Icon, WhatsAppGlyph } from "./icons";
+import { ContactForm } from "./contacto/contact-form";
+import { FormLink } from "./form-link";
+import { Icon } from "./icons";
 import { JsonLd } from "./json-ld";
 
 /**
@@ -94,7 +96,7 @@ export function SectionHeader({
 
 /**
  * Encabezado de página (h1). Con `visual`, dos columnas en escritorio (texto + escena); sin él, una columna.
- * ctas: por defecto CTA de WhatsApp + «Ver precios». Pasa `ctas={null}` para quitarlos o tu propio nodo.
+ * ctas: por defecto «Agenda una demo» (al formulario #contacto) + «Ver precios». Pasa `ctas={null}` para quitarlos o tu propio nodo.
  */
 export function PageHero({
   kicker,
@@ -149,8 +151,9 @@ export type ButtonVariant = "primary" | "dark" | "outline" | "ghost";
 const PAD = { sm: "px-4 py-2 text-sm", md: "px-5 py-3 text-[15px]", lg: "px-7 py-4 text-base" } as const;
 
 /**
- * CTA de WhatsApp. SIEMPRE es un <a> a WHATSAPP_URL en pestaña nueva; `cta` es el propósito (data-cta) para medir
- * clics: "hero", "header", "precios-pro", "cta-final", "flotante"… Etiqueta por defecto «Escríbenos por WhatsApp».
+ * CTA principal: lleva al formulario «Contacto root» (#contacto de la misma página o /contacto/#contacto). Nunca a
+ * WhatsApp. `cta` es el propósito (data-cta) para medir clics: "hero", "header", "precios-pro", "cta-final"…
+ * Etiqueta por defecto «Agenda una demo».
  */
 export function CtaButton({
   label = CTA_LABEL,
@@ -168,32 +171,10 @@ export function CtaButton({
   className?: string;
 }) {
   return (
-    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" data-cta={cta} className={`btn btn-${variant} ${PAD[size]} ${className}`}>
-      {icon ? <WhatsAppGlyph className={size === "sm" ? "w-4 h-4" : "w-[18px] h-[18px]"} /> : null}
+    <FormLink cta={cta} className={`btn btn-${variant} ${PAD[size]} ${className}`}>
+      {icon ? <Icon name="calendar" className={size === "sm" ? "w-4 h-4" : "w-[18px] h-[18px]"} /> : null}
       {label}
-    </a>
-  );
-}
-
-/** Lleva al formulario «Contacto root» de la misma página (`ContactSection`, id="contacto"). */
-export function ContactButton({
-  label = "Agenda una demo",
-  cta = "general",
-  variant = "primary",
-  size = "md",
-  className = "",
-}: {
-  label?: string;
-  cta?: string;
-  variant?: ButtonVariant;
-  size?: keyof typeof PAD;
-  className?: string;
-}) {
-  return (
-    <a href="#contacto" data-cta={cta} className={`btn btn-${variant} ${PAD[size]} ${className}`}>
-      <Icon name="calendar" className={size === "sm" ? "w-4 h-4" : "w-[18px] h-[18px]"} />
-      {label}
-    </a>
+    </FormLink>
   );
 }
 
@@ -226,28 +207,23 @@ export function PricesButton({ label = "Ver precios", variant = "outline", size 
   return <LinkButton href="/precios" label={label} variant={variant} size={size} className={className} />;
 }
 
-/**
- * Par de botones estándar: WhatsApp (primario) + «Ver precios» (o el secundario que pases; null para quitarlo).
- * Con `form`, el primario lleva al formulario #contacto de la misma página.
- */
+/** Par de botones estándar: «Agenda una demo» (al formulario) + «Ver precios» (o el secundario que pases; null para quitarlo). */
 export function CtaPair({
   cta = "general",
   label,
   size = "lg",
   secondary,
-  form = false,
   className = "",
 }: {
   cta?: string;
   label?: string;
   size?: keyof typeof PAD;
   secondary?: { href: string; label: string } | null;
-  form?: boolean;
   className?: string;
 }) {
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
-      {form ? <ContactButton cta={cta} label={label} size={size} /> : <CtaButton cta={cta} label={label} size={size} />}
+      <CtaButton cta={cta} label={label} size={size} />
       {secondary === null ? null : secondary ? (
         <LinkButton href={secondary.href} label={secondary.label} size={size} />
       ) : (
@@ -417,34 +393,54 @@ export function Faq({
   );
 }
 
-/* ───────────── Cierre con CTA (bloque oscuro) ───────────── */
+/* ───────────── Cierre con el formulario (bloque oscuro, id="contacto") ───────────── */
 
+const CLOSE_POINTS = ["Eliges el horario de tu demo en cuanto envías tus datos", "Con los casos y sistemas de tu equipo", "Precios en pesos, sin letra chica"];
+
+/**
+ * Cierre de cada página comercial: texto a la izquierda y el formulario «Contacto root» a la derecha (al enviarlo,
+ * la agenda de Calendly). Es la sección #contacto: los CtaButton de la página llegan aquí. Una por página.
+ */
 export function CtaBand({
   title,
-  text,
-  kicker,
+  text = "Déjanos tus datos y elige el horario de tu demo. Te decimos qué plan te conviene y cómo sería tu semana de arranque.",
+  kicker = "Agenda una demo",
   cta = "cta-final",
-  label,
   secondary,
 }: {
   title: React.ReactNode;
   text?: React.ReactNode;
   kicker?: string;
+  /** Prefijo de los data-cta y de los id de los campos. */
   cta?: string;
-  label?: string;
-  /** Secundario: por defecto «Ver precios»; null para quitarlo. */
+  /** Enlace secundario bajo el texto: por defecto «Ver precios»; null para quitarlo. */
   secondary?: { href: string; label: string } | null;
 }) {
   return (
-    <section className="theme-dark grid-bg" aria-labelledby={`${cta}-titulo`}>
+    <section id="contacto" className="theme-dark grid-bg scroll-mt-24" aria-labelledby={`${cta}-titulo`}>
       <Container className="py-20 md:py-28">
-        <div className="max-w-3xl">
-          {kicker ? <p className="kicker text-lime">{keepRootCase(kicker)}</p> : null}
-          <h2 id={`${cta}-titulo`} className={`h-section text-ink ${kicker ? "mt-3" : ""}`}>
-            {title}
-          </h2>
-          {text ? <p className="lead mt-5">{text}</p> : null}
-          <CtaPair cta={cta} label={label} secondary={secondary} className="mt-9" />
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16 lg:items-start">
+          <div className="max-w-xl">
+            {kicker ? <p className="kicker text-lime">{keepRootCase(kicker)}</p> : null}
+            <h2 id={`${cta}-titulo`} className={`h-section text-ink ${kicker ? "mt-3" : ""}`}>
+              {title}
+            </h2>
+            {text ? <p className="lead mt-5">{text}</p> : null}
+            <ul className="mt-7 flex flex-col gap-3 text-[15px] text-muted">
+              {CLOSE_POINTS.map((t) => (
+                <li key={t} className="inline-flex items-center gap-2.5">
+                  <Icon name="check" className="h-4 w-4 shrink-0 text-lime" strokeWidth={2.4} />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            {secondary === null ? null : (
+              <div className="mt-9 border-t border-line pt-7">
+                {secondary ? <LinkButton href={secondary.href} label={secondary.label} /> : <PricesButton />}
+              </div>
+            )}
+          </div>
+          <ContactForm cta={cta} />
         </div>
       </Container>
     </section>

@@ -144,7 +144,7 @@ const DATA: VerticalData = {
   ],
   close: {
     title: "Que ningún presupuesto se quede en visto.",
-    text: "Escríbenos por WhatsApp, cuéntanos cuántos presupuestos entregas al mes y te mostramos cómo se vería tu Receta.",
+    text: "Déjanos tus datos, cuéntanos en tu demo cuántos presupuestos entregas al mes y te mostramos cómo se vería tu Receta.",
   },
 };
 

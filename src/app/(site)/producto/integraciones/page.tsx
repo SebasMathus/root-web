@@ -43,7 +43,7 @@ const EXAMPLES = [
 const FAQS = [
   {
     q: "¿Con qué sistemas se integra root?",
-    a: "Con Salesforce, SAP, HubSpot y Excel. Si tu empresa usa otro sistema, escríbenos por WhatsApp y lo revisamos contigo.",
+    a: "Con Salesforce, SAP, HubSpot y Excel. Si tu empresa usa otro sistema, déjanos tus datos y lo revisamos contigo en tu demo.",
   },
   {
     q: "¿Tengo que dejar mi CRM para usar root?",
@@ -176,7 +176,7 @@ export default function IntegracionesPage() {
               Cuéntanos qué usa tu empresa
             </h2>
             <p className="lead mt-5">
-              Escríbenos por WhatsApp con el nombre de tu CRM, ERP o sistema interno y lo revisamos contigo. Las integraciones se configuran durante el arranque, junto con tu agente y la migración de tus contactos.
+              Déjanos tus datos, agenda tu demo y cuéntanos qué CRM, ERP o sistema interno usas: lo revisamos contigo. Las integraciones se configuran durante el arranque, junto con tu agente y la migración de tus contactos.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CtaButton label="Cuéntanos qué sistema usas" cta="otro-sistema" size="lg" />
@@ -199,9 +199,8 @@ export default function IntegracionesPage() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Conecta tu WhatsApp con el sistema donde ya trabajas"
-        text="Escríbenos por WhatsApp, cuéntanos qué sistema usas y te decimos cómo se conectaría con root."
+        text="Déjanos tus datos, cuéntanos en tu demo qué sistema usas y te decimos cómo se conectaría con root."
         cta="cta-final-integraciones"
-        label="Cuéntanos qué sistema usas"
       />
     </>
   );

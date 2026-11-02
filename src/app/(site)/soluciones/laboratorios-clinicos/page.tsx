@@ -148,7 +148,7 @@ const DATA: VerticalData = {
   ],
   close: {
     title: "Que ninguna cotización se quede en visto.",
-    text: "Escríbenos por WhatsApp, cuéntanos cuántas sucursales tienes y si haces tomas a domicilio, y te mostramos tu Receta.",
+    text: "Déjanos tus datos, cuéntanos en tu demo cuántas sucursales tienes y si haces tomas a domicilio, y te mostramos tu Receta.",
   },
 };
 

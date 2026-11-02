@@ -109,7 +109,7 @@ export default function Page() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="¿Prefieres que te lo expliquemos con tu caso?"
-        text="Escríbenos por WhatsApp: te ayudamos a elegir entre la app y la API, a estimar tu costo y a ver qué parte puede atender un agente de root."
+        text="Déjanos tus datos: en tu demo te ayudamos a elegir entre la app y la API, a estimar tu costo y a ver qué parte puede atender un agente de root."
         cta="recursos-final"
       />
     </>

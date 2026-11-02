@@ -325,7 +325,7 @@ export default function Page() {
       <CtaBand
         kicker="Sin sobreprecio en mensajes"
         title="¿Quieres tu costo total con tus números?"
-        text="Escríbenos por WhatsApp con cuántos mensajes mandas al mes y te ayudamos a estimar mensajes de Meta y plan de root."
+        text="Déjanos tus datos, cuéntanos en tu demo cuántos mensajes mandas al mes y te ayudamos a estimar mensajes de Meta y plan de root."
         cta="guia-costo-api-final"
       />
     </>

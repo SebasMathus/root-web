@@ -3,7 +3,7 @@ import { SemanaDeArranque } from "@/components/portada-precios-nosotros/semana-d
 import { Icon } from "@/components/icons";
 import { ProductByNextia } from "@/components/product-by-nextia";
 import { ContactSection } from "@/components/contacto/contact-section";
-import { ComparisonTable, ContactButton, Faq, FeatureGrid, LinkButton, PageHero, Section, SectionHeader, type ComparisonRow, type FaqItem } from "@/components/ui";
+import { ComparisonTable, CtaButton, Faq, FeatureGrid, LinkButton, PageHero, Section, SectionHeader, type ComparisonRow, type FaqItem } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 import { PLANS, PRICING_FACTS } from "@/lib/site";
 
@@ -50,7 +50,7 @@ const SIN_LETRA_CHICA = [
 const FAQS: FaqItem[] = [
   {
     q: "¿Los precios incluyen IVA?",
-    a: "Nuestros Términos y condiciones dicen que los precios están expresados en pesos mexicanos e incluyen IVA cuando aplique. Si necesitas el desglose para tu caso, pídelo al asesor por WhatsApp antes de contratar.",
+    a: "Nuestros Términos y condiciones dicen que los precios están expresados en pesos mexicanos e incluyen IVA cuando aplique. Si necesitas el desglose para tu caso, pídelo en tu demo antes de contratar.",
   },
   {
     q: "¿Qué plan me conviene?",
@@ -58,7 +58,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "¿Qué pasa si necesito más usuarios?",
-    a: "Puedes agregar usuarios o subir de plan cuando lo necesites. Escríbenos por WhatsApp y te decimos cuál opción te sale mejor.",
+    a: "Puedes agregar usuarios o subir de plan cuando lo necesites. Déjanos tus datos y te decimos cuál opción te sale mejor.",
   },
   {
     q: "¿Cuánto cuestan los mensajes de WhatsApp?",
@@ -78,7 +78,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "¿Hay un precio para Enterprise?",
-    a: "Enterprise se cotiza según el tamaño de tu operación: usuarios, IA personalizada, integraciones y soporte dedicado 24/7. Escríbenos por WhatsApp y te armamos la propuesta.",
+    a: "Enterprise se cotiza según el tamaño de tu operación: usuarios, IA personalizada, integraciones y soporte dedicado 24/7. Déjanos tus datos y te armamos la propuesta.",
   },
 ];
 
@@ -92,7 +92,7 @@ export default function PreciosPage() {
         kicker="Precios en pesos, sin letra chica"
         title="Precios del CRM para WhatsApp con agentes de IA"
         intro="Tres planes en pesos mexicanos, con facturación mensual. La API oficial de WhatsApp Business viene desde el plan Básico y los agentes de IA, desde Pro."
-        ctas={<ContactButton label="Hablar con un asesor" cta="precios-hero" size="lg" />}
+        ctas={<CtaButton label="Hablar con un asesor" cta="precios-hero" size="lg" />}
         note={PRICING_FACTS.meta}
       />
 
@@ -199,14 +199,13 @@ export default function PreciosPage() {
         </div>
       </Section>
 
-      <Faq items={FAQS} title="Preguntas sobre precios" intro="IVA, usuarios, mensajes de Meta, cobro y cancelación. Si te queda alguna duda, déjanos tus datos o escríbenos por WhatsApp." />
+      <Faq items={FAQS} title="Preguntas sobre precios" intro="IVA, usuarios, mensajes de Meta, cobro y cancelación. Si te queda alguna duda, déjanos tus datos y la vemos en tu demo." />
 
       <ContactSection
-        path="/precios/"
         cta="precios-contacto"
         kicker="¿Qué plan te conviene?"
         title="Cuéntanos de tu equipo y te decimos qué plan te conviene"
-        text="Dinos cuántas personas venden, cuántos mensajes te llegan y qué sistemas usas. Te contactamos en menos de 24 horas hábiles."
+        text="Dinos cuántas personas venden, cuántos mensajes te llegan y qué sistemas usas. Al enviar eliges el horario de tu demo."
       />
     </>
   );

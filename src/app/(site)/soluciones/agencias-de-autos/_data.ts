@@ -153,6 +153,6 @@ export const vertical: Vertical = {
   siblings: ["/soluciones/inmobiliarias", "/soluciones/tiendas-en-redes", "/soluciones/clinicas-esteticas"],
   closing: {
     title: "Que ningún prospecto de tu agencia se quede en visto.",
-    text: "Escríbenos por WhatsApp y te mostramos cómo contestaría tu agente un «¿sigue disponible?» de tu inventario.",
+    text: "Déjanos tus datos y te mostramos cómo contestaría tu agente un «¿sigue disponible?» de tu inventario.",
   },
 };

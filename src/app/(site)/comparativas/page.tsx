@@ -365,7 +365,7 @@ export default function Comparativas() {
         />
         <Steps
           items={[
-            { title: "Escríbenos por WhatsApp", text: "Cuéntanos cómo vende tu equipo y qué etapas quieres que atienda el agente." },
+            { title: "Agenda tu demo", text: "Cuéntanos cómo vende tu equipo y qué etapas quieres que atienda el agente." },
             { title: "API oficial", text: "Tramitamos o conectamos contigo la API oficial de WhatsApp Business, sin costo extra." },
             { title: "Embudos, agente y contactos", text: "Configuramos tus etapas y las preguntas para calificar, y migramos tus contactos." },
             { title: "Conecta y arranca", text: "Integramos tus sistemas y tu equipo empieza. La mayoría opera en menos de una semana." },
@@ -400,7 +400,7 @@ export default function Comparativas() {
         cta="comparativas-final"
         kicker="Que nadie se quede en visto"
         title="¿Dudas entre root y otro sistema? Pregúntanos directo"
-        text="Escríbenos por WhatsApp, cuéntanos cómo vende tu equipo y te decimos con honestidad si root te conviene."
+        text="Déjanos tus datos, cuéntanos en tu demo cómo vende tu equipo y te decimos con honestidad si root te conviene."
       />
     </>
   );

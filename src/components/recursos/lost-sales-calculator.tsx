@@ -201,13 +201,13 @@ export function LostSalesCalculator() {
         </div>
 
         <div className="mt-7 flex flex-wrap gap-3">
-          <CtaButton cta="calculadora-resultado" label="Escríbenos por WhatsApp" size="md" />
+          <CtaButton cta="calculadora-resultado" label="Agenda una demo" size="md" />
           <button type="button" onClick={onCopy} className="btn btn-outline px-5 py-3 text-[15px]">
             <Icon name="file" className="w-[18px] h-[18px]" />
             {copied === "ok" ? "¡Copiado!" : copied === "error" ? "No se pudo copiar" : "Copiar mi cálculo"}
           </button>
         </div>
-        <p className="mt-3 text-sm text-muted">Copia tu cálculo y pégalo en el chat: con tus números te decimos qué parte puede atender un agente de root.</p>
+        <p className="mt-3 text-sm text-muted">Agenda tu demo y lleva tu cálculo: con tus números te decimos qué parte puede atender un agente de root.</p>
         <p className="mt-4 flex items-start gap-2 text-xs text-muted">
           <Icon name="lock" className="w-4 h-4 shrink-0" />
           El cálculo se hace en tu navegador. No guardamos ni enviamos tus números.

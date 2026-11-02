@@ -236,7 +236,7 @@ export default function CrmPage() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Ordena tu WhatsApp comercial en un solo embudo"
-        text="Escríbenos por WhatsApp y armamos contigo las etapas, las preguntas y los carriles de tu equipo."
+        text="Déjanos tus datos y armamos contigo las etapas, las preguntas y los carriles de tu equipo."
         cta="cta-final-crm"
       />
     </>

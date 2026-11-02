@@ -35,7 +35,7 @@ const FAQ = [
   },
   {
     q: "¿root tiene certificaciones de seguridad?",
-    a: "Hoy no publicamos certificaciones de terceros. Lo que sí publicamos es nuestro aviso de privacidad conforme a la LFPDPPP y el proceso para ejercer tus derechos ARCO y pedir el borrado. Si tu área de compras tiene un cuestionario de seguridad, escríbenos y lo vemos.",
+    a: "Hoy no publicamos certificaciones de terceros. Lo que sí publicamos es nuestro aviso de privacidad conforme a la LFPDPPP y el proceso para ejercer tus derechos ARCO y pedir el borrado. Si tu área de compras tiene un cuestionario de seguridad, déjanos tus datos y lo vemos.",
   },
   {
     q: "¿De quién son las conversaciones con mis clientes?",
@@ -153,7 +153,7 @@ export default function Page() {
       <CtaBand
         kicker="¿Tu área de compras tiene preguntas?"
         title="Te respondemos con nuestros documentos en la mano"
-        text="Escríbenos por WhatsApp y revisamos juntos el aviso de privacidad, los términos y lo que necesite tu equipo para decidir."
+        text="Déjanos tus datos y en tu demo revisamos juntos el aviso de privacidad, los términos y lo que necesite tu equipo para decidir."
         cta="seguridad-final"
       />
     </>

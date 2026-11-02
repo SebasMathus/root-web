@@ -146,7 +146,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "¿Se integra con mi CRM o mi ERP?",
-    a: "root se conecta con Salesforce, SAP, HubSpot y Excel, y puede disparar acciones en tus sistemas cuando pasa algo importante, por ejemplo crear un lead o un pedido. Si usas otro sistema, escríbenos por WhatsApp y lo revisamos contigo.",
+    a: "root se conecta con Salesforce, SAP, HubSpot y Excel, y puede disparar acciones en tus sistemas cuando pasa algo importante, por ejemplo crear un lead o un pedido. Si usas otro sistema, déjanos tus datos y lo revisamos contigo.",
   },
   {
     q: "¿El agente de IA viene en todos los planes?",
@@ -185,7 +185,7 @@ export default function Home() {
               Tus agentes contestan en segundos, califican y dan seguimiento desde el número de tu empresa. Tu equipo recibe cada prospecto con el
               historial completo y se dedica a cerrar.
             </p>
-            <CtaPair cta="hero" form className="mt-9" />
+            <CtaPair cta="hero" className="mt-9" />
             <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
               {["API oficial de WhatsApp Business", "Precios en pesos", "La mayoría de los equipos opera en menos de una semana"].map((t) => (
                 <li key={t} className="inline-flex items-center gap-2">
@@ -396,14 +396,13 @@ export default function Home() {
       </Section>
 
       {/* 11 · Preguntas frecuentes */}
-      <Faq items={FAQS} tone="claro" intro="Lo que más nos preguntan antes de empezar. Si tu duda no está aquí, déjanos tus datos o escríbenos por WhatsApp." />
+      <Faq items={FAQS} tone="claro" intro="Lo que más nos preguntan antes de empezar. Si tu duda no está aquí, déjanos tus datos y la vemos en tu demo." />
 
-      {/* 12 · Cierre: formulario «Contacto root» (#contacto), con WhatsApp como alternativa */}
+      {/* 12 · Cierre: formulario «Contacto root» (#contacto) y, al enviarlo, la agenda de la demo */}
       <ContactSection
-        path="/"
         cta="portada-contacto"
         kicker={TAGLINE}
-        text="Cuéntanos cuántos mensajes te llegan, quién los atiende y qué sistemas usas. Te contactamos en menos de 24 horas hábiles y te decimos qué plan te conviene."
+        text="Cuéntanos cuántos mensajes te llegan, quién los atiende y qué sistemas usas. Elige el horario de tu demo y te decimos qué plan te conviene."
       />
     </>
   );

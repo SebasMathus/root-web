@@ -51,7 +51,7 @@ export function VerticalPage({ v }: { v: Vertical }) {
       <MetricsBlock id={`${id}-metricas`} metrics={v.metrics} systems={v.systems} />
       <PlanAndSiblings id={`${id}-precio`} cta={`${id}-precio`} siblings={v.siblings} planText={v.planText} />
       <Faq id={`${id}-preguntas`} title={v.faq.title} items={v.faq.items} tone="claro" />
-      <CtaBand cta={v.closing.cta ?? `${id}-final`} kicker="Que nadie se quede en visto" title={v.closing.title} text={v.closing.text} label={v.closing.label} />
+      <CtaBand cta={v.closing.cta ?? `${id}-final`} kicker="Que nadie se quede en visto" title={v.closing.title} text={v.closing.text} />
     </>
   );
 }

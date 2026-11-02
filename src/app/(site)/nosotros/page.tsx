@@ -145,7 +145,7 @@ export default function NosotrosPage() {
 
       {/* Dónde estamos y contacto */}
       <Section tone="gris" labelledBy="contacto-titulo">
-        <SectionHeader id="contacto-titulo" kicker="Dónde estamos" title="Oficina en la Ciudad de México" intro="La forma más rápida de hablar con nosotros es por WhatsApp. También puedes escribirnos por correo." />
+        <SectionHeader id="contacto-titulo" kicker="Dónde estamos" title="Oficina en la Ciudad de México" intro="La forma más rápida de hablar con nosotros es agendar una demo. También puedes escribirnos por correo." />
         <div className="grid gap-5 md:grid-cols-3">
           <div className="card flex flex-col gap-3 p-6">
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-ink text-paper">
@@ -161,9 +161,9 @@ export default function NosotrosPage() {
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-lime-soft text-lime">
               <Icon name="chat" className="h-5 w-5" />
             </span>
-            <h3 className="h-card text-lg text-ink">WhatsApp y correo</h3>
+            <h3 className="h-card text-lg text-ink">Demo y correo</h3>
             <p className="leading-relaxed text-muted">
-              Ventas y dudas por WhatsApp. Por correo:{" "}
+              Para ventas, deja tus datos y elige el horario de tu demo. Por correo:{" "}
               <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold text-ink underline decoration-lime decoration-2 underline-offset-2">
                 {CONTACT_EMAIL}
               </a>
@@ -195,7 +195,7 @@ export default function NosotrosPage() {
       <CtaBand
         kicker={TAGLINE}
         title="Platiquemos de cómo vende tu equipo por WhatsApp"
-        text="Escríbenos y te mostramos root con los casos de tu equipo. Si te convence, revisamos juntos qué plan te conviene."
+        text="Déjanos tus datos y te mostramos root con los casos de tu equipo. Si te convence, revisamos juntos qué plan te conviene."
         cta="nosotros-final"
       />
     </>

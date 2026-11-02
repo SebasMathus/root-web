@@ -114,7 +114,7 @@ export function VerticalPage({ data, scene }: { data: VerticalData; scene: React
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <PricesButton label="Ver todos los precios" />
-              <CtaButton cta={`${data.cta}-plan`} label="Pregúntanos por WhatsApp" variant="ghost" />
+              <CtaButton cta={`${data.cta}-plan`} label="Agenda una demo" variant="ghost" />
             </div>
           </div>
           <div>

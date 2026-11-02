@@ -1,6 +1,6 @@
-import { SiteFooter, SiteHeader, WhatsAppFloat } from "@/components/chrome";
+import { SiteFooter, SiteHeader } from "@/components/chrome";
 
-/** Páginas del sitio: encabezado con menús, pie y botón flotante de WhatsApp. */
+/** Páginas del sitio: encabezado con menús y pie. Sin botón flotante: todo CTA lleva al formulario #contacto. */
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -10,7 +10,6 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <SiteHeader />
       <main id="contenido">{children}</main>
       <SiteFooter />
-      <WhatsAppFloat />
     </>
   );
 }

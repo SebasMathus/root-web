@@ -51,13 +51,13 @@ src/
   app/
     layout.tsx            html, fuentes, datos estructurados de la organización
     globals.css           tokens de marca, tipografía, botones, escenas
-    (site)/               páginas con encabezado, pie y botón flotante de WhatsApp
+    (site)/               páginas con encabezado y pie
       page.tsx            portada
       blog/               blog (artículos en src/lib/blog.ts)
       docs/               aviso de privacidad, términos, soporte, borrado de información
     sitemap.ts, robots.ts, icon.svg, apple-icon.png, opengraph-image.tsx, not-found.tsx
   components/             ui, chrome (encabezado y pie), brand (logo), product-by-nextia, motion/kit
-  lib/                    site (datos, precios, WhatsApp), routes (mapa del sitio), seo, og, blog, clients
+  lib/                    site (datos, precios, CTA), routes (mapa del sitio), seo, og, blog, clients
   assets/fonts/           TTF para las imágenes de Open Graph
 public/                   favicon, og/, logos de Nextia y de sus clientes (clientes/)
 ```
@@ -69,4 +69,4 @@ public/                   favicon, og/, logos de Nextia y de sus clientes (clien
 
 ## Contacto y CTA
 
-Todos los botones de contacto abren la línea de ventas por WhatsApp (`WHATSAPP_URL` en `src/lib/site.ts`).
+Ningún botón ni enlace lleva a WhatsApp. Todos los CTA llevan al formulario «Contacto root» (`#contacto`, al cierre de cada página comercial, o `/contacto/`); al enviarlo, el formulario se reemplaza por la agenda de Calendly para elegir el horario de la demo. El tag de root (`data-org="root"`) captura el envío con form_id `contacto-root`.

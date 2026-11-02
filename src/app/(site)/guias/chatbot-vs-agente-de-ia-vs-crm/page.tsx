@@ -49,7 +49,7 @@ const FAQ = [
   },
   {
     q: "¿Puedo ver cómo contestaría un agente de root?",
-    a: "Escríbenos por WhatsApp y te mostramos root con casos de tu negocio: tus preguntas frecuentes, tus etapas y tu forma de calificar.",
+    a: "Déjanos tus datos, agenda tu demo y te mostramos root con casos de tu negocio: tus preguntas frecuentes, tus etapas y tu forma de calificar.",
   },
 ];
 
@@ -232,7 +232,7 @@ export default function Page() {
               </li>
             </ul>
             <div className="pt-2">
-              <CtaButton cta="guia-chatbot-cuerpo" label="Escríbenos por WhatsApp" size="lg" />
+              <CtaButton cta="guia-chatbot-cuerpo" label="Agenda una demo" size="lg" />
             </div>
           </Prose>
 
@@ -245,7 +245,7 @@ export default function Page() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Tu agente contesta y califica. Tu equipo cierra."
-        text="Escríbenos por WhatsApp y te mostramos cómo atendería un agente de root a tus prospectos, con tus preguntas y tus etapas."
+        text="Déjanos tus datos y te mostramos cómo atendería un agente de root a tus prospectos, con tus preguntas y tus etapas."
         cta="guia-chatbot-final"
       />
     </>

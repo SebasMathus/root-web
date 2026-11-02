@@ -138,9 +138,8 @@ export default function Page() {
       <CtaBand
         kicker="Que nadie se quede en visto"
         title="Ya tienes el link. Ahora, que alguien conteste."
-        text="Escríbenos por WhatsApp y te mostramos cómo un agente de root atiende cada mensaje que llega por tu link, de día y de noche."
+        text="Déjanos tus datos y te mostramos cómo un agente de root atiende cada mensaje que llega por tu link, de día y de noche."
         cta="generador-link-final"
-        label="Que un agente conteste ese link"
       />
     </>
   );

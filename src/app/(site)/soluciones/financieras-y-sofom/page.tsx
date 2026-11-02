@@ -159,7 +159,7 @@ const DATA: VerticalData = {
   ],
   close: {
     title: "Que ningún pago se quede en visto.",
-    text: "Escríbenos por WhatsApp, cuéntanos cuántos créditos activos manejas y en qué tramo se te acumula el atraso, y te mostramos tu Receta.",
+    text: "Déjanos tus datos, cuéntanos en tu demo cuántos créditos activos manejas y en qué tramo se te acumula el atraso, y te mostramos tu Receta.",
   },
 };
 

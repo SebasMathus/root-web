@@ -70,7 +70,7 @@ export type Vertical = {
   /** h1 con la búsqueda principal. */
   h1: string;
   intro: string;
-  /** Etiqueta del CTA del hero (por defecto «Escríbenos por WhatsApp»). */
+  /** Etiqueta del CTA del hero (por defecto «Agenda una demo», al formulario #contacto). */
   heroCtaLabel?: string;
   /** Escena del hero. */
   scene: VerticalSceneData;
@@ -90,7 +90,7 @@ export type Vertical = {
   faq: { title: string; items: FaqItem[] };
   /** 2–4 rutas hermanas (registradas en lib/routes.ts). */
   siblings: string[];
-  closing: { title: string; text: string; cta?: string; label?: string };
+  closing: { title: string; text: string; cta?: string };
   /** Prefijo de data-cta («soluciones-inmobiliarias»). */
   ctaId: string;
 };
