@@ -1,5 +1,5 @@
 import { JsonLd } from "@/components/json-ld";
-import { CheckList, CtaButton, RoleChip } from "@/components/ui";
+import { CheckList, ContactButton, RoleChip } from "@/components/ui";
 import { absoluteUrl, DEFAULT_DESCRIPTION, PARENT, PLANS, PRICING_FACTS, SITE_NAME, SITE_URL, type Plan } from "@/lib/site";
 
 /*
@@ -48,7 +48,7 @@ export function PlanCards() {
               <span className="chip">{p.users}</span>
               <AiChip plan={p} />
             </div>
-            <CtaButton label="Hablar con un asesor" cta={`precios-${p.id}`} variant={hl ? "primary" : "outline"} className="mt-7 w-full" />
+            <ContactButton label="Hablar con un asesor" cta={`precios-${p.id}`} variant={hl ? "primary" : "outline"} className="mt-7 w-full" />
             <div className="mt-7 border-t border-line pt-6">
               <p className="text-sm font-semibold text-ink">Incluye</p>
               <CheckList items={p.includes} className="mt-4 text-[15px]" />

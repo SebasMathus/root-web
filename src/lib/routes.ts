@@ -81,6 +81,7 @@ export const ROUTES: RouteEntry[] = [
 
   // Empresa y soporte.
   { path: "/nosotros", label: "Nosotros", blurb: "Hacemos root en la Ciudad de México", group: "empresa", index: true, priority: 0.5, changeFrequency: "yearly", owner: "portada" },
+  { path: "/contacto", label: "Contacto", blurb: "Agenda una demo de root", group: "empresa", index: true, priority: 0.6, changeFrequency: "yearly", owner: "empresa" },
   { path: "/docs/soporte", label: "Soporte", blurb: "Horario, contacto y ayuda", group: "empresa", index: true, priority: 0.4, changeFrequency: "yearly", owner: "cimientos" },
 
   // Legales: mismas rutas que el sitio anterior (Meta usa la de borrado).

@@ -55,8 +55,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <JsonLd data={ORGANIZATION} />
         {children}
-        {/* Etiqueta propia de root que ya cargaba el sitio anterior (visitas y formularios). */}
-        <Script src="https://cdn.goroot.ai/tag_v0.2.js" data-org="root" strategy="afterInteractive" />
+        {/* Tag de root (CRM): page_view (también en navegación interna, data-spa-pageviews viene activo por defecto)
+            y form_submit de cada <form>, p. ej. «Contacto root» (src/components/contacto). */}
+        <Script src="https://cdn.goroot.ai/tag_v0.8.js" data-org="root" strategy="afterInteractive" />
       </body>
     </html>
   );

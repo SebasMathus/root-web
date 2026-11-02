@@ -175,6 +175,28 @@ export function CtaButton({
   );
 }
 
+/** Lleva al formulario «Contacto root» de la misma página (`ContactSection`, id="contacto"). */
+export function ContactButton({
+  label = "Agenda una demo",
+  cta = "general",
+  variant = "primary",
+  size = "md",
+  className = "",
+}: {
+  label?: string;
+  cta?: string;
+  variant?: ButtonVariant;
+  size?: keyof typeof PAD;
+  className?: string;
+}) {
+  return (
+    <a href="#contacto" data-cta={cta} className={`btn btn-${variant} ${PAD[size]} ${className}`}>
+      <Icon name="calendar" className={size === "sm" ? "w-4 h-4" : "w-[18px] h-[18px]"} />
+      {label}
+    </a>
+  );
+}
+
 /** Botón interno (Link). Para «Ver precios», «Ver la comparativa», etc. */
 export function LinkButton({
   href,
@@ -204,23 +226,28 @@ export function PricesButton({ label = "Ver precios", variant = "outline", size 
   return <LinkButton href="/precios" label={label} variant={variant} size={size} className={className} />;
 }
 
-/** Par de botones estándar: WhatsApp (primario) + «Ver precios» (o el secundario que pases; null para quitarlo). */
+/**
+ * Par de botones estándar: WhatsApp (primario) + «Ver precios» (o el secundario que pases; null para quitarlo).
+ * Con `form`, el primario lleva al formulario #contacto de la misma página.
+ */
 export function CtaPair({
   cta = "general",
   label,
   size = "lg",
   secondary,
+  form = false,
   className = "",
 }: {
   cta?: string;
   label?: string;
   size?: keyof typeof PAD;
   secondary?: { href: string; label: string } | null;
+  form?: boolean;
   className?: string;
 }) {
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
-      <CtaButton cta={cta} label={label} size={size} />
+      {form ? <ContactButton cta={cta} label={label} size={size} /> : <CtaButton cta={cta} label={label} size={size} />}
       {secondary === null ? null : secondary ? (
         <LinkButton href={secondary.href} label={secondary.label} size={size} />
       ) : (

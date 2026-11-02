@@ -1,7 +1,7 @@
 # root · guía de diseño, contenido y construcción
 
 Sitio de **root** (goroot.ai): **CRM de WhatsApp con agentes de IA** para equipos comerciales en México, hecho por Nextia.
-Sitio estático (Next.js 16, App Router, `output: "export"`), sin CMS. Todo CTA abre WhatsApp.
+Sitio estático (Next.js 16, App Router, `output: "export"`), sin CMS. Los CTA abren WhatsApp o llevan al formulario «Contacto root» (#contacto) cuando la página lo tiene.
 Fuente de contenido: plan del sitio (posicionamiento, glosario, mapa, diagramas D1–D10, §6 «Qué afirmar y qué no»), `root-actual.md` (hechos del producto) y `verticales-root.md`.
 
 ## 1. Posicionamiento y voz
@@ -83,7 +83,8 @@ Importa con `@/…` (alias a `src/`).
 - `SectionHeader({ kicker?, title, intro?, id?, center? })` (h2)
 - `PageHero({ kicker?, title, intro?, breadcrumbs?, cta?, ctaLabel?, ctas?, visual?, tone?, note? })` (h1; con `visual`, dos columnas)
 - `CtaButton({ label? = "Escríbenos por WhatsApp", cta = propósito (data-cta), variant?: "primary"|"dark"|"outline"|"ghost", size?: "sm"|"md"|"lg", icon? })`: siempre `<a href={WHATSAPP_URL} target="_blank">`.
-- `LinkButton({ href, label, variant?, size?, arrow? })`, `PricesButton({ label? = "Ver precios" })`, `CtaPair({ cta, label?, size?, secondary?: {href,label}|null })`
+- `ContactButton({ label? = "Agenda una demo", cta, variant?, size? })`: `<a href="#contacto">`, solo en páginas con `ContactSection`.
+- `LinkButton({ href, label, variant?, size?, arrow? })`, `PricesButton({ label? = "Ver precios" })`, `CtaPair({ cta, label?, size?, secondary?: {href,label}|null, form? })` (`form`: el primario es `ContactButton`)
 - `RoleChip({ role: "agente"|"equipo"|"alerta"|"ganado", children? })`, `ExampleTag()` («Datos de ejemplo», obligatoria si un diagrama muestra datos inventados)
 - `CheckList({ items, variant?: "check"|"x" })`, `FeatureGrid({ items: Feature[], cols?: 2|3|4 })` con `Feature = { title, text, icon?, href?, tag?, role? }`
 - `Breadcrumbs({ items })` + JSON-LD BreadcrumbList (Inicio se agrega solo)
@@ -99,6 +100,7 @@ Importa con `@/…` (alias a `src/`).
 - `@/components/icons`: `Icon({ name, className?, strokeWidth? })` (`ICON_NAMES`: arrow, check, x, bot, sparkle, inbox, chat, kanban, funnel, send, repeat, plug, chart, target, clock, calendar, user, users, handoff, phone, building, shield, lock, bolt, tag, money, file, book, tool, question, mail, pin, instagram, car, home, bag, tooth, stethoscope, flask, bank, face, rocket…), `WhatsAppGlyph`.
 - `@/components/json-ld`: `JsonLd({ data })`.
 - `@/components/comparativas/*` (solo `/comparativas`): `CostPerUser` (D8, costo por usuario de los planes de root; nunca precios de terceros), `GuidePhraseScene`, `AskChecklist`, `HonestSplit`, `Steps`, `RelatedLinks`.
+- `@/components/contacto/contact-section`: `ContactSection({ path, cta, kicker?, title?, text? })` — cierre oscuro con id="contacto": formulario «Contacto root» (`contact-form.tsx`, form_id `contacto-root`; campos `full_name`, `company`, `email`, `phone`, `equipo_ventas`, `necesidad` opcional, ocultos `form_id`, `origen` y la trampa `website`) + WhatsApp como alternativa. Está en la portada, `/precios` y `/contacto`; sustituye a `CtaBand` ahí. El tag de root (`src/app/layout.tsx`) captura el envío.
 - `@/components/legal`: `LegalPage({ title, path, kicker?, updated?, intro?, children })`.
 - `@/components/motion/kit` (cliente): ver §6.
 
@@ -213,7 +215,7 @@ Estado al integrar (27-oct-2026): todas las rutas de la tabla están construidas
 
 ## 10. Reglas de trabajo
 
-- **Todo CTA es un `<a>` a `WHATSAPP_URL`** (`CtaButton`), con `data-cta` que diga el propósito. Secundario: «Ver precios» (`PricesButton`) u otro enlace interno. No hay formularios.
+- **Los CTA son un `<a>` a `WHATSAPP_URL`** (`CtaButton`), con `data-cta` que diga el propósito; en páginas con `ContactSection` (portada, `/precios`, `/contacto`) el CTA principal lleva al formulario (`ContactButton`, `#contacto`) y WhatsApp queda como alternativa. Secundario: «Ver precios» (`PricesButton`) u otro enlace interno. El único formulario de leads es «Contacto root»; los de herramientas (calculadora, generador de links) no se tocan.
 - Cada página: `export const metadata = pageMetadata({...})`, un solo h1 (`PageHero`), `Breadcrumbs` (salvo portada), `<ProductByNextia />` a la mitad, `Faq` si aplica y `CtaBand` al final.
 - Enlaces internos con «/» final (`withSlash`): el sitio usa `trailingSlash: true`.
 - Ancho de móvil: gutter de 20 px, nada que desborde la página (las tablas se desplazan dentro de su caja).
