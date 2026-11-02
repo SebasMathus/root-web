@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import Script from "next/script";
 import { JsonLd } from "@/components/json-ld";
 import { ADDRESS, CONTACT_EMAIL, DEFAULT_DESCRIPTION, PARENT, SITE_NAME, SITE_URL, WHATSAPP_URL } from "@/lib/site";
 import "./globals.css";
@@ -55,9 +54,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <JsonLd data={ORGANIZATION} />
         {children}
-        {/* Tag de root (CRM): page_view (también en navegación interna, data-spa-pageviews viene activo por defecto)
+        {/* Tag de root (CRM), como en nextia-web: <script defer> directo en el HTML estático. page_view (también en navegación interna, data-spa-pageviews viene activo por defecto)
             y form_submit de cada <form>, p. ej. «Contacto root» (src/components/contacto). */}
-        <Script src="https://cdn.goroot.ai/tag_v0.8.js" data-org="root" strategy="afterInteractive" />
+        <script src="https://cdn.goroot.ai/tag_v0.8.js" data-org="root" defer></script>
       </body>
     </html>
   );
