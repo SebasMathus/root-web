@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         {/* Tag de root (CRM), como en nextia-web: <script defer> directo en el HTML estático. page_view (también en navegación interna, data-spa-pageviews viene activo por defecto)
             y form_submit de cada <form>, p. ej. «Contacto root» (src/components/contacto). */}
-        <script src="https://cdn.goroot.ai/tag_v0.8.js" data-org="root" defer></script>
+        <script src="https://cdn.goroot.ai/tag_v0.8.js" data-org="root-ai" defer></script>
       </body>
     </html>
   );

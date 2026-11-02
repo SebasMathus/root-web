@@ -69,4 +69,4 @@ public/                   favicon, og/, logos de Nextia y de sus clientes (clien
 
 ## Contacto y CTA
 
-Ningún botón ni enlace lleva a WhatsApp. Todos los CTA llevan al formulario «Contacto root» (`#contacto`, al cierre de cada página comercial, o `/contacto/`); al enviarlo, el formulario se reemplaza por la agenda de Calendly para elegir el horario de la demo. El tag de root (`data-org="root"`) captura el envío con form_id `contacto-root`.
+Ningún botón ni enlace lleva a WhatsApp. Todos los CTA llevan al formulario «Contacto root» (`#contacto`, al cierre de cada página comercial, o `/contacto/`); al enviarlo, el formulario se reemplaza por la agenda de Calendly para elegir el horario de la demo. El tag de root (`data-org="root-ai"`, el slug de la organización Root AI) captura el envío con form_id `contacto-root`.
