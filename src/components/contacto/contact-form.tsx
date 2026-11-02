@@ -227,6 +227,7 @@ export function ContactForm({ cta }: { cta: string }) {
               <select
                 id={id("lada")}
                 name="lada"
+              required
                 aria-label="Lada del país"
                 defaultValue={LADAS[0].dial}
                 onChange={(e) => {
