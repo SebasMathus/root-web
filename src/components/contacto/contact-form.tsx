@@ -5,6 +5,8 @@
 // (o el campo oculto `form_id`), su nombre (`data-form-name`) y cada campo por su atributo `name`. Por eso:
 // - Campos, en este orden: `company`, `full_name` (un campo llamado `name` taparía form.name), `email`, teléfono
 //   (`lada` + `telefono`, y el oculto `phone` en E.164), `equipo_ventas` y `herramienta_actual`.
+// - root guarda `full_name` como nombre completo y deja vacíos Nombre y Apellido del contacto, así que justo antes de
+//   requestSubmit() se parte en los ocultos `first_name` (la primera palabra) y `last_name` (el resto).
 // - `phone` se arma en E.164 (+52XXXXXXXXXX) al escribir, al cambiar la lada y otra vez justo antes de
 //   requestSubmit(): el tag lee el FormData en el mismo evento `submit`, así que ya debe venir lleno.
 // - El campo oculto `origen` se llena al enviar con la página exacta (y utm_campaign / utm_source si vienen).
@@ -141,6 +143,11 @@ export function ContactForm({ cta }: { cta: string }) {
     const digits = syncPhone();
     input("telefono")?.setCustomValidity(phoneError(LADAS[lada].dial, digits));
     if (!form.reportValidity()) return;
+    const [first = "", ...rest] = (input("full_name")?.value ?? "").trim().split(/\s+/);
+    const firstName = input("first_name");
+    if (firstName) firstName.value = first;
+    const lastName = input("last_name");
+    if (lastName) lastName.value = rest.join(" ");
     const origen = input("origen");
     if (origen) origen.value = currentOrigen();
     setSending(true);
@@ -202,6 +209,8 @@ export function ContactForm({ cta }: { cta: string }) {
       <input type="hidden" name="form_id" value={FORM_ID} />
       <input type="hidden" name="origen" defaultValue="" />
       <input type="hidden" name="phone" defaultValue="" />
+      <input type="hidden" name="first_name" defaultValue="" />
+      <input type="hidden" name="last_name" defaultValue="" />
       <div className="hidden" aria-hidden="true">
         <label htmlFor={id("website")}>Sitio web</label>
         <input id={id("website")} name="website" tabIndex={-1} autoComplete="off" />
