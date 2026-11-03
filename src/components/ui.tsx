@@ -399,7 +399,7 @@ const CLOSE_POINTS = ["Eliges el horario de tu demo en cuanto envías tus datos"
 
 /**
  * Cierre de cada página comercial: texto a la izquierda y el formulario «Contacto root» a la derecha (al enviarlo,
- * la agenda de Calendly). Es la sección #contacto: los CtaButton de la página llegan aquí. Una por página.
+ * la agenda de Google Calendar). Es la sección #contacto: los CtaButton de la página llegan aquí. Una por página.
  */
 export function CtaBand({
   title,

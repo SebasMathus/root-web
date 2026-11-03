@@ -3,7 +3,7 @@ import { CtaButton, PageHero } from "@/components/ui";
 import { pageMetadata } from "@/lib/seo";
 import { SUPPORT_HOURS } from "@/lib/site";
 
-/* Contacto: formulario «Contacto root» (#contacto) y, al enviarlo, la agenda de la demo en Calendly. Las páginas sin formulario propio enlazan aquí. */
+/* Contacto: formulario «Contacto root» (#contacto) y, al enviarlo, la agenda de la demo en Google Calendar. Las páginas sin formulario propio enlazan aquí. */
 
 export const metadata = pageMetadata({
   title: "Contacto: agenda una demo de root",
