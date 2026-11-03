@@ -1,20 +1,22 @@
 "use client";
-// Formulario «Contacto root» (homologado con los demás sitios de Nextia) y, al enviarlo, la agenda de Calendly.
+// Formulario «Contacto root» (homologado con los demás sitios de Nextia) y, al enviarlo, la agenda de Google Calendar.
 //
 // El tag de root (src/app/layout.tsx) escucha el evento `submit` y manda form_submit con el id del formulario
 // (o el campo oculto `form_id`), su nombre (`data-form-name`) y cada campo por su atributo `name`. Por eso:
 // - Campos, en este orden: `company`, `full_name` (un campo llamado `name` taparía form.name), `email`, teléfono
 //   (`lada` + `telefono`, y el oculto `phone` en E.164), `equipo_ventas` y `herramienta_actual`.
+// - root guarda `full_name` como nombre completo y deja vacíos Nombre y Apellido del contacto, así que justo antes de
+//   requestSubmit() se parte en los ocultos `first_name` (la primera palabra) y `last_name` (el resto).
 // - `phone` se arma en E.164 (+52XXXXXXXXXX) al escribir, al cambiar la lada y otra vez justo antes de
 //   requestSubmit(): el tag lee el FormData en el mismo evento `submit`, así que ya debe venir lleno.
 // - El campo oculto `origen` se llena al enviar con la página exacta (y utm_campaign / utm_source si vienen).
 // - El botón NO es type="submit": primero se valida todo y solo entonces se llama requestSubmit(), que dispara el
 //   `submit` que lee root. Así a root solo llegan formularios completos y Enter tampoco envía sin validar.
 // - `website` es una trampa para bots: está oculta para las personas; si viene llena no se envía nada.
-// - Enviado, el formulario se reemplaza por la agenda de Calendly (iframe directo, sin widget.js) con nombre y correo
-//   ya llenos. En ese momento, una sola vez, se manda `generate_lead` al dataLayer de Google Tag Manager con datos
+// - Enviado, el formulario se reemplaza por la página de reservas «Demo root AI» de Google Calendar (iframe; Google no
+//   deja prellenar nombre ni correo). En ese momento, una sola vez, se manda `generate_lead` al dataLayer de Google Tag Manager con datos
 //   no personales (form_id, origen, ruta, equipo_ventas, herramienta_actual): nunca nombre, correo ni teléfono.
-//   La disponibilidad (hoy y dos días más; sábados de 10:00 a 14:00) se configura en Calendly.
+//   La disponibilidad (hoy y dos días más; sábados de 10:00 a 14:00) se configura en la página de reservas.
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
@@ -24,7 +26,8 @@ export const FORM_ID = "contacto-root";
 export const FORM_NAME = "Contacto root";
 
 const HOST = SITE_URL.replace(/^https?:\/\//, "");
-const CALENDLY_URL = "https://calendly.com/sebastian-357/demo-de-eugenia";
+/** Página de reservas «Demo root AI» de Google Calendar (sebastian@nextia.mx); `gv=true` es la vista para iframe. */
+const AGENDA_URL = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1abYLkClymvVqFcqnJ-dT9Sa8H4uocyyphF2W_sF_2Zxb_T3Gbt5yBIhgaLXInItBUU8h3yLAS?gv=true";
 const EMAIL_EJEMPLO = "enrico.fermi@goroot.ai";
 
 /** Pregunta 1 (`equipo_ventas`): el valor llega tal cual a root. */
@@ -97,20 +100,6 @@ function pushLead(data: FormData) {
   });
 }
 
-function calendlySrc(name: string, email: string) {
-  const { campaign, source } = utm();
-  const params: [string, string][] = [
-    ["embed_type", "Inline"],
-    ["hide_gdpr_banner", "1"],
-    ["embed_domain", HOST],
-    ["name", name],
-    ["email", email],
-  ];
-  if (campaign) params.push(["utm_campaign", campaign]);
-  if (source) params.push(["utm_source", source]);
-  return `${CALENDLY_URL}?${params.map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&")}`;
-}
-
 export function ContactForm({ cta }: { cta: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const doneRef = useRef<HTMLHeadingElement>(null);
@@ -118,7 +107,7 @@ export function ContactForm({ cta }: { cta: string }) {
   const leadSent = useRef(false);
   const [lada, setLada] = useState(0);
   const [sending, setSending] = useState(false);
-  const [agenda, setAgenda] = useState<string | null>(null);
+  const [agenda, setAgenda] = useState(false);
 
   // Al cambiar a la agenda: foco en su título y la sección arriba, para que se vea el calendario completo.
   useEffect(() => {
@@ -154,6 +143,11 @@ export function ContactForm({ cta }: { cta: string }) {
     const digits = syncPhone();
     input("telefono")?.setCustomValidity(phoneError(LADAS[lada].dial, digits));
     if (!form.reportValidity()) return;
+    const [first = "", ...rest] = (input("full_name")?.value ?? "").trim().split(/\s+/);
+    const firstName = input("first_name");
+    if (firstName) firstName.value = first;
+    const lastName = input("last_name");
+    if (lastName) lastName.value = rest.join(" ");
     const origen = input("origen");
     if (origen) origen.value = currentOrigen();
     setSending(true);
@@ -172,7 +166,7 @@ export function ContactForm({ cta }: { cta: string }) {
       leadSent.current = true;
       pushLead(data);
     }
-    setAgenda(calendlySrc(String(data.get("full_name") ?? "").trim(), String(data.get("email") ?? "").trim()));
+    setAgenda(true);
   }
 
   if (agenda) {
@@ -184,7 +178,7 @@ export function ContactForm({ cta }: { cta: string }) {
           </h3>
           <p className="mt-2 text-muted leading-relaxed">Puedes agendar hoy o en los próximos dos días. Sábados de 10:00 a 14:00.</p>
         </div>
-        <iframe src={agenda} title="Agenda tu demo de root en Calendly" className="block h-[1000px] w-full border-0 border-t border-line bg-white md:h-[700px]" />
+        <iframe src={AGENDA_URL} title="Agenda tu demo de root" className="block h-[1000px] w-full border-0 border-t border-line bg-white md:h-[700px]" />
       </div>
     );
   }
@@ -215,6 +209,8 @@ export function ContactForm({ cta }: { cta: string }) {
       <input type="hidden" name="form_id" value={FORM_ID} />
       <input type="hidden" name="origen" defaultValue="" />
       <input type="hidden" name="phone" defaultValue="" />
+      <input type="hidden" name="first_name" defaultValue="" />
+      <input type="hidden" name="last_name" defaultValue="" />
       <div className="hidden" aria-hidden="true">
         <label htmlFor={id("website")}>Sitio web</label>
         <input id={id("website")} name="website" tabIndex={-1} autoComplete="off" />

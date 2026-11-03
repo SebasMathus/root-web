@@ -1,7 +1,7 @@
 # root · guía de diseño, contenido y construcción
 
 Sitio de **root** (goroot.ai): **CRM de WhatsApp con agentes de IA** para equipos comerciales en México, hecho por Nextia.
-Sitio estático (Next.js 16, App Router, `output: "export"`), sin CMS. **Cero botones o enlaces a WhatsApp:** todo CTA lleva al formulario «Contacto root» (#contacto, al cierre de cada página comercial) y, al enviarlo, a la agenda de Calendly.
+Sitio estático (Next.js 16, App Router, `output: "export"`), sin CMS. **Cero botones o enlaces a WhatsApp:** todo CTA lleva al formulario «Contacto root» (#contacto, al cierre de cada página comercial) y, al enviarlo, a la agenda de Google Calendar.
 Fuente de contenido: plan del sitio (posicionamiento, glosario, mapa, diagramas D1–D10, §6 «Qué afirmar y qué no»), `root-actual.md` (hechos del producto) y `verticales-root.md`.
 
 ## 1. Posicionamiento y voz
@@ -100,7 +100,7 @@ Importa con `@/…` (alias a `src/`).
 - `@/components/json-ld`: `JsonLd({ data })`.
 - `@/components/comparativas/*` (solo `/comparativas`): `CostPerUser` (D8, costo por usuario de los planes de root; nunca precios de terceros), `GuidePhraseScene`, `AskChecklist`, `HonestSplit`, `Steps`, `RelatedLinks`.
 - `@/components/contacto/contact-section`: `ContactSection({ cta, kicker?, title?, text? })` — el mismo cierre que `CtaBand`, sin enlace secundario (portada, `/precios`, `/contacto`).
-- `@/components/contacto/contact-form`: formulario «Contacto root» (form_id `contacto-root`, homologado con los sitios de Nextia). Campos en orden: `company` (Nombre de la empresa), `full_name` (Nombre del contacto), `email` (Correo del contacto, placeholder `enrico.fermi@goroot.ai`), teléfono (`lada`, default México +52, + `telefono` nacional; el oculto `phone` lleva el E.164, p. ej. +525512345678, y se llena antes del `submit`), `equipo_ventas` (1–3, 4–10, 11–30, 31+) y `herramienta_actual` (Excel o WhatsApp / Otro CRM / Nada); ocultos `form_id`, `origen` (ruta + utm_campaign/utm_source) y la trampa `website`. Al enviarlo se reemplaza por un iframe de Calendly (demo-de-eugenia, con nombre y correo prellenados; hoy y dos días más, sábados de 10:00 a 14:00). El tag de root (`src/app/layout.tsx`) captura el envío. Al mostrar la agenda manda una vez `generate_lead` al dataLayer de GTM (sin datos personales).
+- `@/components/contacto/contact-form`: formulario «Contacto root» (form_id `contacto-root`, homologado con los sitios de Nextia). Campos en orden: `company` (Nombre de la empresa), `full_name` (Nombre del contacto), `email` (Correo del contacto, placeholder `enrico.fermi@goroot.ai`), teléfono (`lada`, default México +52, + `telefono` nacional; el oculto `phone` lleva el E.164, p. ej. +525512345678, y se llena antes del `submit`), `equipo_ventas` (1–3, 4–10, 11–30, 31+) y `herramienta_actual` (Excel o WhatsApp / Otro CRM / Nada); ocultos `form_id`, `origen` (ruta + utm_campaign/utm_source) y la trampa `website`. Al enviarlo se reemplaza por un iframe de la página de reservas «Demo root AI» de Google Calendar (`?gv=true`, sin prellenar nombre ni correo; hoy y dos días más, sábados de 10:00 a 14:00). El tag de root (`src/app/layout.tsx`) captura el envío. Al mostrar la agenda manda una vez `generate_lead` al dataLayer de GTM (sin datos personales).
 - `@/components/legal`: `LegalPage({ title, path, kicker?, updated?, intro?, children })`.
 - `@/components/motion/kit` (cliente): ver §6.
 
