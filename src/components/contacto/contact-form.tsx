@@ -178,7 +178,7 @@ export function ContactForm({ cta }: { cta: string }) {
           </h3>
           <p className="mt-2 text-muted leading-relaxed">Puedes agendar hoy o en los próximos dos días. Sábados de 10:00 a 14:00.</p>
         </div>
-        <iframe src={AGENDA_URL} title="Agenda tu demo de root" className="block h-[1000px] w-full border-0 border-t border-line bg-white md:h-[700px]" />
+        <iframe src={AGENDA_URL} title="Agenda tu demo de root" className="block h-[1000px] w-full border-0 border-t border-line bg-white md:h-[760px]" />
       </div>
     );
   }
@@ -302,7 +302,7 @@ export function ContactForm({ cta }: { cta: string }) {
           </select>
         </div>
       </div>
-      <button type="button" onClick={send} disabled={sending} data-cta={`${cta}-enviar`} className="btn btn-primary px-6 py-3.5 text-base disabled:opacity-70">
+      <button type="button" onClick={send} disabled={sending} data-cta={`${cta}-enviar`} className="btn btn-primary px-6 py-3.5 text-base disabled:opacity-70 sm:self-start sm:px-10">
         {sending ? "Enviando…" : "Agendar mi demo"}
       </button>
       <p className="text-xs text-muted leading-relaxed">

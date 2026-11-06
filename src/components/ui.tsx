@@ -398,8 +398,8 @@ export function Faq({
 const CLOSE_POINTS = ["Eliges el horario de tu demo en cuanto envías tus datos", "Con los casos y sistemas de tu equipo", "Precios en pesos, sin letra chica"];
 
 /**
- * Cierre de cada página comercial: texto a la izquierda y el formulario «Contacto root» a la derecha (al enviarlo,
- * la agenda de Google Calendar). Es la sección #contacto: los CtaButton de la página llegan aquí. Una por página.
+ * Cierre de cada página comercial: el texto arriba y, debajo, el formulario «Contacto root» a lo ancho (al enviarlo,
+ * la agenda de Google Calendar, también a lo ancho). Es la sección #contacto: los CtaButton de la página llegan aquí. Una por página.
  */
 export function CtaBand({
   title,
@@ -419,14 +419,14 @@ export function CtaBand({
   return (
     <section id="contacto" className="theme-dark grid-bg scroll-mt-24" aria-labelledby={`${cta}-titulo`}>
       <Container className="py-20 md:py-28">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16 lg:items-start">
-          <div className="max-w-xl">
+        <div className="flex flex-col gap-10 md:gap-12">
+          <div className="max-w-3xl">
             {kicker ? <p className="kicker text-lime">{keepRootCase(kicker)}</p> : null}
             <h2 id={`${cta}-titulo`} className={`h-section text-ink ${kicker ? "mt-3" : ""}`}>
               {title}
             </h2>
             {text ? <p className="lead mt-5">{text}</p> : null}
-            <ul className="mt-7 flex flex-col gap-3 text-[15px] text-muted">
+            <ul className="mt-7 flex flex-col gap-3 text-[15px] text-muted md:flex-row md:flex-wrap md:gap-x-8">
               {CLOSE_POINTS.map((t) => (
                 <li key={t} className="inline-flex items-center gap-2.5">
                   <Icon name="check" className="h-4 w-4 shrink-0 text-lime" strokeWidth={2.4} />
@@ -440,7 +440,9 @@ export function CtaBand({
               </div>
             )}
           </div>
-          <ContactForm cta={cta} />
+          <div className="w-full max-w-4xl">
+            <ContactForm cta={cta} />
+          </div>
         </div>
       </Container>
     </section>
