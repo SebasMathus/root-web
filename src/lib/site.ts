@@ -35,7 +35,14 @@ export const ADDRESS_LINE = `${ADDRESS.street}, ${ADDRESS.locality}, ${ADDRESS.p
 /** Horario de soporte publicado (/docs/soporte). El 24/7 es solo de Enterprise. */
 export const SUPPORT_HOURS = "Lunes a viernes de 9:00 a 18:00 h (Ciudad de México). Respondemos en menos de 24 horas hábiles.";
 
-/* ───────────── CTA: TODOS llevan al formulario «Contacto root» (#contacto), nunca a WhatsApp ───────────── */
+/* ───────────── CTA: TODOS llevan al formulario «Contacto root» (#contacto); WhatsApp solo después de enviarlo ───────────── */
+
+/**
+ * Línea de WhatsApp de root, solo dígitos para wa.me. La usa únicamente el botón «Escríbenos por WhatsApp» que aparece
+ * debajo de la agenda después de enviar el formulario (src/components/contacto/contact-form.tsx). Ningún otro botón,
+ * enlace, menú, pie ni dato estructurado lleva a WhatsApp.
+ */
+export const WA_PHONE = "17117761601";
 
 export const CTA_LABEL = "Agenda una demo";
 

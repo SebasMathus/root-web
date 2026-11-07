@@ -17,10 +17,13 @@
 //   deja prellenar nombre ni correo). En ese momento, una sola vez, se manda `generate_lead` al dataLayer de Google Tag Manager con datos
 //   no personales (form_id, origen, ruta, equipo_ventas, herramienta_actual): nunca nombre, correo ni teléfono.
 //   La disponibilidad (hoy y dos días más; sábados de 10:00 a 14:00) se configura en la página de reservas.
+// - Debajo de la agenda va la alternativa de WhatsApp (el mismo flujo que eugenia.ai y rhali.ai): «¿No encuentras un
+//   horario o prefieres platicarlo?» y un botón a wa.me (WA_PHONE de src/lib/site.ts) con un mensaje prellenado que
+//   dice quién escribe y de qué empresa (nunca correo ni teléfono). Es el único botón de WhatsApp del sitio.
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Icon } from "@/components/icons";
-import { SITE_URL } from "@/lib/site";
+import { Icon, WhatsAppGlyph } from "@/components/icons";
+import { SITE_URL, WA_PHONE } from "@/lib/site";
 
 export const FORM_ID = "contacto-root";
 export const FORM_NAME = "Contacto root";
@@ -86,6 +89,14 @@ function currentOrigen() {
   return `${HOST}${window.location.pathname}${campaign ? ` · campaña: ${campaign}` : ""}${source ? ` · fuente: ${source}` : ""}`;
 }
 
+/** Mensaje prellenado de WhatsApp: primer nombre y empresa si los hay. Nunca correo ni teléfono. */
+function mensajeWhatsApp(nombre: string, empresa: string) {
+  const primerNombre = nombre.trim().split(/\s+/)[0] ?? "";
+  const emp = empresa.trim();
+  const saludo = primerNombre ? `Hola, soy ${primerNombre}${emp ? ` de ${emp}` : ""}.` : "Hola.";
+  return `${saludo} Dejé mis datos en ${HOST} y quiero agendar mi demo de root.`;
+}
+
 /** Evento homologado de GTM. Solo datos no personales: nunca nombre, correo ni teléfono. */
 function pushLead(data: FormData) {
   const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
@@ -108,6 +119,7 @@ export function ContactForm({ cta }: { cta: string }) {
   const [lada, setLada] = useState(0);
   const [sending, setSending] = useState(false);
   const [agenda, setAgenda] = useState(false);
+  const [waText, setWaText] = useState("");
 
   // Al cambiar a la agenda: foco en su título y la sección arriba, para que se vea el calendario completo.
   useEffect(() => {
@@ -166,6 +178,7 @@ export function ContactForm({ cta }: { cta: string }) {
       leadSent.current = true;
       pushLead(data);
     }
+    setWaText(mensajeWhatsApp(String(data.get("full_name") ?? ""), String(data.get("company") ?? "")));
     setAgenda(true);
   }
 
@@ -179,6 +192,21 @@ export function ContactForm({ cta }: { cta: string }) {
           <p className="mt-2 text-muted leading-relaxed">Puedes agendar hoy o en los próximos dos días. Sábados de 10:00 a 14:00.</p>
         </div>
         <iframe src={AGENDA_URL} title="Agenda tu demo de root" className="block h-[1000px] w-full border-0 border-t border-line bg-white md:h-[760px]" />
+        <div className="flex flex-col items-center gap-3 border-t border-line px-6 py-6 text-center md:px-8">
+          <p className="text-sm text-muted">¿No encuentras un horario o prefieres platicarlo?</p>
+          <a
+            href={`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waText)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta={`${cta}-whatsapp`}
+            data-no-track
+            className="btn btn-outline w-full px-6 py-3.5 text-base sm:w-auto sm:px-8"
+          >
+            <WhatsAppGlyph className="h-5 w-5" />
+            Escríbenos por WhatsApp
+            <span className="sr-only">(se abre en una pestaña nueva)</span>
+          </a>
+        </div>
       </div>
     );
   }
